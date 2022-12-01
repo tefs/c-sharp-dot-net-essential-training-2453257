@@ -286,10 +286,10 @@ namespace MyConsoleAppTests
         [TestCase(0, "abcde")]
         [TestCase(2, "aabbcde")]
         [TestCase(1, "Indivisibility")]
-        public void DuplicateCount_CountDuplicates_ReturnTotalDuplicates(int expected, string input)
+        public void DuplicateCount_CountDuplicates_ReturnTotalDuplicates(int expected, string input) 
         => Assert.AreEqual(expected, Kata.DuplicateCount(input));
         [Test]
-        public void DuplicateCount_CountDuplicatesAndIgnoreCase_ReturnTotalDuplicates()
+        public void DuplicateCount_CountDuplicatesAndIgnoreCase_ReturnTotalDuplicates() 
         => Assert.AreEqual(2, Kata.DuplicateCount("aabBcde"), "should ignore case");
         [Test]
         public void DuplicateCount_CountDuplicatesAndNoCharactersAdjacent_ReturnTotalDuplicates()
