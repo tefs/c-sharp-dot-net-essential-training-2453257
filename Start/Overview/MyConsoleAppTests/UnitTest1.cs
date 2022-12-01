@@ -267,6 +267,21 @@ namespace MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void DuplicateEncode_EncodeWord_ReturnEncoded()
+        {
+            Assert.AreEqual("(((", Kata.DuplicateEncode("din"));
+            Assert.AreEqual("()()()", Kata.DuplicateEncode("recede"));
+            Assert.AreEqual(")())())", Kata.DuplicateEncode("Success"), "should ignore case");
+            Assert.AreEqual("))((", Kata.DuplicateEncode("(( @"));
+        }
+        [Test]
+        public static void ToWeirdCase_Scramble_ReturnWordScrambled()
+        {
+            Assert.AreEqual("ThIs", Kata.ToWeirdCase("This"));
+            Assert.AreEqual("Is", Kata.ToWeirdCase("is"));
+            Assert.AreEqual("ThIs Is A TeSt", Kata.ToWeirdCase("This is a test"));
+        }
+        [Test]
         [TestCase(0, "")]
         [TestCase(0, "abcde")]
         [TestCase(2, "aabbcde")]
@@ -277,7 +292,7 @@ namespace MyConsoleAppTests
         public void DuplicateCount_CountDuplicatesAndIgnoreCase_ReturnTotalDuplicates() 
         => Assert.AreEqual(2, Kata.DuplicateCount("aabBcde"), "should ignore case");
         [Test]
-        public void DuplicateCount_CountDuplicatesAndNoCharactersAdjacent_ReturnTotalDuplicates() 
+        public void DuplicateCount_CountDuplicatesAndNoCharactersAdjacent_ReturnTotalDuplicates()
         => Assert.AreEqual(2, Kata.DuplicateCount("Indivisibilities"), "characters may not be adjacent");
         [Test]
         [TestCase("sihT si na !elpmaxe", "This is an example!")]
