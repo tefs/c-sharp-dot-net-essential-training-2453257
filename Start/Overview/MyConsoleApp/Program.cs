@@ -603,6 +603,26 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+
+        public static int SumTwoSmallestNumbers(int[] numbers)
+        {
+            return numbers.OrderBy(i => i).Take(2).Sum();
+
+            /*      
+                  var _list=numbers.ToList();
+                  int _n1 =_list.Min();
+                  _list.Remove(_n1);
+                  return _n1+_list.Min();
+          */
+        }
+        public static int DigitalRoot(long n)
+        {
+            while (n > 9)
+            {
+                n = n.ToString().Select(c => Convert.ToInt32(c.ToString())).Sum();
+            }
+            return (int)n;
+        }
         ///Write a function that will return the count of distinct case-insensitive alphabetic characters and numeric digits that occur more than once in the input string. The input string can be assumed to contain only alphabets (both uppercase and lowercase) and numeric digits.
         public static int DuplicateCount(string str)
         => 
@@ -613,7 +633,7 @@ one every 3 is eliminated until one remains
         
         public static string DuplicateEncode(string word)
         {
-            return string.Join("", word.ToLower().Select(z => word.Count(x=>z==x)>1?")":"("));
+            return string.Join("", word.ToLower().Select(z => word.Count(x => z == x) > 1 ? ")" : "("));
         }
         public static string ToWeirdCase(string s)
         {
@@ -780,6 +800,17 @@ one every 3 is eliminated until one remains
             //     if(BigInteger.TryParse(a,out BigInteger _a) && BigInteger.TryParse(b,out BigInteger _b))
             //     return ( _a + _b).ToString(); // Fix this!
             // else return "error";
+        }
+        public static string AlphabetPosition1(string text)
+        {
+            return string.Join(" ", text.ToLowerInvariant()
+                                                  .Where(char.IsLetter)
+                                                  .Select(z => "abcdefghijklmnopqrstuvwxyz".IndexOf(z) + 1)
+                                                  .ToArray());
+
+            //return string.Join(" ",text.ToLowerInvariant().Where(char.IsLetter).Select(z => z-'a'+1 ));
+            // z-'a'  return integer that is the subtraction result of letter position with a letter position
+            //+1 (it's a zero based index)
         }
         public static bool IsPerfectSquare(int n)
         {
