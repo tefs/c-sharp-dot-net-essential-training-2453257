@@ -626,10 +626,88 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int Past(int h, int m, int s)
+        {
+            //if(h!=0&&m!=0)
+            // return (h != 0 ? h * 60 : 1) * 
+            DateTime _d = new DateTime(1, 1, 1, h, m, s);
+            int _millisecondPerSecond = 1000;
+            int _auxSecond = _d.Second * _millisecondPerSecond;
+            int _auxMinute = _d.Minute * _millisecondPerSecond * 60;
+            int _auxHour = _auxMinute * 60;
+            return _auxHour + _auxMinute + _auxSecond;
+            //    return (m != 0 ? m * 60 : 1) * ((s != 0 ? s * 1000 : 1));
+        }
+        public static Dictionary<char, int> CountToDictionary(string str)
+        {
+            return str.GroupBy(z => z).ToDictionary(z => z.Key, z => z.Count());
+        }
+        public static string UpdateLight(string current)
+        {
+            return current.Equals("green") ? "yellow" : current.Equals("yellow") ? "red" : "green";//current.Equals("red") ? "green" : "";
+        }
+        public static string DoubleChar(string s)
+        {
+            return string.Join("", s.Select(z => $"{z}{z}"));//.Aggregate((_c, _index) => _c)
+        }
+        public static char GetGrade(int s1, int s2, int s3)
+        {
+            var m = (s1 + s2 + s3) / 3.0;
+            return m >= 90 ? 'A' : m >= 80 ? 'B' : m >= 70 ? 'C' : m >= 60 ? 'D' : 'F';
+        }
+        public static int Persistence(long n)
+        {
+            long nF = n.ToString().Aggregate(1, (a, b) => a * (b - '0'));
+            return n < 9 ? 0 : 1 + Persistence(nF);
+            // return n < 10 ? 0 : 1 + Persistence($"{n}".Aggregate(1, (a, b) => a * (b - 48)));
+            // if (n.ToString().Length.Equals(1))
+            // {
+            //     return 0;
+            // }
+            // string _auxStringN = n.ToString();
+            // int _auxN = 1;
+            // int _persistence = 0;
+            // while (_auxStringN.Length != 1)
+            // {
+            //     // _auxN =_auxStringN.OrderBy(z=>z).Select((_number,_index)=>_number).SingleOrDefault();
+            //     for (int i = 0; i < _auxStringN.Length; i++)
+            //     {
+            //         _auxN *= int.Parse(_auxStringN[i].ToString());
+            //     }
+            //     _auxStringN = _auxN.ToString();
+            //     _persistence++;
+            //     _auxN=1;
+            // }
+            // return _persistence;
+        }
+        public static int Litres(double time)
+        {
+            return Convert.ToInt32((Math.Round((time * 0.5), 0, MidpointRounding.ToZero)));
+        }
+        public static string High(string s)
+        {
+            return s.Split(' ').OrderBy(a => a.Select(b => b - 96).Sum()).Last();
+
+            // =>  s.Split(' ').OrderBy(w => w.Sum(c => c - 'a' + 1)).Last();
+
+            // int _auxSum = 0;
+            // int _auxMax = 0;
+            // string _auxWord = string.Empty;
+            // foreach (var item in s.Split(' '))
+            // {
+            //     _auxSum = item.Sum(z => "abcdefghijklmnopqrstuvwxyz".IndexOf(z) + 1);
+            //     if (_auxMax < _auxSum)
+            //     {
+            //         _auxMax = _auxSum;
+            //         _auxWord = item;
+            //     }
+            // }
+            // return _auxWord;
+        }
         public static string RepeatStr(int n, string s)
         {
-            return  string.Join("",Enumerable.Repeat(s,n));
-            
+            return string.Join("", Enumerable.Repeat(s, n));
+
             // Console.WriteLine($"n {n}\ns {s}");
             // if (n==0)return string.Empty;
             // string _auxS = s;

@@ -414,8 +414,140 @@ MyConsoleAppTests
 
     }
     [TestFixture]
+    public class LitresClassTests
+    {
+        [Test]
+        public static void Test1()
+        {
+            Assert.AreEqual(1, Kata.Litres(2));
+        }
+
+        [Test]
+        public static void Test2()
+        {
+            Assert.AreEqual(0, Kata.Litres(1.4));
+        }
+
+        [Test]
+        public static void Test3()
+        {
+            Assert.AreEqual(6, Kata.Litres(12.3));
+        }
+
+        [Test]
+        public static void Test4()
+        {
+            Assert.AreEqual(0, Kata.Litres(0.82));
+        }
+
+        [Test]
+        public static void Test5()
+        {
+            Assert.AreEqual(5, Kata.Litres(11.8));
+        }
+
+        [Test]
+        public static void Test6()
+        {
+            Assert.AreEqual(893, Kata.Litres(1787));
+        }
+        [Test]
+        public static void Test7()
+        {
+            Assert.AreEqual(0, Kata.Litres(0));
+        }
+
+    }
+    [TestFixture]
+    public class Sample_Tests
+    {
+        private static IEnumerable<TestCaseData> testCases
+        {
+            get
+            {
+                yield return new TestCaseData("man i need a taxi up to ubud").Returns("taxi");
+                yield return new TestCaseData("what time are we climbing up to the volcano").Returns("volcano");
+                yield return new TestCaseData("take me to semynak").Returns("semynak");
+                yield return new TestCaseData("aa b").Returns("aa");
+                yield return new TestCaseData("b aa").Returns("b");
+                yield return new TestCaseData("bb d").Returns("bb");
+                yield return new TestCaseData("d bb").Returns("d");
+                yield return new TestCaseData("aaa b").Returns("aaa");
+            }
+        }
+
+        [Test, TestCaseSource("testCases")]
+        public string Test(string s) => Kata.High(s);
+    }
+    [TestFixture]
+    public class CountToDictionaryTests
+    {
+        [Test]
+        public static void FixedTest_aaaa()
+        {
+            Dictionary<char, int> d = new Dictionary<char, int>();
+            d.Add('a', 4);
+            Assert.AreEqual(d, Kata.CountToDictionary("aaaa"));
+        }
+
+        [Test]
+        public static void FixedTest_aabb()
+        {
+            Dictionary<char, int> d = new Dictionary<char, int>();
+            d.Add('a', 2);
+            d.Add('b', 2);
+            Assert.AreEqual(d, Kata.CountToDictionary("aabb"));
+        }
+    }
+    [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void Test()
+        {
+            Assert.AreEqual(61000, Kata.Past(0, 1, 1));
+        }
+        [TestCase("green", "yellow")]
+        [TestCase("yellow", "red")]
+        [TestCase("red", "green")]
+        public void BasicTests(string s, string expected)
+        {
+            Assert.That(Kata.UpdateLight(s), Is.EqualTo(expected));
+        }
+        [Test]
+        [TestCase("abcd", ExpectedResult = "aabbccdd")]
+        [TestCase("Adidas", ExpectedResult = "AAddiiddaass")]
+        [TestCase("1337", ExpectedResult = "11333377")]
+        [TestCase("illuminati", ExpectedResult = "iilllluummiinnaattii")]
+        [TestCase("123456", ExpectedResult = "112233445566")]
+        [TestCase("%^&*(", ExpectedResult = "%%^^&&**((")]
+        public static string FixedTest(string s)
+        {
+            return Kata.DoubleChar(s);
+        }
+        [Test]
+        [TestCase(95, 90, 93, ExpectedResult = 'A')]
+        [TestCase(70, 70, 100, ExpectedResult = 'B')]
+        [TestCase(70, 71, 72, ExpectedResult = 'C')]
+        [TestCase(65, 66, 60, ExpectedResult = 'D')]
+        [TestCase(32, 15, 21, ExpectedResult = 'F')]
+        public static char FixedTests(int n1, int n2, int n3)
+        {
+            return Kata.GetGrade(n1, n2, n3);
+        }
+        [Test]
+        [TestCase(3, 39)]
+        [TestCase(0, 4)]
+        [TestCase(2, 25)]
+        [TestCase(4, 999)]
+        public void PersistenceTests(int expected, long input)
+        {
+            // Console.WriteLine("****** Basic Tests");
+            Assert.AreEqual(expected, Kata.Persistence(input));
+            // Assert.AreEqual(0, Kata.Persistence(4));
+            // Assert.AreEqual(2, Kata.Persistence(25));
+            // Assert.AreEqual(4, Kata.Persistence(999));
+        }
         [Test(Description = "Fixed Tests")]
         public void FixedTests()
         {
