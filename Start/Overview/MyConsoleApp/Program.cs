@@ -626,6 +626,14 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int Stray(int[] numbers)
+        {
+                return numbers.First(x => numbers.Count(i => i == x) == 1);
+//  var result = numbers.GroupBy(z => z).Select(itemGroup => new { Item = itemGroup.Key, Count = itemGroup.Count() })
+//             .OrderByDescending(Item => Item.Count).ThenBy(Item => Item);
+//             Console.WriteLine("{0} {1}\r\n{2} {3}", result.First().Item, result.First().Count, result.Last().Item, result.Last().Count);
+//             return result.Last().Item;
+        }
         public static int Past(int h, int m, int s)
         {
             //if(h!=0&&m!=0)

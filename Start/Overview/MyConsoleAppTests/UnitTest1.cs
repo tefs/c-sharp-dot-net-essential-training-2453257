@@ -503,6 +503,11 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void StrayTests()
+        {
+            Assert.AreEqual(2, Kata.Stray(new int[] { 1, 1, 2 }));
+        }
+        [Test]
         public void Test()
         {
             Assert.AreEqual(61000, Kata.Past(0, 1, 1));
