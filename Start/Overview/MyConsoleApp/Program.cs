@@ -626,13 +626,28 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static IEnumerable<string> OpenOrSenior(int[][] data)
+        {
+            return data.Select(z=>z[0]>54&& z[1]>7?"Senior":"Open");
+            // List<string> _status = new List<string>();
+            // for (int i = 0; i < data.Length; i++)
+            // {
+            //         if (data[i][0] > 54 && data[i][1] > 7)
+            //         {
+            //             _status.Add("Senior");
+            //         }
+            //         else
+            //             _status.Add("Open");
+            // }
+            // return _status;
+        }
         public static int Stray(int[] numbers)
         {
-                return numbers.First(x => numbers.Count(i => i == x) == 1);
-//  var result = numbers.GroupBy(z => z).Select(itemGroup => new { Item = itemGroup.Key, Count = itemGroup.Count() })
-//             .OrderByDescending(Item => Item.Count).ThenBy(Item => Item);
-//             Console.WriteLine("{0} {1}\r\n{2} {3}", result.First().Item, result.First().Count, result.Last().Item, result.Last().Count);
-//             return result.Last().Item;
+            return numbers.First(x => numbers.Count(i => i == x) == 1);
+            //  var result = numbers.GroupBy(z => z).Select(itemGroup => new { Item = itemGroup.Key, Count = itemGroup.Count() })
+            //             .OrderByDescending(Item => Item.Count).ThenBy(Item => Item);
+            //             Console.WriteLine("{0} {1}\r\n{2} {3}", result.First().Item, result.First().Count, result.Last().Item, result.Last().Count);
+            //             return result.Last().Item;
         }
         public static int Past(int h, int m, int s)
         {
