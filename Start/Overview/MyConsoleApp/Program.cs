@@ -626,9 +626,94 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static bool Check(object[] a, object x)
+        {
+            return a.Any(z => z.Equals(x));
+        }
+        public static int Min(int[] list)
+        {
+            return list.Min();
+        }
+
+        public static int Max(int[] list)
+        {
+            return list.Max();
+        }
+        public static string HighAndLow(string numbers)
+        {
+            var _query = numbers.Split(' ').Select(z => int.Parse(z));
+            return new string(_query.Max() + " " + _query.Min());
+        }
+        public static bool IsIsogram(string str)
+        {
+            return new string(str.ToLower().Distinct().ToArray()).Equals(str.ToLower()) ? true : false;
+        }
+        public static string Disemvowel(string str)
+        {
+            // return string.Join("", str.Where(char.IsLetter)
+            // .Select(z => "aeiou".IndexOf(z) != -1 ? z : "")
+            // .ToArray());
+            // return string.Join("", str.All(z => "aeiou".IndexOf(z) != -1 ? z : ""));
+            var s1 = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+            var s2 = "aeiou";
+            return string.Join("", str.Select(x => char.IsLetter(x) ? str[s2.IndexOf(x)] : x));
+            // return "aeiou".All(x => str.ToLower().Contains(char.ToLower(x)));
+
+            // return string.Join(" ", str.ToLowerInvariant()
+            //                                       .Where(char.IsLetter)
+            //                                       .Select(z => "aeiou".IndexOf(z))
+            //                                       .ToArray());
+        }
+        public static string Remove_char(string s)
+        {
+            return s.Substring(1, (s.Length - 2));
+
+            // return s.Remove(s.Length - 1, 1).Remove(0, 1);
+
+            // if (s.Length < 2) return s;
+            // s = s.Remove(0, 1);
+            // return s.Remove(s.Length - 1, 1);
+        }
+        public static int CalculateYears(double principal, double interest, double tax, double desiredPrincipal)
+        {
+            var years = 0;
+            while (principal < desiredPrincipal)
+            {
+                principal += principal * interest * (1 - tax);
+                years++;
+            }
+            return years;
+
+            // if (principal == desiredPrincipal) return 0;
+            // int _years = 0;
+            // double _interest = 0;
+            // double _desiredPrincipal = principal ;
+            // double _tax = 0;
+            // while (_desiredPrincipal < desiredPrincipal)
+            // {
+            //     _interest=_desiredPrincipal*interest;
+            //     _tax=_interest-(tax*_interest);
+            //     _desiredPrincipal=_desiredPrincipal+_tax;
+            //     _years++;
+            // }
+            // return _years;
+        }
+        public static int FindShort(string s)
+        {
+            return s.Split(' ').Min(x => x.Length);
+            // return s.Split(' ').Select(z=>z.Length).Min();
+        }
+        public static double basicOp(char operation, double value1, double value2)
+        {
+            return operation.Equals('+') ? value1 + value2 : operation.Equals('-') ? value1 - value2 : operation.Equals('*') ? value1 * value2 : value1 / value2;
+        }
+        public static string ToAlternatingCase(this string s)
+        {
+            return string.Join("", s.Select(z => char.IsUpper(z) ? char.ToLower(z) : char.ToUpper(z)));
+        }
         public static IEnumerable<string> OpenOrSenior(int[][] data)
         {
-            return data.Select(z=>z[0]>54&& z[1]>7?"Senior":"Open");
+            return data.Select(z => z[0] > 54 && z[1] > 7 ? "Senior" : "Open");
             // List<string> _status = new List<string>();
             // for (int i = 0; i < data.Length; i++)
             // {

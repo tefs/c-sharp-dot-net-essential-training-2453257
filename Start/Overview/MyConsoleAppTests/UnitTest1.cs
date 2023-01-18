@@ -500,8 +500,124 @@ MyConsoleAppTests
         }
     }
     [TestFixture]
+    public class HighAndLowTests
+    {
+        [Test]
+        public void Test1()
+        {
+            Assert.AreEqual("42 -9", Kata.HighAndLow("8 3 -5 42 -1 0 0 -9 4 7 4 -4"));
+        }
+        [Test]
+        public void Test2()
+        {
+            Assert.AreEqual("3 1", Kata.HighAndLow("1 2 3"));
+        }
+    }
+    [TestFixture]
+    public class IsIsogramTests
+    {
+
+        private static IEnumerable<TestCaseData> testCases
+        {
+            get
+            {
+                yield return new TestCaseData("Dermatoglyphics").Returns(true);
+                yield return new TestCaseData("isogram").Returns(true);
+                yield return new TestCaseData("moose").Returns(false);
+                yield return new TestCaseData("isIsogram").Returns(false);
+                yield return new TestCaseData("aba").Returns(false);
+                yield return new TestCaseData("moOse").Returns(false);
+                yield return new TestCaseData("thumbscrewjapingly").Returns(true);
+                yield return new TestCaseData("").Returns(true);
+            }
+        }
+
+        [Test, TestCaseSource("testCases")]
+        public bool Test(string str) => Kata.IsIsogram(str);
+    }
+    [TestFixture]
+    public class DisemvowelTest
+    {
+        [Test]
+        public void ShouldRemoveAllVowels()
+        {
+            Assert.AreEqual("Ths wbst s fr lsrs LL!", Kata.Disemvowel("This website is for losers LOL!"));
+        }
+
+        [Test]
+        public void MultilineString()
+        {
+            Assert.AreEqual("N ffns bt,\nYr wrtng s mng th wrst 'v vr rd", Kata.Disemvowel("No offense but,\nYour writing is among the worst I've ever read"));
+        }
+
+        [Test]
+        public void OneMoreForGoodMeasure()
+        {
+            Assert.AreEqual("Wht r y,  cmmnst?", Kata.Disemvowel("What are you, a communist?"));
+        }
+    }
+    [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void CheckTests_FindX_ReturnTrueOrFalse()
+        {
+            Assert.AreEqual(true, Kata.Check(new object[] { 66, 101 }, 66));
+            Assert.AreEqual(true, Kata.Check(new object[] { 80, 117, 115, 104, 45, 85, 112, 115 }, 45));
+            Assert.AreEqual(true, Kata.Check(new object[] { 't', 'e', 's', 't' }, 'e'));
+            Assert.AreEqual(false, Kata.Check(new object[] { "what", "a", "great", "kata" }, "kat"));
+        }
+        [Test]
+        public void MinAndMaxTest_ComputeMaxAndMin_ReturnMax()
+        {
+            Assert.AreEqual(-110, Kata.Min(new[] { -52, 56, 30, 29, -54, 0, -110 }));
+            Assert.AreEqual(0, Kata.Min(new[] { 42, 54, 65, 87, 0 }));
+            Assert.AreEqual(566, Kata.Max(new[] { 4, 6, 2, 1, 9, 63, -134, 566 }));
+            Assert.AreEqual(5, Kata.Max(new[] { 5 }));
+        }
+        [Test]
+        public void RemoveChar_ManipulateString_ReturnManipulatedString()
+        {
+            StringAssert.AreEqualIgnoringCase("loquen", Kata.Remove_char("eloquent"));
+            StringAssert.AreEqualIgnoringCase("ountr", Kata.Remove_char("country"));
+            StringAssert.AreEqualIgnoringCase("erso", Kata.Remove_char("person"));
+            StringAssert.AreEqualIgnoringCase("lac", Kata.Remove_char("place"));
+            StringAssert.AreEqualIgnoringCase("", Kata.Remove_char("ok"));
+        }
+        [Test]
+        [TestCase(0, 1000, 0.05, 0.18, 1000)]
+        [TestCase(14, 1000, 0.01625, 0.18, 1200)]
+        public void CalculateYears_CalculateNumberOfYears_ReturnNumberOfYears(double expected, double principal, double interestRate, double taxRate, double desiredSum)
+        {
+            Assert.AreEqual(expected, Kata.CalculateYears(principal, interestRate, taxRate, desiredSum));
+        }
+        [Test]
+        public void FindShort_Tests_ReturnShortestLength()
+        {
+            Assert.AreEqual(3, Kata.FindShort("bitcoin take over the world maybe who knows perhaps"));
+            Assert.AreEqual(3, Kata.FindShort("turns out random test cases are easier than writing out basic ones"));
+            Assert.AreEqual(2, Kata.FindShort("Let's travel abroad shall we"));
+        }
+        [Test]
+        public void basicOp_tests()
+        {
+            Assert.AreEqual(11, Kata.basicOp('+', 4, 7));
+            Assert.AreEqual(-3, Kata.basicOp('-', 15, 18));
+            Assert.AreEqual(25, Kata.basicOp('*', 5, 5));
+            Assert.AreEqual(7, Kata.basicOp('/', 49, 7));
+        }
+        [Test]
+        public void ToAlternatingCase_Tests()
+        {
+            Assert.AreEqual("HELLO WORLD", "hello world".ToAlternatingCase());
+            Assert.AreEqual("hello world", "HELLO WORLD".ToAlternatingCase());
+            Assert.AreEqual("HELLO world", "hello WORLD".ToAlternatingCase());
+            Assert.AreEqual("hEllO wOrld", "HeLLo WoRLD".ToAlternatingCase());
+            Assert.AreEqual("12345", "12345".ToAlternatingCase());
+            Assert.AreEqual("1A2B3C4D5E", "1a2b3c4d5e".ToAlternatingCase());
+            Assert.AreEqual("sTRING.tOaLTERNATINGcASE", "String.ToAlternatingCase".ToAlternatingCase());
+            Assert.AreEqual("Hello World", "Hello World".ToAlternatingCase().ToAlternatingCase(), "Hello World => hELLO wORLD => Hello World");
+        }
         [Test]
         public void SampleTest()
         {
