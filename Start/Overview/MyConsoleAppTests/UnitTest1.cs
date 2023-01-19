@@ -557,8 +557,68 @@ MyConsoleAppTests
         }
     }
     [TestFixture]
+    public class RpsTests
+    {
+        [Test]
+        public void Player1Win()
+        {
+            Assert.AreEqual("Player 1 won!", Kata.Rps("rock", "scissors"));
+            Assert.AreEqual("Player 1 won!", Kata.Rps("scissors", "paper"));
+            Assert.AreEqual("Player 1 won!", Kata.Rps("paper", "rock"));
+        }
+        [Test]
+        public void Player2Win()
+        {
+            Assert.AreEqual("Player 2 won!", Kata.Rps("scissors", "rock"));
+            Assert.AreEqual("Player 2 won!", Kata.Rps("paper", "scissors"));
+            Assert.AreEqual("Player 2 won!", Kata.Rps("rock", "paper"));
+        }
+        [Test]
+        public void Draw()
+        {
+            Assert.AreEqual("Draw!", Kata.Rps("rock", "rock"));
+            Assert.AreEqual("Draw!", Kata.Rps("scissors", "scissors"));
+            Assert.AreEqual("Draw!", Kata.Rps("paper", "paper"));
+        }
+    }
+    [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void ExtractTests()
+        {
+            Assert.AreEqual("1,2", Kata.Extract(new[] { 1, 2 }));
+            // Assert.AreEqual("1-3", Kata.Extract(new[] { 1, 2, 3 }));
+
+            // Assert.AreEqual(
+            //     "-6,-3-1,3-5,7-11,14,15,17-20",
+            //     Kata.Extract(new[] { -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20 })
+            // );
+
+            // Assert.AreEqual(
+            //     "-3--1,2,10,15,16,18-20",
+            //     Kata.Extract(new[] { -3, -2, -1, 2, 10, 15, 16, 18, 19, 20 })
+            // );
+        }
+        [Test]
+        public void MoveTest()
+        {
+            Assert.That(Kata.Move(0, 4), Is.EqualTo(8));
+        }
+        [TestCase("Hello", "o", 1)]
+        [TestCase("Hello", "l", 2)]
+        [TestCase("", "z", 0)]
+        public void StrCountTest(string a, string b, int expected)
+        {
+            Assert.That(Kata.StrCount(a, b), Is.EqualTo(expected));
+        }
+        [Test]
+        public void SumMixTest()
+        {
+            Assert.AreEqual(22, Kata.SumMix(new object[] { 9, 3, "7", "3" }));
+            Assert.AreEqual(42, Kata.SumMix(new object[] { "5", "0", 9, 3, 2, 1, "9", 6, 7 }));
+            Assert.AreEqual(41, Kata.SumMix(new object[] { "3", 6, 6, 0, "5", 8, 5, "6", 2, "0" }));
+        }
         [Test]
         public void CheckTests_FindX_ReturnTrueOrFalse()
         {
@@ -737,10 +797,10 @@ MyConsoleAppTests
         [TestCase(0, "abcde")]
         [TestCase(2, "aabbcde")]
         [TestCase(1, "Indivisibility")]
-        public void DuplicateCount_CountDuplicates_ReturnTotalDuplicates(int expected, string input) 
+        public void DuplicateCount_CountDuplicates_ReturnTotalDuplicates(int expected, string input)
         => Assert.AreEqual(expected, Kata.DuplicateCount(input));
         [Test]
-        public void DuplicateCount_CountDuplicatesAndIgnoreCase_ReturnTotalDuplicates() 
+        public void DuplicateCount_CountDuplicatesAndIgnoreCase_ReturnTotalDuplicates()
         => Assert.AreEqual(2, Kata.DuplicateCount("aabBcde"), "should ignore case");
         [Test]
         public void DuplicateCount_CountDuplicatesAndNoCharactersAdjacent_ReturnTotalDuplicates()

@@ -626,6 +626,80 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        
+        public static string Rps(string p1, string p2)
+        {
+            if (p1.Equals(p2)) return "Draw!";
+            if (
+                (p1.Equals("scissors") && p2.Equals("paper"))
+                || (p1.Equals("paper") && p2.Equals("rock"))
+                || (p1.Equals("rock") && p2.Equals("scissors"))
+            )
+                return "Player 1 won!";
+            else
+                return "Player 2 won!";
+
+            // string _scissors = "scissors";
+            // string _paper = "paper";
+            // string _rock = "rock";
+            // string _auxResult = "Player _ won!";
+            // string _result = "Player {1} won!";
+            // string _draw = "Draw!";
+            // if ((p1.Equals(_scissors)) && (p2.Equals(_paper)))
+            // {
+            //     _result = _auxResult.Replace('_', '1');
+            // }
+            // if ((p2.Equals(_scissors)) && (p1.Equals(_paper)))
+            // {
+            //     _result = _auxResult.Replace('_', '2');
+            // }
+            // if (p1.Equals(_rock) && p2.Equals(_scissors))
+            // {
+            //     _result = _auxResult.Replace('_', '1');
+            // }
+            // if (p2.Equals(_rock) && p1.Equals(_scissors))
+            // {
+            //     _result = _auxResult.Replace('_', '2');
+            // }
+            // if (p1.Equals(_paper) && p2.Equals(_rock))
+            // {
+            //     _result = _auxResult.Replace('_', '1');
+            // }
+            // if (p2.Equals(_paper) && p1.Equals(_rock))
+            // {
+            //     _result = _auxResult.Replace('_', '2');
+            // }
+            // if (p1.Equals(p2))
+            //     _result = _draw;
+            // return _result;
+        }
+        public static int Move(int position, int roll)
+        {
+            return (roll * 2) + position;
+        }
+        public static int StrCount(string str, string letter)
+        { // int _count = 0;
+            // foreach (var item in str)
+            // {
+            //     if (char.Parse(letter)==item)
+            //     {
+            //         _count++;
+            //     }
+            // }
+            // return _count;
+
+            return str.Count(z => char.Parse(letter) == z);
+        }
+        public static int SumMix(object[] x)
+        {
+            return x.Sum(z => Convert.ToInt32(z));
+            // int _auxSum=0;
+            // foreach (var item in x.ToArray())
+            // {
+            //     _auxSum+=int.Parse(item.ToString());
+            // }
+            // return _auxSum;
+        }
         public static bool Check(object[] a, object x)
         {
             return a.Any(z => z.Equals(x));
