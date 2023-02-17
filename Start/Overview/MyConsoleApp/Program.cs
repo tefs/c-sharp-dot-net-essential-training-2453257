@@ -626,7 +626,26 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
-        
+        public static string Extract(int[] args)
+        {
+            string _auxReturn=string.Empty;
+            int _nextPosition=0;
+            int _auxi=0;
+            bool _getOut=false;
+            _auxReturn+=$"{args[0]}";
+            for (int i = 0; i < args.Length; i++)
+            {
+                while (!_getOut || _auxi<args.Length)
+                {
+                    if (args[i+1].Equals(args[i]+1))
+                    {
+                        _auxReturn+=$",{args[i+1]}";
+                        _getOut=true;
+                    }
+                }
+            }
+            return _auxReturn;
+        }
         public static string Rps(string p1, string p2)
         {
             if (p1.Equals(p2)) return "Draw!";
