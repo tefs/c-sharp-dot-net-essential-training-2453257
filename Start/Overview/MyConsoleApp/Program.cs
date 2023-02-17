@@ -628,19 +628,19 @@ one every 3 is eliminated until one remains
     {
         public static string Extract(int[] args)
         {
-            string _auxReturn=string.Empty;
-            int _nextPosition=0;
-            int _auxi=0;
-            bool _getOut=false;
-            _auxReturn+=$"{args[0]}";
+            string _auxReturn = string.Empty;
+            int _nextPosition = 0;
+            int _auxi = 0;
+            bool _getOut = false;
+            _auxReturn += $"{args[0]}";
             for (int i = 0; i < args.Length; i++)
             {
-                while (!_getOut || _auxi<args.Length)
+                while (!_getOut || _auxi < args.Length)
                 {
-                    if (args[i+1].Equals(args[i]+1))
+                    if (args[i + 1].Equals(args[i] + 1))
                     {
-                        _auxReturn+=$",{args[i+1]}";
-                        _getOut=true;
+                        _auxReturn += $",{args[i + 1]}";
+                        _getOut = true;
                     }
                 }
             }
@@ -1151,6 +1151,19 @@ one every 3 is eliminated until one remains
                         }
                         return _auxList.ToArray();
                         */
+        }
+        public static int Divisors(int n)
+        {
+            return Enumerable.Range(1, n).Where(t => n % t == 0).Count();
+
+            // if (n == 1) return 1;
+            // int _count = 0;
+            // for (int i = 1; i <= n; i++)
+            // {
+            //     if (n % i == 0)
+            //         _count++;
+            // }
+            // return _count;
         }
         public static int[] ArrayDiff(int[] a, int[] b)
         {

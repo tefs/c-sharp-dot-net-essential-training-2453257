@@ -585,6 +585,14 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void DivisorsTest()
+        {
+            Assert.AreEqual(1, Kata.Divisors(1));
+            Assert.AreEqual(4, Kata.Divisors(10));
+            Assert.AreEqual(2, Kata.Divisors(11));
+            Assert.AreEqual(8, Kata.Divisors(54));
+        }
+        [Test]
         public void ExtractTests()
         {
             Assert.AreEqual("1,2", Kata.Extract(new[] { 1, 2 }));
