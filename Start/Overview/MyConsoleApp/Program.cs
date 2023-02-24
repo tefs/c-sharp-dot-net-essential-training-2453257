@@ -1152,6 +1152,30 @@ one every 3 is eliminated until one remains
                         return _auxList.ToArray();
                         */
         }
+        public static int NbYear(int p0, double percent, int aug, int p)
+        {
+            double _auxCount = p0;
+            int _auxCountInteger = 0;
+            double _auxPercentage = percent * 0.01;
+            while (_auxCount < p)
+            {
+                _auxCount = Math.Round(_auxCount + _auxCount * _auxPercentage + aug, 0);
+                _auxCountInteger++;
+            }
+            return _auxCountInteger;
+        }
+        public static int CountSheeps(bool[] sheeps)
+        {
+            return sheeps.Where(z => z.Equals(true)).Count();
+
+            int _count = 0;
+            for (int i = 0; i < sheeps.Length; i++)
+            {
+                if (sheeps[i].Equals(true))
+                    _count++;
+            }
+            return _count;
+        }
         public static int Divisors(int n)
         {
             return Enumerable.Range(1, n).Where(t => n % t == 0).Count();

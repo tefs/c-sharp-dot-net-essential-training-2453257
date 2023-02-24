@@ -582,8 +582,33 @@ MyConsoleAppTests
         }
     }
     [TestFixture]
+    public static class ArgeTests
+    {
+
+        private static void testing(int actual, int expected)
+        {
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public static void test1()
+        {
+            Console.WriteLine("Testing NbYear");
+            testing(Kata.NbYear(1500, 5, 100, 5000), 15);
+            testing(Kata.NbYear(1500000, 2.5, 10000, 2000000), 10);
+            testing(Kata.NbYear(1500000, 0.25, 1000, 2000000), 94);
+        }
+    }
+    [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void CountSheepsTest()
+        {
+            var sheeps = new bool[] { true, false, true };
+
+            Assert.AreEqual(2, Kata.CountSheeps(sheeps));
+        }
         [Test]
         public void DivisorsTest()
         {
