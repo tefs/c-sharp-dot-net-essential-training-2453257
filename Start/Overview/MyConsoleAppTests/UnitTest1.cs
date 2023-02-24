@@ -603,6 +603,20 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void SumPositives()
+        {
+            Assert.AreEqual(16, Kata.SumPositivesv1(new[] { 6, 2, 1, 8, 10 }));
+        }
+        [Test]
+        public static void SummationTests()
+        {
+            Assert.AreEqual(1, Kata.Summation(1));
+            Assert.AreEqual(36, Kata.Summation(8));
+            Assert.AreEqual(253, Kata.Summation(22));
+            Assert.AreEqual(5050, Kata.Summation(100));
+            Assert.AreEqual(22791, Kata.Summation(213));
+        }
+        [Test]
         public void CountSheepsTest()
         {
             var sheeps = new bool[] { true, false, true };
@@ -789,7 +803,7 @@ MyConsoleAppTests
         [Test]
         public void SumPositives_CalculateSum_ReturnSum()
         {
-            Assert.AreEqual(16, Kata.SumPositives(new[] { 6, 2, 1, 8, 10 }));
+            Assert.AreEqual(16, Kata.SumPositivesv2(new[] { 6, 2, 1, 8, 10 }));
         }
         [Test]
         public void SplitStrings_SplitString_ReturnArray()

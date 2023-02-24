@@ -626,6 +626,23 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int SumPositivesv2(int[] numbers)
+        {
+            if (numbers.Length < 3 || numbers.Equals(null) || numbers is null||numbers==null) return 0;
+            int _aux = numbers.Sum();
+            _aux -= (numbers.Min() + numbers.Max());
+            return _aux;
+        }
+        public static int Summation(int num)
+        {
+            return Enumerable.Range(1, num).Sum();
+            // int _aux = 0;
+            // for (int i = 1; i <= num; i++)
+            // {
+            //     _aux += i;
+            // }
+            // return _aux;
+        }
         public static string Extract(int[] args)
         {
             string _auxReturn = string.Empty;
@@ -975,7 +992,7 @@ one every 3 is eliminated until one remains
                         return _auxTotal;
                         */
         }
-        public static int SumPositives(int[] numbers)
+        public static int SumPositivesv1(int[] numbers)
         {
             if (numbers.Length.Equals(0) || numbers.Length.Equals(1) || numbers.Equals(null)) return -1;
             List<int> _auxList = numbers.ToList();
