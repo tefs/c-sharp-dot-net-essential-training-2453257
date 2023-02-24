@@ -603,6 +603,15 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        [TestCase("foefet", "toffee", ExpectedResult = true)]
+        [TestCase("Buckethead", "DeathCubeK", ExpectedResult = true)]
+        [TestCase("Twoo", "Woot", ExpectedResult = true)]
+        [TestCase("apple", "pale", ExpectedResult = false)]
+        public static bool IsAnagramTest(string test, string original)
+        {
+            return Kata.IsAnagram(test, original);
+        }
+        [Test]
         public void SumPositives()
         {
             Assert.AreEqual(16, Kata.SumPositivesv1(new[] { 6, 2, 1, 8, 10 }));

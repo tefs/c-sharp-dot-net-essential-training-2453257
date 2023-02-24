@@ -626,9 +626,14 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static bool IsAnagram(string test, string original)
+        {
+            return string.Concat(original.ToLower().OrderBy(z=>z))==string.Concat(test.ToLower().OrderBy(z=>z));
+            // return test.All(z => original.Contains(z));
+        }
         public static int SumPositivesv2(int[] numbers)
         {
-            if (numbers.Length < 3 || numbers.Equals(null) || numbers is null||numbers==null) return 0;
+            if (numbers.Length < 3 || numbers.Equals(null) || numbers is null || numbers == null) return 0;
             int _aux = numbers.Sum();
             _aux -= (numbers.Min() + numbers.Max());
             return _aux;
