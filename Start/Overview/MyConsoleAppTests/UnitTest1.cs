@@ -603,6 +603,12 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void MyTest()
+        {
+            Assert.AreEqual(new long[] { 1, 3, 2, 5, 3 }, Kata.Digitize(35231));
+            Assert.AreEqual(new long[] { 0 }, Kata.Digitize(0));
+        }
+        [Test]
         [TestCase("foefet", "toffee", ExpectedResult = true)]
         [TestCase("Buckethead", "DeathCubeK", ExpectedResult = true)]
         [TestCase("Twoo", "Woot", ExpectedResult = true)]
