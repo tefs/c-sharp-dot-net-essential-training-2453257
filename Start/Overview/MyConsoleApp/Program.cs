@@ -626,6 +626,26 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string RemoveUrlAnchor(string url)
+        {
+            // return url.Split('#')[0];
+            return url.Substring(0, url.IndexOf("#") < 0 ? url.Length : url.IndexOf("#"));
+
+            // char _auxChar = '#';
+            // if (!url.Contains(_auxChar)) return url;
+            // string _auxString = string.Empty;
+            // _auxString = url.Trim(_auxChar);
+            // _auxString = url.Substring(0, url.IndexOf(_auxChar));
+            // return _auxString;
+        }
+        public static int GetRealFloor(int n)
+        {
+
+            return n <= 0 ? n : (n < 13 ? n - 1 : n - 2);
+            // if (n < 1) return n;
+            // if (n > 13) return n - 2;
+            // return n-1;
+        }
         public static long[] Digitize(long n)
         {
             return n.ToString().Reverse().Select(z => long.Parse(z.ToString())).ToArray();

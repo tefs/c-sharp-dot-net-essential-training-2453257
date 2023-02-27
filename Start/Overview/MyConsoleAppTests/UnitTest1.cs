@@ -602,6 +602,20 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test, Description("Sample Tests")]
+        public void RemoveUrlAnchorTests()
+        {
+            Assert.AreEqual("www.codewars.com", Kata.RemoveUrlAnchor("www.codewars.com#about"));
+            Assert.AreEqual("www.codewars.com/katas/?page=1", Kata.RemoveUrlAnchor("www.codewars.com/katas/?page=1#about"));
+            Assert.AreEqual("www.codewars.com/katas/", Kata.RemoveUrlAnchor("www.codewars.com/katas/"));
+        }
+        [Test]
+        public void GetRealFloorTest()
+        {
+            Assert.AreEqual(0, Kata.GetRealFloor(1));
+            Assert.AreEqual(4, Kata.GetRealFloor(5));
+            Assert.AreEqual(13, Kata.GetRealFloor(15));
+        }
         [Test]
         public void MyTest()
         {
