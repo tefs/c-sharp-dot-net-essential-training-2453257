@@ -626,6 +626,10 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static bool XO(string input)
+        {
+            return input.ToLowerInvariant().Count(z => z.Equals('x')) == input.ToLowerInvariant().Count(z => z.Equals('o'));
+        }
         public static string RemoveUrlAnchor(string url)
         {
             // return url.Split('#')[0];
@@ -969,8 +973,21 @@ one every 3 is eliminated until one remains
         }
         public static String Accum(string s)
         {
-            // Thread.CurrentThread.CurrentUICulture =  Thread.CurrentThread.CurrentCulture;
-            return string.Join("", s.Split('-', StringSplitOptions.TrimEntries));
+            return string.Join("-", s.Select((x, i) => char.ToUpper(x) + new string(char.ToLower(x), i)));
+
+            // string _auxString = string.Empty;
+            //         var _array = s.Split('-', StringSplitOptions.TrimEntries);
+            //         int _auxCount = 1;
+            //         for (int i = 0; i < s.Length; i++)
+            //         {
+            //             for (int j = 0; j < _auxCount; j++)
+            //             {
+            //                 _auxString += j == 0 ? s[i].ToString().ToUpperInvariant() : s[i].ToString().ToLowerInvariant();
+            //             }
+            //             _auxCount++;
+            //             _auxString += i == s.Length - 1 ? "" : "-";
+            //         }
+            //         return _auxString;
         }
         public static IEnumerable<int> GetIntegersFromList(List<object> listOfItems)
         {

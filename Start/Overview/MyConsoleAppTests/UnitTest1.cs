@@ -321,13 +321,14 @@ MyConsoleAppTests
         }
 
         [Test]
-        public static void test1()
+        [TestCase("ZpglnRxqenU","Z-Pp-Ggg-Llll-Nnnnn-Rrrrrr-Xxxxxxx-Qqqqqqqq-Eeeeeeeee-Nnnnnnnnnn-Uuuuuuuuuuu")]
+        [TestCase("NyffsGeyylB", "N-Yy-Fff-Ffff-Sssss-Gggggg-Eeeeeee-Yyyyyyyy-Yyyyyyyyy-Llllllllll-Bbbbbbbbbbb")]
+        [TestCase("MjtkuBovqrU", "M-Jj-Ttt-Kkkk-Uuuuu-Bbbbbb-Ooooooo-Vvvvvvvv-Qqqqqqqqq-Rrrrrrrrrr-Uuuuuuuuuuu")]
+        [TestCase("EvidjUnokmM", "E-Vv-Iii-Dddd-Jjjjj-Uuuuuu-Nnnnnnn-Oooooooo-Kkkkkkkkk-Mmmmmmmmmm-Mmmmmmmmmmm")]
+        [TestCase("HbideVbxncC", "H-Bb-Iii-Dddd-Eeeee-Vvvvvv-Bbbbbbb-Xxxxxxxx-Nnnnnnnnn-Cccccccccc-Ccccccccccc")]
+        public static void test1(string input, string expected)
         {
-            testing(Kata.Accum("ZpglnRxqenU"), "Z-Pp-Ggg-Llll-Nnnnn-Rrrrrr-Xxxxxxx-Qqqqqqqq-Eeeeeeeee-Nnnnnnnnnn-Uuuuuuuuuuu");
-            // testing(Kata.Accum("NyffsGeyylB"), "N-Yy-Fff-Ffff-Sssss-Gggggg-Eeeeeee-Yyyyyyyy-Yyyyyyyyy-Llllllllll-Bbbbbbbbbbb");
-            // testing(Kata.Accum("MjtkuBovqrU"), "M-Jj-Ttt-Kkkk-Uuuuu-Bbbbbb-Ooooooo-Vvvvvvvv-Qqqqqqqqq-Rrrrrrrrrr-Uuuuuuuuuuu");
-            // testing(Kata.Accum("EvidjUnokmM"), "E-Vv-Iii-Dddd-Jjjjj-Uuuuuu-Nnnnnnn-Oooooooo-Kkkkkkkkk-Mmmmmmmmmm-Mmmmmmmmmmm");
-            // testing(Kata.Accum("HbideVbxncC"), "H-Bb-Iii-Dddd-Eeeee-Vvvvvv-Bbbbbbb-Xxxxxxxx-Nnnnnnnnn-Cccccccccc-Ccccccccccc");
+            testing(Kata.Accum(input), expected);
         }
     }
     [TestFixture]
@@ -602,6 +603,16 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        [TestCase(true, "xo")]
+        [TestCase(false, "xxOo")]
+        [TestCase(false, "xxxm")]
+        [TestCase(false, "Oo")]
+        [TestCase(false, "ooom")]
+        public void XOTests(Boolean expected, string input)
+        {
+            Assert.AreEqual(expected, Kata.XO(input));
+        }
         [Test, Description("Sample Tests")]
         public void RemoveUrlAnchorTests()
         {
