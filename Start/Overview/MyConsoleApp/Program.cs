@@ -626,34 +626,18 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
-        public static bool XO(string input)
+        public static int[] SortNumbers(int[] nums) => nums == null ? new int[0] : nums.OrderBy(z => z).ToArray();
+        public static string CountSheep(int n) => string.Concat(Enumerable.Range(1, n).Select(i => $"{i} sheep..."));
+        public static bool ValidatePin(string pin)
         {
-            return input.ToLowerInvariant().Count(z => z.Equals('x')) == input.ToLowerInvariant().Count(z => z.Equals('o'));
+            string _regexPattern = "(^[0-9]{1}[0-9]{3})$|(^[0-9]{1}[0-9]{5})$";
+            return Regex.IsMatch(pin, _regexPattern, RegexOptions.None);
         }
-        public static string RemoveUrlAnchor(string url)
-        {
-            // return url.Split('#')[0];
-            return url.Substring(0, url.IndexOf("#") < 0 ? url.Length : url.IndexOf("#"));
-
-            // char _auxChar = '#';
-            // if (!url.Contains(_auxChar)) return url;
-            // string _auxString = string.Empty;
-            // _auxString = url.Trim(_auxChar);
-            // _auxString = url.Substring(0, url.IndexOf(_auxChar));
-            // return _auxString;
-        }
-        public static int GetRealFloor(int n)
-        {
-
-            return n <= 0 ? n : (n < 13 ? n - 1 : n - 2);
-            // if (n < 1) return n;
-            // if (n > 13) return n - 2;
-            // return n-1;
-        }
-        public static long[] Digitize(long n)
-        {
-            return n.ToString().Reverse().Select(z => long.Parse(z.ToString())).ToArray();
-        }
+        public static string Problem(String a) => double.TryParse(a, out var _auxResult) ? (_auxResult * 50 + 6).ToString() : "Error";
+        public static bool XO(string input) => input.ToLowerInvariant().Count(z => z.Equals('x')) == input.ToLowerInvariant().Count(z => z.Equals('o'));
+        public static string RemoveUrlAnchor(string url) => url.Substring(0, url.IndexOf("#") < 0 ? url.Length : url.IndexOf("#"));
+        public static int GetRealFloor(int n) => n <= 0 ? n : (n < 13 ? n - 1 : n - 2);
+        public static long[] Digitize(long n) => n.ToString().Reverse().Select(z => long.Parse(z.ToString())).ToArray();
         public static bool IsAnagram(string test, string original)
         {
             return string.Concat(original.ToLower().OrderBy(z => z)) == string.Concat(test.ToLower().OrderBy(z => z));
@@ -666,16 +650,7 @@ one every 3 is eliminated until one remains
             _aux -= (numbers.Min() + numbers.Max());
             return _aux;
         }
-        public static int Summation(int num)
-        {
-            return Enumerable.Range(1, num).Sum();
-            // int _aux = 0;
-            // for (int i = 1; i <= num; i++)
-            // {
-            //     _aux += i;
-            // }
-            // return _aux;
-        }
+        public static int Summation(int num) => Enumerable.Range(1, num).Sum();
         public static string Extract(int[] args)
         {
             string _auxReturn = string.Empty;
@@ -707,90 +682,22 @@ one every 3 is eliminated until one remains
                 return "Player 1 won!";
             else
                 return "Player 2 won!";
-
-            // string _scissors = "scissors";
-            // string _paper = "paper";
-            // string _rock = "rock";
-            // string _auxResult = "Player _ won!";
-            // string _result = "Player {1} won!";
-            // string _draw = "Draw!";
-            // if ((p1.Equals(_scissors)) && (p2.Equals(_paper)))
-            // {
-            //     _result = _auxResult.Replace('_', '1');
-            // }
-            // if ((p2.Equals(_scissors)) && (p1.Equals(_paper)))
-            // {
-            //     _result = _auxResult.Replace('_', '2');
-            // }
-            // if (p1.Equals(_rock) && p2.Equals(_scissors))
-            // {
-            //     _result = _auxResult.Replace('_', '1');
-            // }
-            // if (p2.Equals(_rock) && p1.Equals(_scissors))
-            // {
-            //     _result = _auxResult.Replace('_', '2');
-            // }
-            // if (p1.Equals(_paper) && p2.Equals(_rock))
-            // {
-            //     _result = _auxResult.Replace('_', '1');
-            // }
-            // if (p2.Equals(_paper) && p1.Equals(_rock))
-            // {
-            //     _result = _auxResult.Replace('_', '2');
-            // }
-            // if (p1.Equals(p2))
-            //     _result = _draw;
-            // return _result;
         }
         public static int Move(int position, int roll)
         {
             return (roll * 2) + position;
         }
-        public static int StrCount(string str, string letter)
-        { // int _count = 0;
-            // foreach (var item in str)
-            // {
-            //     if (char.Parse(letter)==item)
-            //     {
-            //         _count++;
-            //     }
-            // }
-            // return _count;
-
-            return str.Count(z => char.Parse(letter) == z);
-        }
-        public static int SumMix(object[] x)
-        {
-            return x.Sum(z => Convert.ToInt32(z));
-            // int _auxSum=0;
-            // foreach (var item in x.ToArray())
-            // {
-            //     _auxSum+=int.Parse(item.ToString());
-            // }
-            // return _auxSum;
-        }
-        public static bool Check(object[] a, object x)
-        {
-            return a.Any(z => z.Equals(x));
-        }
-        public static int Min(int[] list)
-        {
-            return list.Min();
-        }
-
-        public static int Max(int[] list)
-        {
-            return list.Max();
-        }
+        public static int StrCount(string str, string letter) => str.Count(z => char.Parse(letter) == z);
+        public static int SumMix(object[] x) => x.Sum(z => Convert.ToInt32(z));
+        public static bool Check(object[] a, object x)=> a.Any(z => z.Equals(x));
+        public static int Min(int[] list)=> list.Min();
+        public static int Max(int[] list)=>list.Max();
         public static string HighAndLow(string numbers)
         {
             var _query = numbers.Split(' ').Select(z => int.Parse(z));
             return new string(_query.Max() + " " + _query.Min());
         }
-        public static bool IsIsogram(string str)
-        {
-            return new string(str.ToLower().Distinct().ToArray()).Equals(str.ToLower()) ? true : false;
-        }
+        public static bool IsIsogram(string str)=> new string(str.ToLower().Distinct().ToArray()).Equals(str.ToLower()) ? true : false;
         public static string Disemvowel(string str)
         {
             // return string.Join("", str.Where(char.IsLetter)
