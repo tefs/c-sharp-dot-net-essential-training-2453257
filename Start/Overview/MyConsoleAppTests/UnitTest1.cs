@@ -363,6 +363,28 @@ MyConsoleAppTests
     public class AreYouPlayingBanjo
     {
         [Test]
+        public static void TechnicalExam_TestDome_Sum_Test()
+        {
+            Func<int> expensiveFunction = () => Enumerable.Range(0, 200000000).Count();
+            Func<int> cheapFunction = () => Enumerable.Range(0, 10000000).Count();
+            Action<int> onSumChanged = sum => Console.WriteLine("Current result: " + sum);
+
+            // Computationally expensive functions need more time than cheaper functions.
+            // Because of this, computationally cheaper functions, when run in parallel, 
+            // should be summed up before more expensive functions.
+            // Expected output:
+            // Current result: 10000000
+            // Current result: 210000000
+            // Final result: 210000000
+            int result = TechnicalExam_GameCompany_Adder.Sum(new Func<int>[] { expensiveFunction, cheapFunction }, onSumChanged);
+            Console.WriteLine("Current result: " + result);
+            Console.WriteLine("Current result: " + result);
+            Console.WriteLine("Current result: " + result);
+            Console.WriteLine("Current result: " + result);
+
+            Console.WriteLine("Final result: " + result);
+        }
+        [Test]
         public static void Martin()
         {
             Assert.AreEqual("Martin does not play banjo", Kata.AreYouPlayingBanjo("Martin"));
@@ -646,10 +668,10 @@ MyConsoleAppTests
         [TestCase(new int[] { 20, 2, 10 }, new int[] { 2, 10, 20 })]
         [TestCase(new int[] { 2, 20, 10 }, new int[] { 2, 10, 20 })]
         [TestCase(new int[] { 2, 10, 20 }, new int[] { 2, 10, 20 })]
-        public void BasicTests(int[] input,int[] expected)
+        public void BasicTests(int[] input, int[] expected)
         {
-            checkNums(input,expected);
-         }
+            checkNums(input, expected);
+        }
 
         private void checkNums(int[] nums, int[] expected)
         {
@@ -658,8 +680,92 @@ MyConsoleAppTests
         }
     }
     [TestFixture]
+    public class PokerTests
+    {
+        // [TestCase("Highest straight flush wins", Result.Loss, "2H 3H 4H 5H 6H", "KS AS TS QS JS")]
+        // [TestCase("Straight flush wins of 4 of a kind", Result.Win, "2H 3H 4H 5H 6H", "AS AD AC AH JD")]
+        // [TestCase("Highest 4 of a kind wins", Result.Win, "AS AH 2H AD AC", "JS JD JC JH 3D")]
+        // [TestCase("4 Of a kind wins of full house", Result.Loss, "2S AH 2H AS AC", "JS JD JC JH AD")]
+        // [TestCase("Full house wins of flush", Result.Win, "2S AH 2H AS AC", "2H 3H 5H 6H 7H")]
+        // [TestCase("Highest flush wins", Result.Win, "AS 3S 4S 8S 2S", "2H 3H 5H 6H 7H")]
+        // [TestCase("Flush wins of straight", Result.Win, "2H 3H 5H 6H 7H", "2S 3H 4H 5S 6C")]
+        // [TestCase("Equal straight is tie", Result.Tie, "2S 3H 4H 5S 6C", "3D 4C 5H 6H 2S")]
+        // [TestCase("Straight wins of three of a kind", Result.Win, "2S 3H 4H 5S 6C", "AH AC 5H 6H AS")]
+        // [TestCase("3 Of a kind wins of two pair", Result.Loss, "2S 2H 4H 5S 4C", "AH AC 5H 6H AS")]
+        [TestCase("2 Pair wins of pair", Result.Win, "2S 2H 4H 5S 4C", "AH AC 5H 6H 7S")]
+        // [TestCase("Highest pair wins", Result.Loss, "6S AD 7H 4S AS", "AH AC 5H 6H 7S")]
+        // [TestCase("Pair wins of nothing", Result.Loss, "2S AH 4H 5S KC", "AH AC 5H 6H 7S")]
+        // [TestCase("Highest card loses", Result.Loss, "2S 3H 6H 7S 9C", "7H 3C TH 6H 9S")]
+        // [TestCase("Highest card wins", Result.Win, "4S 5H 6H TS AC", "3S 5H 6H TS AC")]
+        // [TestCase("Equal cards is tie", Result.Tie, "2S AH 4H 5S 6C", "AD 4C 5H 6H 2C")]
+        public void PokerHandTest(string description, Result expected, string hand, string opponentHand)
+        {
+            Assert.AreEqual(expected, new PokerHand(hand).CompareWith(new PokerHand(opponentHand)), description);
+        }
+    }
+    [TestFixture]
+    public class CountPositivesSumNegativesTests
+    {
+        [Test]
+        public void CountPositivesSumNegatives_BasicTest()
+        {
+            int[] expectedResult = new int[] { 10, -65 };
+
+            Assert.AreEqual(expectedResult, Kata.TechnicalExam_GameCompany_CountPositivesSumNegatives(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -11, -12, -13, -14, -15 }));
+        }
+
+        [Test]
+        public void CountPositivesSumNegatives_InputWithZeroes()
+        {
+            int[] expectedResult = new int[] { 8, -50 };
+
+            Assert.AreEqual(expectedResult, Kata.TechnicalExam_GameCompany_CountPositivesSumNegatives(new[] { 0, 2, 3, 0, 5, 6, 7, 8, 9, 10, -11, -12, -13, -14 }));
+        }
+
+        [Test]
+        public void CountPositivesSumNegatives_InputNull()
+        {
+            int[] expectedResult = new int[] { };
+
+            Assert.AreEqual(expectedResult, Kata.TechnicalExam_GameCompany_CountPositivesSumNegatives(null));
+        }
+
+        [Test]
+        public void CountPositivesSumNegatives_InputEmpty()
+        {
+            int[] expectedResult = new int[] { };
+
+            Assert.AreEqual(expectedResult, Kata.TechnicalExam_GameCompany_CountPositivesSumNegatives(new int[] { }));
+        }
+    }
+    [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void InvertValuesTests()
+        {
+            Assert.AreEqual(new int[] { -1, -2, -3, -4, -5 }, Kata.InvertValues(new int[] { 1, 2, 3, 4, 5 }));
+            Assert.AreEqual(new int[] { -1, 2, -3, 4, -5 }, Kata.InvertValues(new int[] { 1, -2, 3, -4, 5 }));
+            Assert.AreEqual(new int[] { }, Kata.InvertValues(new int[] { }));
+            Assert.AreEqual(new int[] { 0 }, Kata.InvertValues(new int[] { 0 }));
+        }
+        [Test]
+        public void UniqueProductTests()
+        {
+            Assert.AreEqual("Computer", TechnicalExam_GameCompany_UniqueProduct.FirstUniqueProduct(new string[] { "Apple", "Computer", "Apple", "Bag" }));
+        }
+        [Test]
+        public void BetweenTests()
+        {
+            Assert.AreEqual(new int[] { 0, 1, 2, 3 }, Kata.TechnicalExam_GameCompany_Between(0, 3));
+            Assert.AreEqual(new int[] { -2, -1, 0, 1, 2 }, Kata.TechnicalExam_GameCompany_Between(-2, 2));
+            Assert.AreEqual(new int[] { -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, Kata.TechnicalExam_GameCompany_Between(-10, 10));
+        }
+        [Test]
+        public void SumStrings_Given123And456Returns579()
+        {
+            Assert.AreEqual("579", Kata.SumStrings("123", "456"));
+        }
         [Test, Description("Example Tests")]
         public void CountSheepTests()
         {
@@ -677,7 +783,7 @@ MyConsoleAppTests
         public void ProblemTest(string expected, string input)
         {
             Assert.AreEqual(expected, Kata.Problem(input));
-          }
+        }
         [Test]
         [TestCase(true, "xo")]
         [TestCase(false, "xxOo")]
