@@ -682,6 +682,14 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void InvertValuesTests()
+        {
+            Assert.AreEqual(new int[] { -1, -2, -3, -4, -5 }, Kata.InvertValues(new int[] { 1, 2, 3, 4, 5 }));
+            Assert.AreEqual(new int[] { -1, 2, -3, 4, -5 }, Kata.InvertValues(new int[] { 1, -2, 3, -4, 5 }));
+            Assert.AreEqual(new int[] { }, Kata.InvertValues(new int[] { }));
+            Assert.AreEqual(new int[] { 0 }, Kata.InvertValues(new int[] { 0 }));
+        }
         [Test, Description("Example Tests")]
         public void CountSheepTests()
         {
