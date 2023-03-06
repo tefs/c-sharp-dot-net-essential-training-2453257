@@ -624,8 +624,86 @@ one every 3 is eliminated until one remains
             return _highestString;
         }
     }
+    public static class TechnicalExam_GameCompany_Adder
+    {
+        struct DoubleStruct
+        {
+            public DoubleStruct(double input)
+            {
+                log = input;
+            }
+
+            public double log { get; }
+            public static int Log10(double inputDouble)
+            {
+                double _auxDouble = Math.Log10(inputDouble);
+                int.TryParse(_auxDouble.ToString(), out var _auxInteger);
+                return _auxInteger;
+            }
+
+            public override string ToString() => $"({log})";
+        }
+        public static int Sum(Func<int>[] functions, Action<int> onSumChanged)
+        {
+            int sum = 0;
+            foreach (Func<int> function in functions)
+            {
+                sum += function();
+                onSumChanged(sum);
+            }
+            return sum;
+        }
+
+        public static void Main(string[] args)
+        {
+            Func<int> expensiveFunction = () => Enumerable.Range(0, 200000000).Count();
+            Func<int> cheapFunction = () => Enumerable.Range(0, 10000000).Count();
+            Action<int> onSumChanged = sum => Console.WriteLine("Current result: " + sum);
+
+            // Computationally expensive functions need more time than cheaper functions.
+            // Because of this, computationally cheaper functions, when run in parallel, 
+            // should be summed up before more expensive functions.
+            // Expected output:
+            // Current result: 10000000
+            // Current result: 210000000
+            // Final result: 210000000
+            int result = TechnicalExam_GameCompany_Adder.Sum(new Func<int>[] { expensiveFunction, cheapFunction }, onSumChanged);
+            Console.WriteLine("Final result: " + result);
+        }
+    }
+    public class TechnicalExam_GameCompany_UniqueProduct
+    {
+        public static string FirstUniqueProduct(string[] products)
+        {
+            // str.ToLower().GroupBy(c => c).Count(c => c.Count() > 1);
+            return products.GroupBy(z => z).Where(z => z.Count() == 1).FirstOrDefault().Key;
+        }
+
+        public static void Main(string[] args)
+        {
+            Console.WriteLine(FirstUniqueProduct(new string[] { "Apple", "Computer", "Apple", "Bag" }));
+        }
+    }
     public static class Kata
     {
+        public static int[] InvertValues(int[] input)
+        {
+            return input.Select(z=>z<0?Math.Abs(z):z*-1).ToArray();
+        }
+        public static int[] TechnicalExam_GameCompany_CountPositivesSumNegatives(int[] input)
+        {
+            if (input == null) return new int[] { };
+            if (input.Length == 0) return new int[] { 0, 0 };
+            var _auxNegatives = input.Where(z => z < 0);
+            return new int[] { input.Count(z => z > 0), _auxNegatives.Sum() };
+        }
+        public static int[] TechnicalExam_GameCompany_Between(int a, int b) => Enumerable.Range(a, b - a).ToArray();
+        public static string SumStrings(string a, string b)
+        {
+            double.TryParse(a, out double _auxA);
+            double.TryParse(b, out double _auxB);
+            return (Math.Round(_auxA + _auxB)).ToString();
+        }
         public static int[] SortNumbers(int[] nums) => nums == null ? new int[0] : nums.OrderBy(z => z).ToArray();
         public static string CountSheep(int n) => string.Concat(Enumerable.Range(1, n).Select(i => $"{i} sheep..."));
         public static bool ValidatePin(string pin)
@@ -689,15 +767,15 @@ one every 3 is eliminated until one remains
         }
         public static int StrCount(string str, string letter) => str.Count(z => char.Parse(letter) == z);
         public static int SumMix(object[] x) => x.Sum(z => Convert.ToInt32(z));
-        public static bool Check(object[] a, object x)=> a.Any(z => z.Equals(x));
-        public static int Min(int[] list)=> list.Min();
-        public static int Max(int[] list)=>list.Max();
+        public static bool Check(object[] a, object x) => a.Any(z => z.Equals(x));
+        public static int Min(int[] list) => list.Min();
+        public static int Max(int[] list) => list.Max();
         public static string HighAndLow(string numbers)
         {
             var _query = numbers.Split(' ').Select(z => int.Parse(z));
             return new string(_query.Max() + " " + _query.Min());
         }
-        public static bool IsIsogram(string str)=> new string(str.ToLower().Distinct().ToArray()).Equals(str.ToLower()) ? true : false;
+        public static bool IsIsogram(string str) => new string(str.ToLower().Distinct().ToArray()).Equals(str.ToLower()) ? true : false;
         public static string Disemvowel(string str)
         {
             // return string.Join("", str.Where(char.IsLetter)
@@ -796,18 +874,9 @@ one every 3 is eliminated until one remains
             return _auxHour + _auxMinute + _auxSecond;
             //    return (m != 0 ? m * 60 : 1) * ((s != 0 ? s * 1000 : 1));
         }
-        public static Dictionary<char, int> CountToDictionary(string str)
-        {
-            return str.GroupBy(z => z).ToDictionary(z => z.Key, z => z.Count());
-        }
-        public static string UpdateLight(string current)
-        {
-            return current.Equals("green") ? "yellow" : current.Equals("yellow") ? "red" : "green";//current.Equals("red") ? "green" : "";
-        }
-        public static string DoubleChar(string s)
-        {
-            return string.Join("", s.Select(z => $"{z}{z}"));//.Aggregate((_c, _index) => _c)
-        }
+        public static Dictionary<char, int> CountToDictionary(string str) => str.GroupBy(z => z).ToDictionary(z => z.Key, z => z.Count());
+        public static string UpdateLight(string current) => current.Equals("green") ? "yellow" : current.Equals("yellow") ? "red" : "green";//current.Equals("red") ? "green" : "";
+        public static string DoubleChar(string s) => string.Join("", s.Select(z => $"{z}{z}"));//.Aggregate((_c, _index) => _c)
         public static char GetGrade(int s1, int s2, int s3)
         {
             var m = (s1 + s2 + s3) / 3.0;
@@ -1038,7 +1107,7 @@ one every 3 is eliminated until one remains
             var _aux1 = str.Split(' ');
             string _return = string.Empty;
             for (int i = 0; i < _aux1.Length; i++){
-             
+
                 var _q = _aux1[i].AsEnumerable().Reverse();
                 _return+=$"{string.Join(' ',new string(_q.ToArray()))}";
                 if(!i.Equals(_aux1.Length-1)) _return+=' ';
@@ -1317,7 +1386,7 @@ one every 3 is eliminated until one remains
 
         if(numbers.Length==0)
         return -1;
-int _max=0;
+    int _max=0;
        for (int i=0;i<numbers.Length;i++){
        if(_max<numbers[i])
        _max=numbers[i];
@@ -1347,19 +1416,19 @@ int _max=0;
 
         /*In mathematics, the factorial of integer n is written as n!. It is equal to the product of n and every integer preceding it. For example: 5! = 1 x 2 x 3 x 4 x 5 = 120
 
-Your mission is simple: write a function that takes an integer n and returns the value of n!.
+    Your mission is simple: write a function that takes an integer n and returns the value of n!.
 
-You are guaranteed an integer argument. For any values outside the non-negative range, return null, nil or None (return an empty string "" in C and C++). For non-negative numbers a full length number is expected for example, return 25! =  "15511210043330985984000000"  as a string.
+    You are guaranteed an integer argument. For any values outside the non-negative range, return null, nil or None (return an empty string "" in C and C++). For non-negative numbers a full length number is expected for example, return 25! =  "15511210043330985984000000"  as a string.
 
-For more on factorials, see http://en.wikipedia.org/wiki/Factorial
+    For more on factorials, see http://en.wikipedia.org/wiki/Factorial
 
-NOTES:
+    NOTES:
 
-The use of BigInteger or BigNumber functions has been disabled, this requires a complex solution
+    The use of BigInteger or BigNumber functions has been disabled, this requires a complex solution
 
-I have removed the use of require in the javascript language.
+    I have removed the use of require in the javascript language.
 
-*/
+    */
         public static string Factorial(int n)
         {
             int factorial = n;
@@ -1374,10 +1443,10 @@ I have removed the use of require in the javascript language.
         /*
         How can you tell an extrovert from an introvert at NSA? Va gur ryringbef, gur rkgebireg ybbxf ng gur BGURE thl'f fubrf.
 
-I found this joke on USENET, but the punchline is scrambled. Maybe you can decipher it? According to Wikipedia, ROT13 (http://en.wikipedia.org/wiki/ROT13) is frequently used to obfuscate jokes on USENET.
+    I found this joke on USENET, but the punchline is scrambled. Maybe you can decipher it? According to Wikipedia, ROT13 (http://en.wikipedia.org/wiki/ROT13) is frequently used to obfuscate jokes on USENET.
 
-Hint: For this task you're only supposed to substitue characters. Not spaces, punctuation, numbers etc.
-*/
+    Hint: For this task you're only supposed to substitue characters. Not spaces, punctuation, numbers etc.
+    */
 
         ///best practice2
         //   public static string Rot13(string input)
