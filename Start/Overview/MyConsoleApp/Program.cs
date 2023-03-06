@@ -624,79 +624,6 @@ one every 3 is eliminated until one remains
             return _highestString;
         }
     }
-    public enum EnumSuit
-    {
-        Clubs,
-        Diamond,
-        Hearts,
-        Spades
-    }
-    public enum Result
-    {
-        Win,
-        Loss,
-        Tie
-    }
-    public class PokerHand
-    {
-        public enum EnumCardOne
-        {
-            card,
-            suit
-        }
-        public enum EnumCard
-        {
-            Card,
-            Suit
-        }
-        public enum EnumCardTwo
-        {
-            Card,
-            suit
-        }
-        public enum Rank
-        {
-            card,
-            suit
-        }
-        private string HandString { get; set; }
-        private string[] HandArray { get; set; }
-        private IEnumerable<object> HandSorted { get; set; }
-        public PokerHand(string hand)
-        {
-            this.HandString = hand;
-            this.HandArray = this.HandString.Split(' ');
-            var _aux2 = this.HandArray.Select(z => new { Card = z[0], Suit = z[1] });
-            this.HandSorted = _aux2.GroupBy(z => z).Select(z => new { Card = z.Key, Count = (z.Count()) });
-        }
-        //Desc:Compare two hands if they have pair's  |Return: returns the highest hand
-        private PokerHand Pair(PokerHand _hand, PokerHand _opponentHand)
-        {
-            var _auxHandCount = _hand.HandSorted.GroupBy(z => z).Select(z => new { Card = z.Key, Count = z.Count() });
-            var _auxOpponentHandCount = _opponentHand.HandSorted.GroupBy(z => z).Select(z => new { Card = z.Key, Count = z.Count() });
-            if (_auxHandCount.Last().Count == _auxOpponentHandCount.Last().Count)
-            {
-                if ((int)_auxHandCount.Last().Card > (int)_auxOpponentHandCount.Last().Card)
-                    return _hand;
-                else
-                    return _opponentHand;
-            }
-            if (_auxHandCount.Last().Count >= _auxOpponentHandCount.Last().Count)
-                return _hand;
-            return _opponentHand;
-        }
-        public Result CompareWith(PokerHand hand)
-        {//compare pair's
-            if (Pair(this, hand).HandString.Equals(hand.HandString))
-                return Result.Loss;
-            else
-                return Result.Win;
-            //compare suits
-            //compare straight
-            //compare high card
-            return Result.Tie;
-        }
-    }
     public static class TechnicalExam_GameCompany_Adder
     {
         struct DoubleStruct
@@ -759,10 +686,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
-        public static int[] InvertValues(int[] input)
-        {
-            return input.Select(z => z < 0 ? Math.Abs(z) : z * -1).ToArray();
-        }
+        public static int[] InvertValues(int[] input) => input.Select(z => z < 0 ? Math.Abs(z) : z * -1).ToArray();
         public static int[] TechnicalExam_GameCompany_CountPositivesSumNegatives(int[] input)
         {
             if (input == null) return new int[] { };
