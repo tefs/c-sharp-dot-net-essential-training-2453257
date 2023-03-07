@@ -686,7 +686,11 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
-        public static int[] InvertValues(int[] input) => input.Select(z => z < 0 ? Math.Abs(z) : z * -1).ToArray();
+        public static int[] Capitals(string word) => word.Where(char.IsUpper).Select(z => word.IndexOf(z)).ToArray();
+        public static int[] InvertValues(int[] input)
+        {
+            return input.Select(z => z < 0 ? Math.Abs(z) : z * -1).ToArray();
+        }
         public static int[] TechnicalExam_GameCompany_CountPositivesSumNegatives(int[] input)
         {
             if (input == null) return new int[] { };
@@ -779,7 +783,6 @@ one every 3 is eliminated until one remains
             // .Select(z => "aeiou".IndexOf(z) != -1 ? z : "")
             // .ToArray());
             // return string.Join("", str.All(z => "aeiou".IndexOf(z) != -1 ? z : ""));
-            var s1 = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
             var s2 = "aeiou";
             return string.Join("", str.Select(x => char.IsLetter(x) ? str[s2.IndexOf(x)] : x));
             // return "aeiou".All(x => str.ToLower().Contains(char.ToLower(x)));

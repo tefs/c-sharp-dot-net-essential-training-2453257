@@ -683,6 +683,11 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void CodEWaRs()
+        {
+            Assert.AreEqual(Kata.Capitals("CodEWaRs"), new int[] { 0, 3, 4, 6 });
+        }
+        [Test]
         public void InvertValuesTests()
         {
             Assert.AreEqual(new int[] { -1, -2, -3, -4, -5 }, Kata.InvertValues(new int[] { 1, 2, 3, 4, 5 }));
