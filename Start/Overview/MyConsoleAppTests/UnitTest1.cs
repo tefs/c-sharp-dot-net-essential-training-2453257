@@ -683,6 +683,28 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void GimmeTests()
+        {
+            Assert.AreEqual(0, Kata.Gimme(new double[] { 2, 3, 1 }));
+            Assert.AreEqual(1, Kata.Gimme(new double[] { 5, 10, 14 }));
+        }
+        [Test, Description("It should work for basic tests")]
+        [TestCase("Hi", "Hi!")]
+        [TestCase("Hi!!", "Hi!!!")]
+        [TestCase("!Hi", "!Hi")]
+        [TestCase("!Hi", "!Hi!")]
+        [TestCase("Hi! Hi", "Hi! Hi")]
+        [TestCase("Hi", "Hi")]
+        public void RemoveTest(string expected, string input)
+        {
+            Assert.AreEqual(expected, Kata.Remove(input));
+            // Assert.AreEqual("Hi!!", Kata.Remove("Hi!!!"));
+            // Assert.AreEqual("!Hi", Kata.Remove("!Hi"));
+            // Assert.AreEqual("!Hi", Kata.Remove("!Hi!"));
+            // Assert.AreEqual("Hi! Hi", Kata.Remove("Hi! Hi"));
+            // Assert.AreEqual("Hi", Kata.Remove("Hi"));
+        }
+        [Test]
         public void SortByLengthTests()
         {
             Assert.AreEqual(new string[] { "I", "To", "Beg", "Life" }, Kata.SortByLength(new string[] { "Beg", "Life", "I", "To" }));
