@@ -683,6 +683,27 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void SortByLengthTests()
+        {
+            Assert.AreEqual(new string[] { "I", "To", "Beg", "Life" }, Kata.SortByLength(new string[] { "Beg", "Life", "I", "To" }));
+            Assert.AreEqual(new string[] { "", "Pizza", "Brains", "Moderately" }, Kata.SortByLength(new string[] { "", "Moderately", "Brains", "Pizza" }));
+            Assert.AreEqual(new string[] { "Short", "Longer", "Longest" }, Kata.SortByLength(new string[] { "Longer", "Longest", "Short" }));
+        }
+        [Test]
+        public void FriendOrFoeTest()
+        {
+            string[] expected = { "Ryan", "Mark" };
+            string[] names = { "Ryan", "Kieran", "Mark", "Jimmy" };
+            CollectionAssert.AreEqual(expected, Kata.FriendOrFoe(names));
+        }
+        [Test]
+        public void One()
+        {
+            Assert.AreEqual(new int[] { 1, 15, 15 }, Kata.humanYearsCatYearsDogYears(1));
+            Assert.AreEqual(new int[] { 2, 24, 24 }, Kata.humanYearsCatYearsDogYears(2));
+            Assert.AreEqual(new int[] { 10, 56, 64 }, Kata.humanYearsCatYearsDogYears(10));
+        }
+        [Test]
         public void CodEWaRs()
         {
             Assert.AreEqual(Kata.Capitals("CodEWaRs"), new int[] { 0, 3, 4, 6 });

@@ -686,6 +686,17 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string[] SortByLength(string[] array)
+        {
+            return array.OrderBy(z => z.Length).ToArray();
+        }
+        public static IEnumerable<string> FriendOrFoe(string[] names) => names.Where(z => z.Length == 4);
+        public static int[] humanYearsCatYearsDogYears(int humanYears)
+        {
+            int catYear = 15 + (humanYears >= 2 ? 9 + 4 * (humanYears - 2) : 0);
+            int dogYear = 15 + (humanYears >= 2 ? 9 + 5 * (humanYears - 2) : 0);
+            return new int[] { humanYears, catYear, dogYear };
+        }
         public static int[] Capitals(string word) => word.Where(char.IsUpper).Select(z => word.IndexOf(z)).ToArray();
         public static int[] InvertValues(int[] input)
         {
