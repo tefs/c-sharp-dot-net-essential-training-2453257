@@ -686,6 +686,11 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static object[] RemoveEveryOther(object[] arr)
+        {
+            if (arr.Length < 3) return arr;
+            return new object[] { (arr.Where((_string, index) => (int)index % 2 == 0).ToArray()) };
+        }
         public static int Gimme(double[] inputArray) => inputArray.ToList().IndexOf(inputArray.OrderBy(z => z).ElementAt(1));
         public static string Remove(string s) => s.EndsWith('!') ? new string(s.Take(s.Length - 1).ToArray()) : s;
         public static string[] SortByLength(string[] array)
