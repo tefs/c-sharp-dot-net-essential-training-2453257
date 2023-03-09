@@ -790,21 +790,7 @@ one every 3 is eliminated until one remains
             return new string(_query.Max() + " " + _query.Min());
         }
         public static bool IsIsogram(string str) => new string(str.ToLower().Distinct().ToArray()).Equals(str.ToLower()) ? true : false;
-        public static string Disemvowel(string str)
-        {
-            // return string.Join("", str.Where(char.IsLetter)
-            // .Select(z => "aeiou".IndexOf(z) != -1 ? z : "")
-            // .ToArray());
-            // return string.Join("", str.All(z => "aeiou".IndexOf(z) != -1 ? z : ""));
-            var s2 = "aeiou";
-            return string.Join("", str.Select(x => char.IsLetter(x) ? str[s2.IndexOf(x)] : x));
-            // return "aeiou".All(x => str.ToLower().Contains(char.ToLower(x)));
-
-            // return string.Join(" ", str.ToLowerInvariant()
-            //                                       .Where(char.IsLetter)
-            //                                       .Select(z => "aeiou".IndexOf(z))
-            //                                       .ToArray());
-        }
+        public static string Disemvowel(string str) => string.Concat(str.Where(z => !"aeiouAEIOU".Contains(z)));
         public static string Remove_char(string s)
         {
             return s.Substring(1, (s.Length - 2));

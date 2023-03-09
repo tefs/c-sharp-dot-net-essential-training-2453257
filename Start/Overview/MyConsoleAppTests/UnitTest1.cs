@@ -680,8 +680,34 @@ MyConsoleAppTests
         }
     }
     [TestFixture]
+    public class SquareSumTests
+    {
+        private static IEnumerable<TestCaseData> sampleTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(new int[] { 1, 2, 2 }).Returns(9);
+                yield return new TestCaseData(new int[] { 1, 2 }).Returns(5);
+                yield return new TestCaseData(new int[] { 5, 3, 4 }).Returns(50);
+                yield return new TestCaseData(new int[] { }).Returns(0);
+            }
+        }
+
+        [Test, TestCaseSource("sampleTestCases"), Description("Sample Tests")]
+        public int SampleTest(int[] n) => Kata.SquareSum(n);
+    }
+    [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void RemoveEveryOtherTest()
+        {
+            Assert.AreEqual(new object[] { "Hello", "Hello Again" }, Kata.RemoveEveryOther(new object[] { "Hello", "Goodbye", "Hello Again" }));
+            // Assert.AreEqual(new object[] { new object[] { 1, 2 } }, Kata.RemoveEveryOther(new object[] { new object[] { 1, 2 } }));
+            // Assert.AreEqual(new object[] { 1, 3, 5, 7, 9 }, Kata.RemoveEveryOther(new object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
+            // Assert.AreEqual(new object[] { new object[] { "Goodbye" } }, Kata.RemoveEveryOther(new object[] { new object[] { "Goodbye" }, new Dictionary<string, string>() { { "Great", "Job" } } }));
+            // Assert.AreEqual(new object[] { }, Kata.RemoveEveryOther(new object[] { }));
+        }
         [Test]
         public void GimmeTests()
         {
