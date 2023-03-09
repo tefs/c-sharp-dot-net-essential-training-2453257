@@ -686,6 +686,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int SquareSum(int[] numbers) => (int)numbers.Sum(z => Math.Pow(z, 2));
         public static object[] RemoveEveryOther(object[] arr)
         {
             if (arr.Length < 3) return arr;
