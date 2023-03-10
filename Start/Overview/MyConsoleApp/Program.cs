@@ -688,10 +688,13 @@ one every 3 is eliminated until one remains
     {
         public static string FindNeedle(object[] haystack)
         {
-            int _auxPosition = 0;
-            string _auxReturn = $"found the needle at position {_auxPosition}";
-            _auxPosition = haystack.Where(z => z.ToString() == "needle").Select((_char, _index) => _index).SingleOrDefault();
-            return _auxReturn;
+            //this case its beter to converto into list and use "indexof" method
+            return $"found the needle at position {haystack.ToList().IndexOf("needle")}";
+
+            // int _auxPosition = -1;
+            // var _aux = haystack.Select((_string, _index) => (_string is not null && _string.ToString().Equals("needle")) ? _index : _auxPosition);
+            // int.TryParse(_aux.Where(z => !z.Equals(_auxPosition)).SingleOrDefault().ToString(), out var _auxPosition1);
+            // return $"found the needle at position {_auxPosition1}";
         }
         public static int CheckExam(string[] arr1, string[] arr2)
         {
