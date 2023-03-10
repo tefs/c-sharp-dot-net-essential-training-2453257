@@ -700,6 +700,19 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void Rot13_EncriptMessageInput_Encryptionsuccessfull()
+        {
+            Assert.AreEqual("ROT13 example.", Kata.Rot13("EBG13 rknzcyr."));
+            Assert.AreEqual("Grfg", Kata.Rot13("Test"), String.Format("Input: Test, Expected Output: Grfg, Actual Output: {0}", Kata.Rot13("Test")));
+        }
+        [TestCase(new string[] { "a", "a", "b", "b" }, new string[] { "a", "c", "b", "d" }, 6)]
+        [TestCase(new string[] { "a", "a", "b", "c" }, new string[] { "a", "a", "b", "c" }, 16)]
+        [TestCase(new string[] { "b", "c", "b", "a" }, new string[] { "", "a", "a", "c" }, 0)]
+        public void CheckExamTest(string[] arr1, string[] arr2, int score)
+        {
+            Assert.AreEqual(score, Kata.CheckExam(arr1, arr2));
+        }
+        [Test]
         public void RemoveEveryOtherTest()
         {
             Assert.AreEqual(new object[] { "Hello", "Hello Again" }, Kata.RemoveEveryOther(new object[] { "Hello", "Goodbye", "Hello Again" }));
@@ -1148,15 +1161,6 @@ MyConsoleAppTests
         public void Factorial_CalculateFactorial_ReturnStringWithFactoialSum(string expected, int n)
         {
             Assert.AreEqual(expected, Kata.Factorial(n));
-        }
-    }
-    [TestFixture]
-    public class SystemTests
-    {
-        [Test]
-        public void Rot13_EncriptMessageInput_Encryptionsuccessfull()
-        {
-            Assert.AreEqual("ROT13 example.", Kata.Rot13("EBG13 rknzcyr."));
         }
     }
     [TestFixture]

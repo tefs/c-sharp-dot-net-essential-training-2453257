@@ -686,6 +686,24 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string FindNeedle(object[] haystack)
+        {
+            int _auxPosition = 0;
+            string _auxReturn = $"found the needle at position {_auxPosition}";
+            _auxPosition = haystack.Where(z => z.ToString() == "needle").Select((_char, _index) => _index).SingleOrDefault();
+            return _auxReturn;
+        }
+        public static int CheckExam(string[] arr1, string[] arr2)
+        {
+            int _auxReturn = 0;
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                if (arr1[i] == arr2[i]) _auxReturn += 4;
+                if (arr1[i] != arr2[i]) _auxReturn -= 1;
+                if (arr2[i] != string.Empty) _auxReturn += 0;
+            }
+            return _auxReturn < 0 ? 0 : _auxReturn;
+        }
         public static int SquareSum(int[] numbers) => (int)numbers.Sum(z => Math.Pow(z, 2));
         public static object[] RemoveEveryOther(object[] arr)
         {
@@ -1462,61 +1480,11 @@ one every 3 is eliminated until one remains
         //   }
 
         ///best practice1
-        public static string Rot13(string input) =>
-        Regex.Replace(input, "[a-zA-Z]"
-        , new MatchEvaluator(z => ((char)(z.Value[0] + (Char.ToLower(z.Value[0]) >= 'n' ? -13 : 13))).ToString()));
-        // Regex.Replace(input, "[a-zA-Z]", new MatchEvaluator(c => ((char)(c.Value[0] + (Char.ToLower(c.Value[0]) >= 'n' ? -13 : 13))).ToString()));
-
-        // public static string Rot13(string input)
-        // {//todo 1- create a collection to save the cypher | 2- evaluate the input and encrypt it
-
-        //     string _return = string.Empty;
-        //     Dictionary<char, char> _ROT13Collection = new Dictionary<char, char>();
-        //     _ROT13Collection.Add('A', 'N');
-        //     _ROT13Collection.Add('B', 'O');
-        //     _ROT13Collection.Add('C', 'P');
-        //     _ROT13Collection.Add('D', 'Q');
-        //     _ROT13Collection.Add('E', 'R');
-        //     _ROT13Collection.Add('F', 'S');
-        //     _ROT13Collection.Add('G', 'T');
-        //     _ROT13Collection.Add('H', 'U');
-        //     _ROT13Collection.Add('I', 'V');
-        //     _ROT13Collection.Add('J', 'W');
-        //     _ROT13Collection.Add('K', 'X');
-        //     _ROT13Collection.Add('L', 'Y');
-        //     _ROT13Collection.Add('M', 'Z');
-        //     Tuple<char, char> _tuple = new Tuple<char, char>('A', 'N');
-
-        //     foreach (var item in input)
-        //     {
-        //         bool _isUpper = false;
-        //         char _auxItem;
-        //         string _aux =string.Empty;
-        //         if (char.IsLower(item))
-        //         {
-        //             _auxItem = char.Parse(item.ToString().ToUpper());
-        //             _isUpper = true;
-        //         }
-        //         else
-        //             _auxItem = item;
-
-        //         if (_ROT13Collection.ContainsKey(_auxItem))
-        //         {
-        //             _aux = _ROT13Collection.Where(z => z.Key == _auxItem).Select(z => z.Value).First().ToString();
-        //         }
-        //         else if (_ROT13Collection.ContainsValue(_auxItem))
-        //             _aux = _ROT13Collection.Where(z => z.Value == _auxItem).Select(z => z.Key).First().ToString();
-        //         else
-        //             _return += item;
-        //         if (_isUpper) 
-        //         _return += _aux.ToString().ToLower();
-        //         else 
-        //         _return+=_aux;
-        //     }
-
-        //     return _return;
-        // }
-
+        public static string Rot13(string input)
+        {
+            return string.Concat("", input.Select(z => char.IsLetter(z) ? (char)(z + (char.ToLower(z) > 'm' ? -13 : 13)) : z));
+            //   return  Regex.Replace(input, "[a-zA-Z]", new MatchEvaluator(z => ((char)(z.Value[0] + (Char.ToLower(z.Value[0]) >= 'n' ? -13 : 13))).ToString()));
+        }
         ///Complete the function/method so that it takes a PascalCase string and returns the string in snake_case notation. Lowercase characters can be numbers. If the method gets a number as input, it should return a string.
         public static string ToUnderscore(int str) => str.ToString();
         // public static string ToUnderscore(int str)
