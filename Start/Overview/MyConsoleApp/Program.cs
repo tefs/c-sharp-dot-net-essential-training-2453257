@@ -684,6 +684,11 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static double Index(int[] array, int n)
+        {
+            if (n > array.Length - 1) return -1;
+            return Math.Pow(array[n], 2);
+        }
         public static string MakeComplement(string dna)
         {
             // return dna.Replace('T', '?').Replace('A', 'T').Replace('?', 'A').Replace('G', '?').Replace('C', 'G').Replace('?', 'C');

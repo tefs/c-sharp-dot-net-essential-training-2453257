@@ -699,6 +699,15 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        [TestCase(9, new int[] { 1, 2, 3, 4 }, 2)]
+        [TestCase(1000000, new int[] { 1, 3, 10, 100 }, 3)]
+        [TestCase(-1, new int[] { 1, 3, 10, 100 }, 4)]
+        public void IndexTest(int expected,int[] input,int N)
+        {
+            Assert.AreEqual(expected, Kata.Index(input, N));
+            // Assert.AreEqual(1000000, Kata.Index(new int[] { 1, 3, 10, 100 }, 3));
+        }
         [TestCase("AAAA", "TTTT")]
         [TestCase("ATTGC", "TAACG")]
         [TestCase("GTAT", "CATA")]
