@@ -1,7 +1,5 @@
 ﻿// using System;
 using System.Net;
-//using System.Collections;
-// using System.Collections.Generic;
 using System.Text.RegularExpressions;
 // using System.Globalization;
 using System.Net.Sockets;
@@ -686,15 +684,15 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string MakeComplement(string dna)
+        {
+            // return dna.Replace('T', '?').Replace('A', 'T').Replace('?', 'A').Replace('G', '?').Replace('C', 'G').Replace('?', 'C');
+            return String.Join("", dna.Select(z => "AGCT"["TCGA".IndexOf(z)]));
+        }
         public static string FindNeedle(object[] haystack)
         {
             //this case its beter to converto into list and use "indexof" method
             return $"found the needle at position {haystack.ToList().IndexOf("needle")}";
-
-            // int _auxPosition = -1;
-            // var _aux = haystack.Select((_string, _index) => (_string is not null && _string.ToString().Equals("needle")) ? _index : _auxPosition);
-            // int.TryParse(_aux.Where(z => !z.Equals(_auxPosition)).SingleOrDefault().ToString(), out var _auxPosition1);
-            // return $"found the needle at position {_auxPosition1}";
         }
         public static int CheckExam(string[] arr1, string[] arr2)
         {

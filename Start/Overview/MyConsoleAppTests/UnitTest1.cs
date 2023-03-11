@@ -699,6 +699,17 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [TestCase("AAAA", "TTTT")]
+        [TestCase("ATTGC", "TAACG")]
+        [TestCase("GTAT", "CATA")]
+        [TestCase("AAGG", "TTCC")]
+        [TestCase("CGCG", "GCGC")]
+        [TestCase("ATTGC", "TAACG")]
+        [TestCase("GTATCGATCGATCGATCGATTATATTTTCGACGAGATTTAAATATATATATATACGAGAGAATACAGATAGACAGATTA", "CATAGCTAGCTAGCTAGCTAATATAAAAGCTGCTCTAAATTTATATATATATATGCTCTCTTATGTCTATCTGTCTAAT")]
+        public void MakeComplementTests(string dna, string expected)
+        {
+            Assert.AreEqual(expected, Kata.MakeComplement(dna));
+        }
         [Test]
         [TestCase("found the needle at position 3", new object[] { '3', "123124234", null, "needle", "world", "hay", 2, '3', true, false })]
         [TestCase("found the needle at position 5", new object[] { "283497238987234", "a dog", "a cat", "some random junk", "a piece of hay", "needle", "something somebody lost a while ago" })]
