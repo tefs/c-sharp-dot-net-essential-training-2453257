@@ -1259,25 +1259,27 @@ one every 3 is eliminated until one remains
         }
         public static int[] ArrayDiff(int[] a, int[] b)
         {
-            // if (a.Length == b.Length)
-            // {
-            // List<int> _list = new List<int>();
-            // int _aLength = a.Length - 1;
-            // int _bLength = b.Length - 1;
-            // for (int i = 0; i < a.Length; i++)
-            // {
-            // for (int j = 0; j < b.Length; j++)
-            // {
-            // _list.Add(Math.Abs(b[i <= _bLength ? i : _bLength]) - Math.Abs(a[i <= _aLength ? i : _aLength]));
-            // }
-            // }
-            var _expectedResult = a.Except(b).ToArray();
-            // foreach (var item in _expectedResult) Console.WriteLine($"-{item}");
-            return _expectedResult;
-            // }
-            // var _q = a.SkipWhile(z => z != a[0]).ToArray();
-            // foreach (var item in _q) Console.WriteLine(item);
-            // return _q;
+            Console.WriteLine("test");
+            var _auxA = a.OrderBy(z => z);
+            var _auxB = b.OrderBy(x => x);
+            List<int> _auxList = new List<int>();
+            if (_auxA.Count() >= _auxB.Count())
+            {
+                for (int i = 0; i < _auxA.Count(); i++)
+                {
+                    if (!_auxB.Contains(_auxA.ElementAt(i)))
+                        _auxList.Add(_auxA.ElementAt(i));
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _auxA.Count(); i++)
+                {
+                    if (!_auxA.Contains(_auxB.ElementAt(i)))
+                        _auxList.Add(_auxA.ElementAt(i));
+                }
+            }
+            return _auxList.ToArray();
         }
         public static string BigNumbersAdd(string a, string b)
         {
