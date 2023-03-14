@@ -699,11 +699,21 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test, Description("Sample Tests")]
+        [TestCase("McClane john", "john McClane")]
+        [TestCase("jeggins Mary", "Mary jeggins")]
+        [TestCase("jerry tom", "tom jerry")]
+        public void NameShufflerTest(string expected, string input)
+        {
+            Assert.AreEqual(expected, Kata.NameShuffler(input));
+            // Assert.AreEqual("jeggins Mary", Kata.NameShuffler("Mary jeggins"));
+            // Assert.AreEqual("jerry tom", Kata.NameShuffler("tom jerry"));
+        }
         [Test]
         [TestCase(9, new int[] { 1, 2, 3, 4 }, 2)]
         [TestCase(1000000, new int[] { 1, 3, 10, 100 }, 3)]
         [TestCase(-1, new int[] { 1, 3, 10, 100 }, 4)]
-        public void IndexTest(int expected,int[] input,int N)
+        public void IndexTest(int expected, int[] input, int N)
         {
             Assert.AreEqual(expected, Kata.Index(input, N));
             // Assert.AreEqual(1000000, Kata.Index(new int[] { 1, 3, 10, 100 }, 3));
@@ -1131,12 +1141,12 @@ MyConsoleAppTests
         [TestCase(new string[] { "ab", "cd", "ef" }, "abcdef")]
         public void SplitString(string[] expected, string input) => Assert.AreEqual(expected, Kata.SplitString(input));
         [Test]
-        [TestCase(new int[] { 2 }       , new int[] { 1, 2 }, new int[] { 1 })]//passed
+        [TestCase(new int[] { 2 }, new int[] { 1, 2 }, new int[] { 1 })]//passed
         [TestCase(new int[] { 2, 2 }, new int[] { 1, 2, 2 }, new int[] { 1 })] //not passed
-        [TestCase(new int[] { 1 }       , new int[] { 1, 2, 2 }, new int[] { 2 })]//passed
-        [TestCase(new int[] { 1, 2, 2 } , new int[] { 1, 2, 2 }, new int[] { })]//not passed
-        [TestCase(new int[] { }         , new int[] { }, new int[] { 1, 2 })]//passed
-        [TestCase(new int[] { 3 }       , new int[] { 1, 2, 3 }, new int[] { 1, 2 })]//passed
+        [TestCase(new int[] { 1 }, new int[] { 1, 2, 2 }, new int[] { 2 })]//passed
+        [TestCase(new int[] { 1, 2, 2 }, new int[] { 1, 2, 2 }, new int[] { })]//not passed
+        [TestCase(new int[] { }, new int[] { }, new int[] { 1, 2 })]//passed
+        [TestCase(new int[] { 3 }, new int[] { 1, 2, 3 }, new int[] { 1, 2 })]//passed
         public void ArrayDiff_ReturnArrayDiff(int[] expected, int[] input1, int[] input2)
         {
             Assert.AreEqual(expected, Kata.ArrayDiff(input1, input2));

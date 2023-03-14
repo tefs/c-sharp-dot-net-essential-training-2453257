@@ -684,6 +684,10 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string NameShuffler(string str)
+        {
+            return string.Join(" ", str.Split(' ').Reverse());
+        }
         public static double Index(int[] array, int n)
         {
             if (n > array.Length - 1) return -1;
