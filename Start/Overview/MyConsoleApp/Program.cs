@@ -684,6 +684,10 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string OddOrEven(int[] array)
+        {
+            return array.Sum()%2==0?"even":"odd";
+        }
         public static string NameShuffler(string str)
         {
             return string.Join(" ", str.Split(' ').Reverse());
