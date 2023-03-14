@@ -684,6 +684,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string Correct(string text) => text.Replace('0', 'O').Replace('5', 'S').Replace('1', 'I');
         public static bool CheckForFactor(int num, int factor) => num % factor == 0;
 
         public static int CountSmileys(string[] smileys)

@@ -771,6 +771,15 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void CorrectTest()
+        {
+            Assert.AreEqual("LONDON", Kata.Correct("L0ND0N"));
+            Assert.AreEqual("DUBLIN", Kata.Correct("DUBL1N"));
+            Assert.AreEqual("SINGAPORE", Kata.Correct("51NGAP0RE"));
+            Assert.AreEqual("BUDAPEST", Kata.Correct("BUDAPE5T"));
+            Assert.AreEqual("PARIS", Kata.Correct("PAR15"));
+        }
+        [Test]
         [TestCase(10, 2, true)]
         [TestCase(63, 7, true)]
         [TestCase(2450, 5, true)]
