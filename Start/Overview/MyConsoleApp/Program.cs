@@ -684,6 +684,8 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static bool CheckForFactor(int num, int factor) => num % factor == 0;
+
         public static int CountSmileys(string[] smileys)
         {
             return smileys.Count(s => Regex.IsMatch(s, @"^[:;]{1}[~-]{0,1}[\)D]{1}$"));
