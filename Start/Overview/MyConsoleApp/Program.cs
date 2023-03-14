@@ -684,6 +684,10 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string TwoSort(string[] s)
+        {
+            return string.Join("***", s.OrderBy(z => z, StringComparer.Ordinal).First().ToArray());
+        }
         public static int FactorialV2(int n)
         {
             if (n < 0 && n > 12) throw new ArgumentOutOfRangeException();
