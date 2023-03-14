@@ -684,9 +684,18 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int FactorialV2(int n)
+        {
+            if (n < 0 && n > 12) throw new ArgumentOutOfRangeException();
+            if (n == 0) return 1;
+            int _aux = 1;
+            // for(int i=1;i<=n;i++) _aux*=i;
+            return Enumerable.Range(1, n).Aggregate(1, (x, y) => x * y);
+            // return _aux;
+        }
         public static string OddOrEven(int[] array)
         {
-            return array.Sum()%2==0?"even":"odd";
+            return array.Sum() % 2 == 0 ? "even" : "odd";
         }
         public static string NameShuffler(string str)
         {
