@@ -771,6 +771,14 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void CountSmileysTest()
+        {
+            Assert.AreEqual(4, Kata.CountSmileys(new string[] { ":D", ":~)", ";~D", ":)" }));
+            Assert.AreEqual(2, Kata.CountSmileys(new string[] { ":)", ":(", ":D", ":O", ":;" }));
+            Assert.AreEqual(1, Kata.CountSmileys(new string[] { ";]", ":[", ";*", ":$", ";-D" }));
+            Assert.AreEqual(0, Kata.CountSmileys(new string[] { ";", ")", ";*", ":$", "8-D" }));
+        }
+        [Test]
         public void TwoSortTest()
         {
             Assert.AreEqual("b***i***t***c***o***i***n", Kata.TwoSort(new[] { "bitcoin", "take", "over", "the", "world", "maybe", "who", "knows", "perhaps" }));

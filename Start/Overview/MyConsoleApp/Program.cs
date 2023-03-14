@@ -684,6 +684,26 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int CountSmileys(string[] smileys)
+        {
+            return smileys.Count(s => Regex.IsMatch(s, @"^[:;]{1}[~-]{0,1}[\)D]{1}$"));
+
+            // List<string> _auxSmileFacesFirstCharacter = new List<string>(new string[] { ":", ";" });
+            // List<string> _auxSmileFacesSecondCharacter = new List<string>(new string[] { "-", "~" });
+            // List<string> _auxSmileFacesThirdCharacter = new List<string>(new string[] { ")", "D" });
+            // int _auxCount = 0;
+            // return smileys.Count(z =>
+            // (
+            //     (z.Length >= 2 && z.Length <= 3)
+            //     && _auxSmileFacesFirstCharacter.Contains(z.ElementAt(0).ToString())
+            //     && (z.Length == 3
+            //     ? (_auxSmileFacesSecondCharacter.Contains(z.ElementAt(1).ToString())
+            //     && _auxSmileFacesThirdCharacter.Contains(z.ElementAt(2).ToString()))
+            //     : _auxSmileFacesThirdCharacter.Contains(z.ElementAt(1).ToString())
+            //     )
+            // )
+            // );
+        }
         public static string TwoSort(string[] s)
         {
             return string.Join("***", s.OrderBy(z => z, StringComparer.Ordinal).First().ToArray());
