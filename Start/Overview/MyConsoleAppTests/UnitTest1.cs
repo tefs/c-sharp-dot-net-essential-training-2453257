@@ -770,6 +770,17 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [TestCase("I love you",7)]
+        [TestCase("I love you",14)]
+        [TestCase("a lot",3)]
+        [TestCase("not at all",6)]
+        public void HowMuchILoveYouTests(string expected,int input)
+        {
+            Assert.AreEqual(expected, Kata.HowMuchILoveYou(input));
+            // Assert.AreEqual("I love you", Kata.HowMuchILoveYou(7));
+            // Assert.AreEqual("a lot", Kata.HowMuchILoveYou(3));
+            // Assert.AreEqual("not at all", Kata.HowMuchILoveYou(6));
+        }
         [TestCase(new int[] { 0, 1, 2, 3, 4, 5 }, 3, 5, 0)]
         public static void CheckForFactorTest(int[] nums, int key, int min, int max)
         {
