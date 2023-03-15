@@ -10,6 +10,103 @@ using System.Numerics;
 // IP addressess and related information.
 // using System;
 // using System.Net;
+
+namespace TechnicaExam_MultiVision
+{
+
+    class Calculator
+    {
+        /// Sums an array of​​​​​​‌​​‌​​‌‌‌​​‌‌​‌​​​​‌‌‌​‌​ numbers.
+        /// <returns>the exact sum of the numbers</returns>
+        public static string Sum(params string[] numbers)
+        {
+            // double total = 0;
+
+            // foreach (string number in numbers)
+            // {
+            //     total = total + double.Parse(number);
+            // }
+
+            // return total.ToString();
+            var _aux = numbers.Sum(z => double.Parse(z));
+            return Math.Round((double)_aux, 2, MidpointRounding.ToEven).ToString();
+        }
+    }
+    public class Answer
+    {
+        /// Executes the service with the given​​​​​​‌​​‌​​‌‌‌​​‌‌​‌​​​​‌‌‌​‌​ connection.
+        public void Run(Service s, Connection c)
+        {
+            s.SetConnection(c);
+            try
+            {
+                s.Execute();
+                c.Commit();
+            }
+            catch (Exception e)
+            {
+                c.Rollback();
+            }
+            finally
+            {
+                c.Close();
+            }
+        }
+    }
+
+    /// Definition of a service
+    public interface Service
+    {
+        void Execute();
+        void SetConnection(Connection c);
+    }
+
+    /// Definition of a connection
+    public interface Connection
+    {
+        void Commit();
+        void Rollback();
+        void Close();
+    }
+    public class TechnicalExam_MultiVision_Class
+    {
+        public static bool TechnicalExam_MultiVision_Exists(int[] ints, int k, int min, int max)
+        {
+            // return ints.Contains(k);
+            //      if (maxPostitionArray >= minPostionArray)
+            // {
+            //     int _middle = minPostionArray + (maxPostitionArray - middleElement) / 2;
+            //     if (array[_middle] == middleElement) return _middle;
+            //     if (array[_middle] > middleElement)
+            //         return BinarySearchOnArray(array, minPostionArray, _middle - 1, middleElement);
+            //     return BinarySearchOnArray(array, _middle + 1, maxPostitionArray, middleElement);
+            // }
+            // return -1;
+
+            // if (ints.Length == 0) return false;
+            try
+            {
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+            if (max >= min)
+            {
+                int _middle = min + (max - k) / 2;//does not preditc with odd length
+                if (ints[_middle] == k) return true;
+                if (ints[_middle] > k) return TechnicalExam_MultiVision_Exists(ints, k, min, _middle - 1);
+                else return TechnicalExam_MultiVision_Exists(ints, k, _middle + 1, max);
+            }
+            return false;
+        }
+    }
+}
 namespace Mssc.Services.ConnectionManagement
 {
     class TestIPAddress
@@ -686,7 +783,6 @@ one every 3 is eliminated until one remains
     {
         public static string Correct(string text) => text.Replace('0', 'O').Replace('5', 'S').Replace('1', 'I');
         public static bool CheckForFactor(int num, int factor) => num % factor == 0;
-
         public static int CountSmileys(string[] smileys)
         {
             return smileys.Count(s => Regex.IsMatch(s, @"^[:;]{1}[~-]{0,1}[\)D]{1}$"));

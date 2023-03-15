@@ -770,6 +770,15 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [TestCase(new int[] { 0, 1, 2, 3, 4, 5 }, 3, 5, 0)]
+        public static void CheckForFactorTest(int[] nums, int key, int min, int max)
+        {
+            //assign 
+            int _min = nums[0], _max = nums[nums.Length - 1];
+            //act
+            //assert
+            Assert.AreEqual(true, TechnicaExam_MultiVision.TechnicalExam_MultiVision_Class.TechnicalExam_MultiVision_Exists(nums, key, _min, _max));
+        }
         [Test]
         public void CorrectTest()
         {
@@ -813,9 +822,7 @@ MyConsoleAppTests
         public void NameShufflerTest(string expected, string input)
         {
             Assert.AreEqual(expected, Kata.NameShuffler(input));
-            // Assert.AreEqual("jeggins Mary", Kata.NameShuffler("Mary jeggins"));
-            // Assert.AreEqual("jerry tom", Kata.NameShuffler("tom jerry"));
-        }
+         }
         [Test]
         [TestCase(9, new int[] { 1, 2, 3, 4 }, 2)]
         [TestCase(1000000, new int[] { 1, 3, 10, 100 }, 3)]
@@ -823,7 +830,6 @@ MyConsoleAppTests
         public void IndexTest(int expected, int[] input, int N)
         {
             Assert.AreEqual(expected, Kata.Index(input, N));
-            // Assert.AreEqual(1000000, Kata.Index(new int[] { 1, 3, 10, 100 }, 3));
         }
         [TestCase("AAAA", "TTTT")]
         [TestCase("ATTGC", "TAACG")]
@@ -861,11 +867,7 @@ MyConsoleAppTests
         public void RemoveEveryOtherTest()
         {
             Assert.AreEqual(new object[] { "Hello", "Hello Again" }, Kata.RemoveEveryOther(new object[] { "Hello", "Goodbye", "Hello Again" }));
-            // Assert.AreEqual(new object[] { new object[] { 1, 2 } }, Kata.RemoveEveryOther(new object[] { new object[] { 1, 2 } }));
-            // Assert.AreEqual(new object[] { 1, 3, 5, 7, 9 }, Kata.RemoveEveryOther(new object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
-            // Assert.AreEqual(new object[] { new object[] { "Goodbye" } }, Kata.RemoveEveryOther(new object[] { new object[] { "Goodbye" }, new Dictionary<string, string>() { { "Great", "Job" } } }));
-            // Assert.AreEqual(new object[] { }, Kata.RemoveEveryOther(new object[] { }));
-        }
+         }
         [Test]
         public void GimmeTests()
         {
@@ -882,12 +884,7 @@ MyConsoleAppTests
         public void RemoveTest(string expected, string input)
         {
             Assert.AreEqual(expected, Kata.Remove(input));
-            // Assert.AreEqual("Hi!!", Kata.Remove("Hi!!!"));
-            // Assert.AreEqual("!Hi", Kata.Remove("!Hi"));
-            // Assert.AreEqual("!Hi", Kata.Remove("!Hi!"));
-            // Assert.AreEqual("Hi! Hi", Kata.Remove("Hi! Hi"));
-            // Assert.AreEqual("Hi", Kata.Remove("Hi"));
-        }
+         }
         [Test]
         public void SortByLengthTests()
         {
@@ -1164,11 +1161,7 @@ MyConsoleAppTests
         [TestCase(4, 999)]
         public void PersistenceTests(int expected, long input)
         {
-            // Console.WriteLine("****** Basic Tests");
-            Assert.AreEqual(expected, Kata.Persistence(input));
-            // Assert.AreEqual(0, Kata.Persistence(4));
-            // Assert.AreEqual(2, Kata.Persistence(25));
-            // Assert.AreEqual(4, Kata.Persistence(999));
+             Assert.AreEqual(expected, Kata.Persistence(input));
         }
         [Test(Description = "Fixed Tests")]
         public void FixedTests()
@@ -1287,8 +1280,7 @@ MyConsoleAppTests
         public void AlphabetPosition_ReplaceCharacterByNumberPosition_ReturnString(string expected, string input)
         {
             Assert.AreEqual(expected, Kata.AlphabetPosition(input));
-            // Assert.AreEqual("20 8 5 14 1 18 23 8 1 12 2 1 3 15 14 19 1 20 13 9 4 14 9 7 8 20", Kata.AlphabetPosition("The narwhal bacons at midnight."));
-        }
+          }
         [Test]
         // [TestCase(new int[] {1, 2, 1, 1, 3, 1, 0, 0, 0, 0},new int[] {1, 2, 0, 1, 0, 1, 0, 3, 0, 1})]
         public void MoveZeroes_MovexerostoTheEndArray_ResturnArray(
