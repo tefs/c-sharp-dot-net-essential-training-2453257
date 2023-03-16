@@ -781,20 +781,16 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string Replace(string s)
+        {
+            return string.Concat(s.Select(z => "aeiouAEIOU".Contains(z) ? '!' : z));
+            // return  Regex.Replace(s, @"[aeiou]", "!", RegexOptions.IgnoreCase);
+            // return Regex.Replace(s, "[aeiouAEIOU]", "!");
+        }
         public static string HowMuchILoveYou(int nb_petals)
         {
-            return new string[] 
+            return new string[]
             { "I love you", "a little", "a lot", "passionately", "madly", "not at all" }[(nb_petals - 1) % 6];
-            // string[] _aux = { "I love you", "a little", "a lot", "passionately", "madly", "not at all" };
-            // int _auxPetals = nb_petals - 1;
-            // if (_auxPetals > 5)
-            // {
-            //     while (_auxPetals > 5)
-            //     {
-            //         _auxPetals -= 6;
-            //     }
-            // }
-            // return _aux[_auxPetals];
         }
         public static string Correct(string text) => text.Replace('0', 'O').Replace('5', 'S').Replace('1', 'I');
         public static bool CheckForFactor(int num, int factor) => num % factor == 0;

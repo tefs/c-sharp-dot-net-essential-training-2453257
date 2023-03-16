@@ -770,16 +770,21 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
-        [TestCase("I love you",7)]
-        [TestCase("I love you",14)]
-        [TestCase("a lot",3)]
-        [TestCase("not at all",6)]
-        public void HowMuchILoveYouTests(string expected,int input)
+        [Test, Description("Basic Tests")]
+        public void ReplaceTest()
+        {
+            Assert.AreEqual("H!!", Kata.Replace("Hi!"));
+            Assert.AreEqual("!H!! H!!", Kata.Replace("!Hi! Hi!"));
+            Assert.AreEqual("!!!!!", Kata.Replace("aeiou"));
+            Assert.AreEqual("!BCD!", Kata.Replace("ABCDE"));
+        }
+        [TestCase("I love you", 7)]
+        [TestCase("I love you", 14)]
+        [TestCase("a lot", 3)]
+        [TestCase("not at all", 6)]
+        public void HowMuchILoveYouTests(string expected, int input)
         {
             Assert.AreEqual(expected, Kata.HowMuchILoveYou(input));
-            // Assert.AreEqual("I love you", Kata.HowMuchILoveYou(7));
-            // Assert.AreEqual("a lot", Kata.HowMuchILoveYou(3));
-            // Assert.AreEqual("not at all", Kata.HowMuchILoveYou(6));
         }
         [TestCase(new int[] { 0, 1, 2, 3, 4, 5 }, 3, 5, 0)]
         public static void CheckForFactorTest(int[] nums, int key, int min, int max)
@@ -833,7 +838,7 @@ MyConsoleAppTests
         public void NameShufflerTest(string expected, string input)
         {
             Assert.AreEqual(expected, Kata.NameShuffler(input));
-         }
+        }
         [Test]
         [TestCase(9, new int[] { 1, 2, 3, 4 }, 2)]
         [TestCase(1000000, new int[] { 1, 3, 10, 100 }, 3)]
@@ -878,7 +883,7 @@ MyConsoleAppTests
         public void RemoveEveryOtherTest()
         {
             Assert.AreEqual(new object[] { "Hello", "Hello Again" }, Kata.RemoveEveryOther(new object[] { "Hello", "Goodbye", "Hello Again" }));
-         }
+        }
         [Test]
         public void GimmeTests()
         {
@@ -895,7 +900,7 @@ MyConsoleAppTests
         public void RemoveTest(string expected, string input)
         {
             Assert.AreEqual(expected, Kata.Remove(input));
-         }
+        }
         [Test]
         public void SortByLengthTests()
         {
@@ -1172,7 +1177,7 @@ MyConsoleAppTests
         [TestCase(4, 999)]
         public void PersistenceTests(int expected, long input)
         {
-             Assert.AreEqual(expected, Kata.Persistence(input));
+            Assert.AreEqual(expected, Kata.Persistence(input));
         }
         [Test(Description = "Fixed Tests")]
         public void FixedTests()
@@ -1291,7 +1296,7 @@ MyConsoleAppTests
         public void AlphabetPosition_ReplaceCharacterByNumberPosition_ReturnString(string expected, string input)
         {
             Assert.AreEqual(expected, Kata.AlphabetPosition(input));
-          }
+        }
         [Test]
         // [TestCase(new int[] {1, 2, 1, 1, 3, 1, 0, 0, 0, 0},new int[] {1, 2, 0, 1, 0, 1, 0, 3, 0, 1})]
         public void MoveZeroes_MovexerostoTheEndArray_ResturnArray(
