@@ -751,6 +751,11 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string Solve(string s)
+        {
+            // return s.Count(char.IsLower) < s.Length / 2 ? s.ToUpper() : s.ToLower();
+            return s.Count(char.IsUpper) > s.Count(char.IsLower) ? s.ToUpper() : s.ToLower();
+        }
         public static int FindDifference(int[] a, int[] b)
         {
             return Math.Abs(a.Aggregate(1, (aggre, x) => aggre *= x) - b.Aggregate(1, (aggre, x) => aggre *= x));

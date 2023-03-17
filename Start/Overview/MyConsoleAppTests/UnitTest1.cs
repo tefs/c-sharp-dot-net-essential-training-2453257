@@ -805,6 +805,14 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [TestCase("code", "code")]
+        [TestCase("CODe", "CODE")]
+        [TestCase("COde", "code")]
+        [TestCase("Code", "code")]
+        public void SolveTests(string s, string expected)
+        {
+            Assert.That(Kata.Solve(s), Is.EqualTo(expected));
+        }
         [TestCase(-55, 55)]
         [TestCase(-10, 10)]
         [TestCase(-2, 2)]
