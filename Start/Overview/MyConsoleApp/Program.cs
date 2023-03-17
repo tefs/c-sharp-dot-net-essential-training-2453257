@@ -751,6 +751,19 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int FindDifference(int[] a, int[] b)
+        {
+            return Math.Abs(a.Aggregate(1, (aggre, x) => aggre *= x) - b.Aggregate(1, (aggre, x) => aggre *= x));
+            // aggregate sample
+            //             string sentence = "the quick brown fox jumps over the lazy dog";
+
+            // // Split the string into individual words.
+            // string[] words = sentence.Split(' ');
+
+            // // Prepend each word to the beginning of the
+            // // new sentence to reverse the word order.
+            // string reversed = words.Aggregate((workingSentence, next) =>next + " " + workingSentence);
+        }
         public static int NoBoringZeros(int n) => int.Parse(n.ToString().TrimEnd('0'));
         public static int Opposite(int number)
         {
