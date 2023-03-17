@@ -751,6 +751,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string PeopleWithAgeDrink(int old) => "drink " + (old < 14 ? "toddy" : old < 18 ? "coke" : old < 21 ? "beer" : "whisky");
         public static string Shortcut(string input)
         {
             // return Regex.Replace(input, "[aeiou]", "");

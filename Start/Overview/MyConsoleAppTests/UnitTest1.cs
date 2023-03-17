@@ -823,6 +823,11 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [TestCase(22, ExpectedResult = "drink whisky")]
+        [TestCase(20, ExpectedResult = "drink beer")]
+        [TestCase(16, ExpectedResult = "drink coke")]
+        [TestCase(13, ExpectedResult = "drink toddy")]
+        public static string PeopleWithAgeDrinkTest(int old) => Kata.PeopleWithAgeDrink(old);
         [TestCase("code", "code")]
         [TestCase("CODe", "CODE")]
         [TestCase("COde", "code")]
