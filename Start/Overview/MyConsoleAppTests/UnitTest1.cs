@@ -770,6 +770,18 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        [TestCase(55, 0,10)]
+        [TestCase(55, 1,10)]
+        [TestCase(54, 2,10)]
+        [TestCase(1, 0,1)]
+        [TestCase(-1, 0,-1)]
+        public void GetSumTest(int expected, int input1,int input2)
+        {
+            // Assert.AreEqual(45, Kata.GetSum(0, 10));
+            Assert.AreEqual(expected, Kata.GetSum(input1, input2));
+            // Assert.AreEqual(-1, Kata.GetSum(0, -1));
+        }
         [Test, Description("Basic Tests")]
         public void ReplaceTest()
         {

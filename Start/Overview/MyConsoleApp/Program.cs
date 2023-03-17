@@ -1,19 +1,11 @@
-﻿// using System;
-using System.Net;
+﻿using System.Net;
 using System.Text.RegularExpressions;
-// using System.Globalization;
 using System.Net.Sockets;
-using System.Linq;
-using System.Text;
 using System.Numerics;
 // This program shows how to use the IPAddress class to obtain a server
 // IP addressess and related information.
-// using System;
-// using System.Net;
-
 namespace TechnicaExam_MultiVision
 {
-
     class Calculator
     {
         /// Sums an array of​​​​​​‌​​‌​​‌‌‌​​‌‌​‌​​​​‌‌‌​‌​ numbers.
@@ -21,12 +13,10 @@ namespace TechnicaExam_MultiVision
         public static string Sum(params string[] numbers)
         {
             // double total = 0;
-
             // foreach (string number in numbers)
             // {
             //     total = total + double.Parse(number);
             // }
-
             // return total.ToString();
             var _aux = numbers.Sum(z => double.Parse(z));
             return Math.Round((double)_aux, 2, MidpointRounding.ToEven).ToString();
@@ -53,7 +43,6 @@ namespace TechnicaExam_MultiVision
             }
         }
     }
-
     /// Definition of a service
     public interface Service
     {
@@ -82,19 +71,15 @@ namespace TechnicaExam_MultiVision
             //     return BinarySearchOnArray(array, _middle + 1, maxPostitionArray, middleElement);
             // }
             // return -1;
-
             // if (ints.Length == 0) return false;
             try
             {
-
             }
             catch
             {
-
             }
             finally
             {
-
             }
             if (max >= min)
             {
@@ -196,7 +181,6 @@ namespace Mssc.Services.ConnectionManagement
         {
             long _returnTotalCount = -1;
             string server;
-
             IPAddress _IPStart;
             IPAddress _IPEnd;
             // Define a regular expression to parse user's input.
@@ -547,10 +531,7 @@ namespace MyConsoleApp
         /// </summary>
         public int PageCount
         {
-            get
-            {
-                return 0;
-            }
+            get => 0;
         }
         /// <summary>
         /// Constructor, takes in a list of items and the number of items that fit within a single page
@@ -566,20 +547,14 @@ namespace MyConsoleApp
         /// </summary>
         /// <param name="pageIndex">The zero-based page index to get the number of items for</param>
         /// <returns>The number of items on the specified page or -1 for pageIndex values that are out of range</returns>
-        public int PageItemCount(int pageIndex)
-        {
-            return this.PageIndex(pageIndex);
-        }
+        public int PageItemCount(int pageIndex) => this.PageIndex(pageIndex);
 
         /// <summary>
         /// Returns the page index of the page containing the item at the given item index.
         /// </summary>
         /// <param name="itemIndex">The zero-based index of the item to get the pageIndex for</param>
         /// <returns>The zero-based page index of the page containing the item at the given item index or -1 if the item index is out of range</returns>
-        public int PageIndex(int itemIndex)
-        {
-            return 0;
-        }
+        public int PageIndex(int itemIndex) => 0;
     }
     public class JosephusSurvivor
     {/*
@@ -629,10 +604,7 @@ one every 3 is eliminated until one remains
     public class Scramblies
     {
         ///description: Best practise | clever
-        public static bool Scramble(string str1, string str2)
-        {
-            return str2.All(x => str1.Count(y => y == x) >= str2.Count(y => y == x));
-        }
+        public static bool Scramble(string str1, string str2) => str2.All(x => str1.Count(y => y == x) >= str2.Count(y => y == x));
         ///Complete the function scramble(str1, str2) that returns true if a portion of str1 characters can be rearranged to match str2, otherwise returns false.
         // public static bool Scramble(string str1, string str2)
         // {
@@ -654,9 +626,7 @@ one every 3 is eliminated until one remains
         //     }
         //     return _return;
         // }
-
     }
-
     public class Answer
     {
         /// multisition technical Exame
@@ -781,6 +751,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int GetSum(int a, int b) => Enumerable.Range(Math.Min(a, b), Math.Max(b, a) - Math.Min(a, b) + 1).Sum();
         public static string Replace(string s)
         {
             return string.Concat(s.Select(z => "aeiouAEIOU".Contains(z) ? '!' : z));
@@ -814,10 +785,7 @@ one every 3 is eliminated until one remains
             // )
             // );
         }
-        public static string TwoSort(string[] s)
-        {
-            return string.Join("***", s.OrderBy(z => z, StringComparer.Ordinal).First().ToArray());
-        }
+        public static string TwoSort(string[] s) => string.Join("***", s.OrderBy(z => z, StringComparer.Ordinal).First().ToArray());
         public static int FactorialV2(int n)
         {
             if (n < 0 && n > 12) throw new ArgumentOutOfRangeException();
@@ -827,14 +795,8 @@ one every 3 is eliminated until one remains
             return Enumerable.Range(1, n).Aggregate(1, (x, y) => x * y);
             // return _aux;
         }
-        public static string OddOrEven(int[] array)
-        {
-            return array.Sum() % 2 == 0 ? "even" : "odd";
-        }
-        public static string NameShuffler(string str)
-        {
-            return string.Join(" ", str.Split(' ').Reverse());
-        }
+        public static string OddOrEven(int[] array) => array.Sum() % 2 == 0 ? "even" : "odd";
+        public static string NameShuffler(string str) => string.Join(" ", str.Split(' ').Reverse());
         public static double Index(int[] array, int n)
         {
             if (n > array.Length - 1) return -1;
@@ -869,10 +831,7 @@ one every 3 is eliminated until one remains
         }
         public static int Gimme(double[] inputArray) => inputArray.ToList().IndexOf(inputArray.OrderBy(z => z).ElementAt(1));
         public static string Remove(string s) => s.EndsWith('!') ? new string(s.Take(s.Length - 1).ToArray()) : s;
-        public static string[] SortByLength(string[] array)
-        {
-            return array.OrderBy(z => z.Length).ToArray();
-        }
+        public static string[] SortByLength(string[] array) => array.OrderBy(z => z.Length).ToArray();
         public static IEnumerable<string> FriendOrFoe(string[] names) => names.Where(z => z.Length == 4);
         public static int[] humanYearsCatYearsDogYears(int humanYears)
         {
@@ -881,10 +840,7 @@ one every 3 is eliminated until one remains
             return new int[] { humanYears, catYear, dogYear };
         }
         public static int[] Capitals(string word) => word.Where(char.IsUpper).Select(z => word.IndexOf(z)).ToArray();
-        public static int[] InvertValues(int[] input)
-        {
-            return input.Select(z => z < 0 ? Math.Abs(z) : z * -1).ToArray();
-        }
+        public static int[] InvertValues(int[] input) => input.Select(z => z < 0 ? Math.Abs(z) : z * -1).ToArray();
         public static int[] TechnicalExam_GameCompany_CountPositivesSumNegatives(int[] input)
         {
             if (input == null) return new int[] { };
@@ -956,10 +912,7 @@ one every 3 is eliminated until one remains
             else
                 return "Player 2 won!";
         }
-        public static int Move(int position, int roll)
-        {
-            return (roll * 2) + position;
-        }
+        public static int Move(int position, int roll) => (roll * 2) + position;
         public static int StrCount(string str, string letter) => str.Count(z => char.Parse(letter) == z);
         public static int SumMix(object[] x) => x.Sum(z => Convert.ToInt32(z));
         public static bool Check(object[] a, object x) => a.Any(z => z.Equals(x));
@@ -1011,14 +964,8 @@ one every 3 is eliminated until one remains
             return s.Split(' ').Min(x => x.Length);
             // return s.Split(' ').Select(z=>z.Length).Min();
         }
-        public static double basicOp(char operation, double value1, double value2)
-        {
-            return operation.Equals('+') ? value1 + value2 : operation.Equals('-') ? value1 - value2 : operation.Equals('*') ? value1 * value2 : value1 / value2;
-        }
-        public static string ToAlternatingCase(this string s)
-        {
-            return string.Join("", s.Select(z => char.IsUpper(z) ? char.ToLower(z) : char.ToUpper(z)));
-        }
+        public static double basicOp(char operation, double value1, double value2) => operation.Equals('+') ? value1 + value2 : operation.Equals('-') ? value1 - value2 : operation.Equals('*') ? value1 * value2 : value1 / value2;
+        public static string ToAlternatingCase(this string s) => string.Join("", s.Select(z => char.IsUpper(z) ? char.ToLower(z) : char.ToUpper(z)));
         public static IEnumerable<string> OpenOrSenior(int[][] data)
         {
             return data.Select(z => z[0] > 54 && z[1] > 7 ? "Senior" : "Open");
