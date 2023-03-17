@@ -751,6 +751,10 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int SaleHotDogs(int n)
+        {
+            return n * (n < 5 ? 100 : n >= 5 && n < 10 ? 95 : 90);
+        }
         public static string PeopleWithAgeDrink(int old) => "drink " + (old < 14 ? "toddy" : old < 18 ? "coke" : old < 21 ? "beer" : "whisky");
         public static string Shortcut(string input)
         {

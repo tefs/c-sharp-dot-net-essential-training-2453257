@@ -823,6 +823,16 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void SaleHotDogsTest()
+        {
+            Assert.AreEqual(100, Kata.SaleHotDogs(1));
+            Assert.AreEqual(400, Kata.SaleHotDogs(4));
+            Assert.AreEqual(475, Kata.SaleHotDogs(5));
+            Assert.AreEqual(855, Kata.SaleHotDogs(9));
+            Assert.AreEqual(900, Kata.SaleHotDogs(10));
+            Assert.AreEqual(9000, Kata.SaleHotDogs(100));
+        }
         [TestCase(22, ExpectedResult = "drink whisky")]
         [TestCase(20, ExpectedResult = "drink beer")]
         [TestCase(16, ExpectedResult = "drink coke")]
