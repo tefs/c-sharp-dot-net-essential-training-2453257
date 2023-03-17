@@ -751,6 +751,11 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int Opposite(int number)
+        {
+            return -number;
+            // return n * -1;
+        }
         public static int GetSum(int a, int b) => Enumerable.Range(Math.Min(a, b), Math.Max(b, a) - Math.Min(a, b) + 1).Sum();
         public static string Replace(string s)
         {
@@ -791,9 +796,7 @@ one every 3 is eliminated until one remains
             if (n < 0 && n > 12) throw new ArgumentOutOfRangeException();
             if (n == 0) return 1;
             int _aux = 1;
-            // for(int i=1;i<=n;i++) _aux*=i;
             return Enumerable.Range(1, n).Aggregate(1, (x, y) => x * y);
-            // return _aux;
         }
         public static string OddOrEven(int[] array) => array.Sum() % 2 == 0 ? "even" : "odd";
         public static string NameShuffler(string str) => string.Join(" ", str.Split(' ').Reverse());
@@ -848,7 +851,7 @@ one every 3 is eliminated until one remains
             var _auxNegatives = input.Where(z => z < 0);
             return new int[] { input.Count(z => z > 0), _auxNegatives.Sum() };
         }
-        public static int[] TechnicalExam_GameCompany_Between(int a, int b) => Enumerable.Range(a, b - a).ToArray();
+        public static int[] TechnicalExam_GameCompany_Between(int a, int b) => Enumerable.Range(a, b - a + 1).ToArray();
         public static string SumStrings(string a, string b)
         {
             double.TryParse(a, out double _auxA);
