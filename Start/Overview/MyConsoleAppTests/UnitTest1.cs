@@ -803,6 +803,24 @@ MyConsoleAppTests
         public int Test(int[] a, int[] b) => Kata.FindDifference(a, b);
     }
     [TestFixture]
+    public class ShortcutTest
+    {
+        [Test]
+        public void Test1()
+        {
+            ShortcutTest.Assert("hello", "hll");
+            ShortcutTest.Assert("how are you today?", "hw r y tdy?");
+            ShortcutTest.Assert("complain", "cmpln");
+            ShortcutTest.Assert("never", "nvr");
+        }
+
+        private static void Assert(string input, string expected)
+        {
+            var result = Kata.Shortcut(input);
+            NUnit.Framework.Assert.AreEqual(expected, result, String.Format("Expected \"{0}\" but got \"{1}\"", expected, result));
+        }
+    }
+    [TestFixture]
     public class KataTests
     {
         [TestCase("code", "code")]

@@ -751,6 +751,12 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string Shortcut(string input)
+        {
+            // return Regex.Replace(input, "[aeiou]", "");
+            return string.Concat(input.Where(z => !"aeiou".Contains(z)));
+            // return string.Concat(input.Select(z => "aeiouAEIOU".Contains(z) ? '!' : z)).Replace("!", "".ToString(), StringComparison.Ordinal);
+        }
         public static string Solve(string s)
         {
             // return s.Count(char.IsLower) < s.Length / 2 ? s.ToUpper() : s.ToLower();
