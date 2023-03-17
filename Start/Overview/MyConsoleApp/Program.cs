@@ -751,6 +751,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int NoBoringZeros(int n) => int.Parse(n.ToString().TrimEnd('0'));
         public static int Opposite(int number)
         {
             return -number;

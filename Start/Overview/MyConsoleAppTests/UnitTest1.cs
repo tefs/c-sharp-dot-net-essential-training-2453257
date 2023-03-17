@@ -767,6 +767,24 @@ MyConsoleAppTests
             Assert.AreEqual(6, Kata.FactorialV2(3));
         }
     }
+
+    [TestFixture]
+    public static class NoBoringTests
+    {
+        private static void testing(int actual, int expected)
+        {
+            Assert.AreEqual(expected, actual);
+        }
+        [Test]
+        public static void test1()
+        {
+            Console.WriteLine("Basic Tests NoBoringZeros");
+            testing(Kata.NoBoringZeros(1450), 145);
+            testing(Kata.NoBoringZeros(960000), 96);
+            testing(Kata.NoBoringZeros(1050), 105);
+            testing(Kata.NoBoringZeros(-1050), -105);
+        }
+    }
     [TestFixture]
     public class KataTests
     {
