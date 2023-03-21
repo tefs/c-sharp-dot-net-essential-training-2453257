@@ -839,6 +839,12 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void AddLengthTest()
+        {
+            Assert.AreEqual(new string[] { "apple 5", "ban 3" }, Kata.AddLength("apple ban"));
+            Assert.AreEqual(new string[] { "you 3", "will 4", "win 3" }, Kata.AddLength("you will win"));
+        }
+        [Test]
         public void SaleHotDogsTest()
         {
             Assert.AreEqual(100, Kata.SaleHotDogs(1));

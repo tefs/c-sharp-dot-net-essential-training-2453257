@@ -752,6 +752,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string[] AddLength(string str)=> str.Split(' ').Select(z => z + " " + z.Length).ToArray();
         public static bool CheckCoupon(string enteredCode, string correctCode, string currentDate, string expirationDate)
         {
             return enteredCode.Equals(correctCode)
