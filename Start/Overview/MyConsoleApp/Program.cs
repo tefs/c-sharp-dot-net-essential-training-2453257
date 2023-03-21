@@ -752,7 +752,51 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
-        public static string[] AddLength(string str)=> str.Split(' ').Select(z => z + " " + z.Length).ToArray();
+        private static readonly Dictionary<string, string> lang = new Dictionary<string, string>
+    {
+        {"english", "Welcome"},
+        {"czech", "Vitejte"},
+        {"danish", "Velkomst"},
+        {"dutch", "Welkom"},
+        {"estonian", "Tere tulemast"},
+        {"finnish", "Tervetuloa"},
+        {"flemish", "Welgekomen"},
+        {"french", "Bienvenue"},
+        {"german", "Willkommen"},
+        {"irish", "Failte"},
+        {"italian", "Benvenuto"},
+        {"latvian", "Gaidits"},
+        {"lithuanian", "Laukiamas"},
+        {"polish", "Witamy"},
+        {"spanish", "Bienvenido"},
+        {"swedish", "Valkommen"},
+        {"welsh", "Croeso"}
+    };
+        public static string Greet(string language)
+        {
+            return (lang.ContainsKey(language)) ? lang[language] : "Welcome";
+            // Dictionary<string, string> _auxDictionary = new Dictionary<string, string>();
+            // _auxDictionary.Add("english", "Welcome");
+            // _auxDictionary.Add("czech", "Vitejte");
+            // _auxDictionary.Add("danish", "Velkomst");
+            // _auxDictionary.Add("dutch", "Welkom");
+            // _auxDictionary.Add("estonian", "Tere tulemast");
+            // _auxDictionary.Add("finnish", "Tervetuloa");
+            // _auxDictionary.Add("flemish", "Welgekomen");
+            // _auxDictionary.Add("french", "Bienvenue");
+            // _auxDictionary.Add("german", "Willkommen");
+            // _auxDictionary.Add("irish", "Failte");
+            // _auxDictionary.Add("italian", "Benvenuto");
+            // _auxDictionary.Add("latvian", "Gaidits");
+            // _auxDictionary.Add("lithuanian", "Laukiamas");
+            // _auxDictionary.Add("polish", "Witamy");
+            // _auxDictionary.Add("spanish", "Bienvenido");
+            // _auxDictionary.Add("swedish", "Valkommen");
+            // _auxDictionary.Add("welsh", "Croeso");
+            // return _auxDictionary.ContainsKey(language) ? _auxDictionary.Where(z => z.Key.Equals(language)).SingleOrDefault().Value
+            // : _auxDictionary.Where(z => z.Key.Equals("english")).SingleOrDefault().Value;
+        }
+        public static string[] AddLength(string str) => str.Split(' ').Select(z => z + " " + z.Length).ToArray();
         public static bool CheckCoupon(string enteredCode, string correctCode, string currentDate, string expirationDate)
         {
             return enteredCode.Equals(correctCode)

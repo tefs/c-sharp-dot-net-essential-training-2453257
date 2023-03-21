@@ -839,6 +839,15 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void GreetTest()
+        {
+            Assert.AreEqual("Welcome", Kata.Greet("english"));
+            Assert.AreEqual("Welkom", Kata.Greet("dutch"));
+            Assert.AreEqual("Welcome", Kata.Greet("IP_ADDRESS_INVALID"));
+            Assert.AreEqual("Welcome", Kata.Greet(""));
+            Assert.AreEqual("Welcome", Kata.Greet("2"));
+        }
+        [Test]
         public void AddLengthTest()
         {
             Assert.AreEqual(new string[] { "apple 5", "ban 3" }, Kata.AddLength("apple ban"));
