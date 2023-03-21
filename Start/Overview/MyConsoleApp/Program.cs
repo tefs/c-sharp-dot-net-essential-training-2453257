@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Net.Sockets;
 using System.Numerics;
+using System.Globalization;
 // This program shows how to use the IPAddress class to obtain a server
 // IP addressess and related information.
 namespace TechnicaExam_MultiVision
@@ -751,6 +752,16 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static bool CheckCoupon(string enteredCode, string correctCode, string currentDate, string expirationDate)
+        {
+            return enteredCode.Equals(correctCode)
+            && DateTime.Parse(currentDate) <= DateTime.Parse(expirationDate);
+            // if (!enteredCode.Equals(correctCode)) return false;
+            // var _auxCurrentDatetime = DateTime.Parse(currentDate, provider: null, DateTimeStyles.None);
+            // var _auxExpirationDatetime = DateTime.Parse(expirationDate, provider: null, DateTimeStyles.None);
+            // if (_auxCurrentDatetime > _auxExpirationDatetime) return false;
+            // return true;
+        }
         public static int SaleHotDogs(int n)
         {
             return n * (n < 5 ? 100 : n >= 5 && n < 10 ? 95 : 90);
