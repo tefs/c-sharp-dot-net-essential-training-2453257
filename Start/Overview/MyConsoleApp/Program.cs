@@ -752,6 +752,13 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string[] Capitalize(string s)
+        {
+            return Enumerable.Range(0, 2).Select(n => string.Concat(s.Select((x, i) => i % 2 == n ? char.ToUpper(x) : x))).ToArray();
+            //   var _aux1 = string.Concat(s.Select((_char, _index) => _index % 2 == 0 ? char.ToUpperInvariant(_char) : _char));
+            //             var _aux2 = string.Concat(s.Select((_char, _index) => _index % 2 != 0 ? char.ToUpperInvariant(_char) : _char));
+            //             return new string[] { _aux1, _aux2 };
+        }
         private static readonly Dictionary<string, string> lang = new Dictionary<string, string>
     {
         {"english", "Welcome"},
