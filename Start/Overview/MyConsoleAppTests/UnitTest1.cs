@@ -835,6 +835,38 @@ MyConsoleAppTests
             Assert.AreEqual(false, Kata.CheckCoupon("123a", "123", "September 5, 2014", "October 1, 2014"));
         }
     }
+  [TestFixture]
+  public class XorTests
+  {
+    [Test]
+    public void BasicTests()
+    {
+        testing(Kata.Xor(false, false), false);
+        testing(Kata.Xor(true, false), true);
+        testing(Kata.Xor(false, true), true);
+        testing(Kata.Xor(true, true), false);
+    }
+    
+    [Test]
+    public void NestedTests()
+    {
+        testing(Kata.Xor(false, Kata.Xor(false, false)), false);
+        testing(Kata.Xor(Kata.Xor(true, false), false), true);
+        testing(Kata.Xor(Kata.Xor(true, true), false), false);
+        testing(Kata.Xor(true, Kata.Xor(true, true)), true);
+        testing(Kata.Xor(Kata.Xor(false, false), Kata.Xor(false, false)), false);
+        testing(Kata.Xor(Kata.Xor(false, false), Kata.Xor(false, true)), true);
+        testing(Kata.Xor(Kata.Xor(true, false), Kata.Xor(false, false)), true);
+        testing(Kata.Xor(Kata.Xor(true, false), Kata.Xor(true, false)), false);
+        testing(Kata.Xor(Kata.Xor(true, true), Kata.Xor(true, false)), true);
+        testing(Kata.Xor(Kata.Xor(true, Kata.Xor(true, true)), Kata.Xor(Kata.Xor(true, true), false)), true);
+    }
+    
+    private static void testing(bool actual, bool expected) 
+    {
+        Assert.AreEqual(expected, actual);
+    }
+  }
     [TestFixture]
     public class KataTests
     {
