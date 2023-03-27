@@ -1572,10 +1572,10 @@ MyConsoleAppTests
         public void StripComments()
         {
             Assert.AreEqual(
-                    "apples, pears\ngrapes\nbananas",
-                    StripCommentsSolution.StripComments("apples, pears # and bananas\ngrapes\nbananas !apples", new string[] { "#", "!" }));
+                    "apples, pears",
+                    StripCommentsSolution.StripComments("apples, pears # and bananas\ngrapes\nbananas !apples", new char[] { '#', '!' }));
 
-            Assert.AreEqual("a\nc\nd", StripCommentsSolution.StripComments("a #b\nc\nd $e f g", new string[] { "#", "$" }));
+            Assert.AreEqual("a", StripCommentsSolution.StripComments("a #b\nc\nd $e f g", new char[] { '#', '$' }));
 
         }
     }

@@ -460,47 +460,50 @@ namespace MyConsoleApp
     public class StripCommentsSolution
     {
         ///Complete the solution so that it strips all text that follows any of a set of comment markers passed in. Any whitespace at the end of the line should also be stripped out.
-        public static string StripComments(string text, string[] commentSymbols)
-        {//todo 1- get substring from 0 to NewLine |2 - apply regex into previous substring| 3-apply to return value
-            string _return = string.Empty;
-            string[] _auxText = text.Split(Environment.NewLine, int.MaxValue, StringSplitOptions.RemoveEmptyEntries);
-            int _count = 0;
-            Dictionary<string, List<string>> _auxDic = new Dictionary<string, List<string>>();
-            string _auxString = string.Empty;
-            for (int j = 0; j < _auxText.Length; j++)
-            {
-                for (int i = 0; i < commentSymbols.Length; i++)
-                {
-                    List<string> _auxList = new List<string>();
-                    if (!_auxDic.TryGetValue(_auxText[j], out _auxList))
-                    {
-                        if (_auxList.Count() == 0) _auxList = new List<string>();
-                        if (_auxList.Contains(commentSymbols[i]))
-                        {
-                            _auxList.Add(commentSymbols[i]);
-                            _auxDic.Add(_auxText[j], _auxList);
-                            string regex = string.Format(@"^(?:(?!\s{0})(?!\sdef).)*", commentSymbols[i]);
-                            var _match = Regex.Match(_auxText[j], regex);
-                            // if (_match.Success)
-                            // {
-                            string _auxValue = _match.Value;
-                            _return += _auxValue;
-                            if (_count < _auxText.Length - 1)
-                            {
-                                _return += Environment.NewLine;
-                                _count++;
-                            }
-                            // }
-                            // else
-                            // _return+=_auxText[j];
-                        }
-                    }
-                    // else{
-                    //     _return+=_auxText[j];
-                    // }
-                }
-            }
-            return _return;
+        public static string StripComments(string text, char[] commentSymbols)
+        {
+            //todo 1- get substring from 0 to NewLine |2 - apply regex into previous substring| 3-apply to return value
+            var _auxIndexOf = text.IndexOfAny(commentSymbols);
+            return text.Substring(0, text.IndexOfAny(commentSymbols)).Trim();
+            // string _return = string.Empty;
+            // string[] _auxText = text.Split(Environment.NewLine, int.MaxValue, StringSplitOptions.RemoveEmptyEntries);
+            // int _count = 0;
+            // Dictionary<string, List<string>> _auxDic = new Dictionary<string, List<string>>();
+            // string _auxString = string.Empty;
+            // for (int j = 0; j < _auxText.Length; j++)
+            // {
+            //     for (int i = 0; i < commentSymbols.Length; i++)
+            //     {
+            //         List<string> _auxList = new List<string>();
+            //         if (!_auxDic.TryGetValue(_auxText[j], out _auxList))
+            //         {
+            //             if (_auxList.Count() == 0) _auxList = new List<string>();
+            //             if (_auxList.Contains(commentSymbols[i]))
+            //             {
+            //                 _auxList.Add(commentSymbols[i]);
+            //                 _auxDic.Add(_auxText[j], _auxList);
+            //                 string regex = string.Format(@"^(?:(?!\s{0})(?!\sdef).)*", commentSymbols[i]);
+            //                 var _match = Regex.Match(_auxText[j], regex);
+            //                 // if (_match.Success)
+            //                 // {
+            //                 string _auxValue = _match.Value;
+            //                 _return += _auxValue;
+            //                 if (_count < _auxText.Length - 1)
+            //                 {
+            //                     _return += Environment.NewLine;
+            //                     _count++;
+            //                 }
+            //                 // }
+            //                 // else
+            //                 // _return+=_auxText[j];
+            //             }
+            //         }
+            //         // else{
+            //         //     _return+=_auxText[j];
+            //         // }
+            //     }
+            // }
+            // return _return;
         }
     }
 
