@@ -869,7 +869,15 @@ MyConsoleAppTests
     }
     [TestFixture]
     public class KataTests
-    {
+    {  [Test]
+        public static void RemoveExclamationMarksTest()
+        {
+            Assert.AreEqual("", Kata.RemoveExclamationMarks(""), "Input: Empty string");
+            Assert.AreEqual("", Kata.RemoveExclamationMarks("!"), "Input: " + "!");
+            Assert.AreEqual("", Kata.RemoveExclamationMarks("!!"), "Input: " + "!!");
+            Assert.AreEqual("Hi", Kata.RemoveExclamationMarks("Hi!"), "Input: " + "Hi!");
+            Assert.AreEqual("?", Kata.RemoveExclamationMarks("!?!"), "Input: " + "!?!");
+        }
         [Test]
         [TestCase("c", ExpectedResult = false)]
         [TestCase("C", ExpectedResult = true)]

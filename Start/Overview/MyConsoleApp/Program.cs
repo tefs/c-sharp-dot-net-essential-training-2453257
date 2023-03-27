@@ -752,6 +752,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string RemoveExclamationMarks(string s) => s.Replace("!", "");
         public static bool IsUpperCase(this string text) => !text.Any(char.IsLower);
         public static IEnumerable<string> GooseFilter(IEnumerable<string> birds)
         {
