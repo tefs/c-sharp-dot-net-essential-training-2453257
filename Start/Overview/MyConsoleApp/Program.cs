@@ -752,6 +752,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static bool IsUpperCase(this string text) => !text.Any(char.IsLower);
         public static IEnumerable<string> GooseFilter(IEnumerable<string> birds)
         {
             // return IEnumerable of string containing all of the strings in the input collection, except those that match strings in geese
