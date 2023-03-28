@@ -871,6 +871,12 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void SeriesSumTest1()
+        {
+            Assert.AreEqual("0.00", Kata.SeriesSum(0));
+            Assert.AreEqual("1.77", Kata.SeriesSum(9));
+        }
+        [Test]
         [TestCase(5, new[] { 20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5 })]
         [TestCase(7, new[] { 7 })]
         [TestCase(0, new[] { 0 })]
