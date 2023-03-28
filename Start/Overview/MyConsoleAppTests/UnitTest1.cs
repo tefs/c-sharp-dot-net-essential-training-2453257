@@ -869,7 +869,16 @@ MyConsoleAppTests
     }
     [TestFixture]
     public class KataTests
-    {  [Test]
+    {
+        [Test]
+        [TestCase(5, new[] { 20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5 })]
+        [TestCase(7, new[] { 7 })]
+        [TestCase(0, new[] { 0 })]
+        [TestCase(2, new[] { 1, 1, 2 })]
+        [TestCase(0, new[] { 0, 1, 0, 1, 0 })]
+        [TestCase(4, new[] { 1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 2, 2, 1 })]
+        public void Tests(int expected, int[] input) => Assert.AreEqual(expected, Kata.find_it(input));
+        [Test]
         public static void RemoveExclamationMarksTest()
         {
             Assert.AreEqual("", Kata.RemoveExclamationMarks(""), "Input: Empty string");
@@ -886,7 +895,7 @@ MyConsoleAppTests
         [TestCase("ACSKLDFJSgSKLDFJSKLDFJ", ExpectedResult = false)]
         [TestCase("ACSKLDFJSGSKLDFJSKLDFJ", ExpectedResult = true)]
         public static bool IsUpperCaseTest(string text) => text.IsUpperCase();
-      
+
         [Test]
         public void GooseFilterTest()
         {

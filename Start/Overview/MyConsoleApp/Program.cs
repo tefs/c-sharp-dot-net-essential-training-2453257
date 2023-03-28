@@ -755,6 +755,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int find_it(int[] seq)=>seq.First(z => seq.Count(x => x == z) % 2 == 1);
         public static string RemoveExclamationMarks(string s) => s.Replace("!", "");
         public static bool IsUpperCase(this string text) => !text.Any(char.IsLower);
         public static IEnumerable<string> GooseFilter(IEnumerable<string> birds)
