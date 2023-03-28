@@ -22,3 +22,9 @@ select top(10) p.customer_id ,p.email,count(pa.payments_count) as payments_count
 from customer p
 inner join payment pa on pa.customer_id=p.customer
 order by total_amount desc
+
+select  sum(p.age) as age_sum
+from people p
+
+select sqrt(d.number1) as "root",log10(d.number2) as log
+from decimals d
