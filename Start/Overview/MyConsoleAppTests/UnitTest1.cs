@@ -871,6 +871,14 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void СenturyFromYearTest()
+        {
+            Assert.AreEqual(18, Kata.СenturyFromYear(1705));
+            Assert.AreEqual(19, Kata.СenturyFromYear(1900));
+            Assert.AreEqual(17, Kata.СenturyFromYear(1601));
+            Assert.AreEqual(20, Kata.СenturyFromYear(2000));
+        }
+        [Test]
         public void SeriesSumTest1()
         {
             Assert.AreEqual("0.00", Kata.SeriesSum(0));

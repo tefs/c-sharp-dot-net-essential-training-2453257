@@ -755,6 +755,18 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int СenturyFromYear(int year)
+        {
+            var _auxLast = new string(year.ToString().Skip(2).ToArray());
+            var _auxBegin = int.Parse(year.ToString().Substring(0, 2));
+            var _aux = int.Parse(year.ToString().Take(2).ToArray());
+            if (!_auxLast.Equals("00"))
+            {
+                _auxBegin++;
+                return _auxBegin;
+            }
+            return _auxBegin;
+        }
         public static string SeriesSum(int n) => Enumerable.Range(0, n).Sum(x => 1.0 / (x * 3 + 1)).ToString("F");
         public static int find_it(int[] seq) => seq.First(z => seq.Count(x => x == z) % 2 == 1);
         public static string RemoveExclamationMarks(string s) => s.Replace("!", "");
