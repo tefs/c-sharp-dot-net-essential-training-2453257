@@ -871,6 +871,14 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        [TestCase("World Hello", "Hello World")]
+        [TestCase("There. Hi", "Hi There.")]
+        [TestCase("this at expert an am I", "I am an expert at this")]
+        public void ReverseTests(string expected, string input)
+        {
+            Assert.AreEqual(expected, Kata.Reverse(input));
+        }
+        [Test]
         public void СenturyFromYearTest()
         {
             Assert.AreEqual(18, Kata.СenturyFromYear(1705));

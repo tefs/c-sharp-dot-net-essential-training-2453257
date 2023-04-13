@@ -755,6 +755,10 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string Reverse(string text)
+        {
+            return string.Join(" ",text.Split(' ').Reverse());
+        }
         public static int СenturyFromYear(int year)
         {
             var _auxLast = new string(year.ToString().Skip(2).ToArray());
