@@ -871,6 +871,14 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        [TestCase(new int[] { 2, 3 }, 5, ExpectedResult = true)]
+        [TestCase(new int[] { 100, 40, 34, 57, 29, 72, 57, 88 }, 75, ExpectedResult = true)]
+        [TestCase(new int[] { 12, 23, 34, 45, 56, 67, 78, 89, 90 }, 69, ExpectedResult = true)]
+        public static bool BetterThanAverageTest(int[] arr, int num)
+        {
+            return Kata.BetterThanAverage(arr, num);
+        }
+        [Test]
         [TestCase("World Hello", "Hello World")]
         [TestCase("There. Hi", "Hi There.")]
         [TestCase("this at expert an am I", "I am an expert at this")]

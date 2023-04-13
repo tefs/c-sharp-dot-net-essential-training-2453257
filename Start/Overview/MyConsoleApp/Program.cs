@@ -755,9 +755,13 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static bool BetterThanAverage(int[] ClassPoints, int YourPoints)
+        {
+            return YourPoints> ClassPoints.Average();
+        }
         public static string Reverse(string text)
         {
-            return string.Join(" ",text.Split(' ').Reverse());
+            return string.Join(" ", text.Split(' ').Reverse());
         }
         public static int СenturyFromYear(int year)
         {
