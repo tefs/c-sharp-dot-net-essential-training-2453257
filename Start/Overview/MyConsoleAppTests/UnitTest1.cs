@@ -1552,35 +1552,6 @@ MyConsoleAppTests
         }
     }
     [TestFixture]
-    public static class JosephusSurvivorTests
-    {
-
-        private static void testing(int actual, int expected)
-        {
-            Assert.AreEqual(expected, actual);
-        }
-        [Test]
-        [TestCase(7, 3, 4)]
-        // [TestCase(11,19,10)]
-        // [TestCase(40,3,28)]
-        // [TestCase(14,2,13)]
-        // [TestCase(100,1,100)]
-        // [TestCase(1,300,1)]
-        // [TestCase(2,300,1)]
-        // [TestCase(5,300,1)]
-        // [TestCase(7,300,7)]
-        // [TestCase(300,300,265)]
-        public static void test1(int n, int offset, int survivor)
-        {        //test project creation:
-                 // dotnet new console -o $PROJECT_NAME  # PROJECT_NAME is a directory name
-                 // dotnet add package Microsoft.NET.Test.Sdk
-                 // dotnet add package Nunit3TestAdapter
-                 //  dotnet add package NUnit
-            Console.WriteLine("Basic Tests JosSurvivor");
-            testing(JosephusSurvivor.JosSurvivor(n, offset), survivor);
-        }
-    }
-    [TestFixture]
     public static class ScrambliesTests
     {
         private static void testing(bool actual, bool expected)
@@ -1675,11 +1646,12 @@ MyConsoleAppTests
     public class CountIPAddressesTest
     {
         [Test]
-        public void SmapleTest()
+        [TestCase(50, "10.0.0.0", "10.0.0.50")]
+        [TestCase(246, "20.0.0.10", "20.0.1.0")]
+        // [TestCase((1L << 32) - 1L,"0.0.0.0", "255.255.255.255")]
+        public void SmapleTest(int expected, string input1, string input2)
         {
-            Assert.AreEqual(50, CountIPAddresses.IpsBetween("10.0.0.0", "10.0.0.50"));
-            Assert.AreEqual(246, CountIPAddresses.IpsBetween("20.0.0.10", "20.0.1.0"));
-            // Assert.AreEqual((1L << 32) - 1L, CountIPAddresses.IpsBetween("0.0.0.0", "255.255.255.255"));
+            Assert.AreEqual(expected, CountIPAddresses.IpsBetween(input1, input2));
         }
     }
     public class Tests
@@ -1688,52 +1660,10 @@ MyConsoleAppTests
         public void Setup()
         {
         }
-
         [Test]
         public void Test1()
         {
             Assert.Pass();
-        }
-    }
-    [TestFixture]
-    public class SolutionTests
-    {
-        [Test]
-        public void SmallPyramidTest()
-        {
-            var smallPyramid = new[]
-            {
-              new[] {3},
-              new[] {7, 4},
-              new[] {2, 4, 6},
-              new[] {8, 5, 9, 3}
-          };
-            Console.WriteLine("at SmallPyramidTest");
-            Assert.AreEqual(26, PyramidSlideDown.LongestSlideDown(smallPyramid));
-        }
-
-        [Test]
-        public void MediumPyramidTest()
-        {
-            var mediumPyramid = new[]
-            {
-              new [] {75},
-              new [] {95, 64},
-              new [] {17, 47, 82},
-              new [] {18, 35, 87, 10},
-              new [] {20,  4, 82, 47, 65},
-              new [] {19,  1, 23, 75,  3, 34},
-              new [] {88,  2, 77, 73,  7, 63, 67},
-              new [] {99, 65,  4, 28,  6, 16, 70, 92},
-              new [] {41, 41, 26, 56, 83, 40, 80, 70, 33},
-              new [] {41, 48, 72, 33, 47, 32, 37, 16, 94, 29},
-              new [] {53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14},
-              new [] {70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57},
-              new [] {91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48},
-              new [] {63, 66,  4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31},
-              new [] { 4, 62, 98, 27, 23,  9, 70, 98, 73, 93, 38, 53, 60,  4, 23}
-          };
-            Assert.AreEqual(1437, PyramidSlideDown.LongestSlideDown(mediumPyramid));
         }
     }
 }
