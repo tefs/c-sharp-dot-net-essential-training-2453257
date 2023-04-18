@@ -755,9 +755,20 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int SequenceSum(int start, int end, int step)
+        {
+            return start > end ? 0 : Enumerable.Repeat(start, (end - start) / step + 1).Select((z, index) => z + step * index).Sum();
+            // if(start>end)return 0;
+            // var _auxSum=0;
+            // for (int i = start; i <= end; i+=step)
+            // {
+            //     _auxSum+=i;
+            // }
+            // return _auxSum;
+        }
         public static bool BetterThanAverage(int[] ClassPoints, int YourPoints)
         {
-            return YourPoints> ClassPoints.Average();
+            return YourPoints > ClassPoints.Average();
         }
         public static string Reverse(string text)
         {

@@ -870,6 +870,20 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [TestCase(12, 2, 6, 2)]
+        [TestCase(15, 1, 5, 1)]
+        [TestCase(5, 1, 5, 3)]
+        [TestCase(45,0, 15, 3)]
+        [TestCase(0, 16, 15, 3)]
+        [TestCase(26, 2, 24, 22)]
+        [TestCase(2, 2, 2, 2)]
+        [TestCase(2, 2, 2, 1)]
+        [TestCase(35, 1, 15, 3)]
+        [TestCase(0, 15, 1, 3)]
+        public void SequenceSumTest(int expected, int start, int end, int step)
+        {
+            Assert.AreEqual(expected, Kata.SequenceSum(start, end, step));
+        }
         [Test]
         [TestCase(new int[] { 2, 3 }, 5, ExpectedResult = true)]
         [TestCase(new int[] { 100, 40, 34, 57, 29, 72, 57, 88 }, 75, ExpectedResult = true)]
