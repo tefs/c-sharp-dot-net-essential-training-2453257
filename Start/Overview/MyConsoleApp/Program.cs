@@ -755,6 +755,22 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int Remainder(int a, int b)
+        {
+            return Math.Max(a, b) % Math.Min(a, b);
+            // var _max = Math.Max(a, b);
+            // var _min = Math.Min(a, b);
+            // var _remainder = 0;
+            // try
+            // {
+            //     _remainder = _max % _min;
+            // }
+            // catch (System.DivideByZeroException)
+            // {
+            //     throw new DivideByZeroException();
+            // }
+            // return _remainder;
+        }
         public static int SequenceSum(int start, int end, int step)
         {
             return start > end ? 0 : Enumerable.Repeat(start, (end - start) / step + 1).Select((z, index) => z + step * index).Sum();

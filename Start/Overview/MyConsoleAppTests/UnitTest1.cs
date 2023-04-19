@@ -870,10 +870,18 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test, Description("Your solution should handle arguments and math as defined in specifications")]
+        public void RemainderTest()
+        {
+            Assert.AreEqual(2, Kata.Remainder(17, 5), "Returned value should be the value left over after dividing as much as possible.");
+            Assert.AreEqual(Kata.Remainder(72, 13), Kata.Remainder(13, 72), "The order the arguments are passed should not matter.");
+            Assert.Throws<DivideByZeroException>(() => Kata.Remainder(0, 1));
+            Assert.Throws<DivideByZeroException>(() => Kata.Remainder(0, 0));
+        }
         [TestCase(12, 2, 6, 2)]
         [TestCase(15, 1, 5, 1)]
         [TestCase(5, 1, 5, 3)]
-        [TestCase(45,0, 15, 3)]
+        [TestCase(45, 0, 15, 3)]
         [TestCase(0, 16, 15, 3)]
         [TestCase(26, 2, 24, 22)]
         [TestCase(2, 2, 2, 2)]
