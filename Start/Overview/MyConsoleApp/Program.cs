@@ -755,6 +755,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int[] CountBy(int x, int n) => Enumerable.Range(1, n).Select((z, index) => z * x).ToArray();
         public static int Remainder(int a, int b)
         {
             return Math.Max(a, b) % Math.Min(a, b);

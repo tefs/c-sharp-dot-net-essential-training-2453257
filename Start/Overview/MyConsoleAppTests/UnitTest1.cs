@@ -870,6 +870,13 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 1, 5, "Array does not match")]
+        [TestCase(new int[] { 2, 4, 6, 8, 10 }, 2, 5, "Array does not match")]
+        public static void CountByTest(int[] expected, int x, int n, string inputString)
+        {
+            Assert.AreEqual(expected, Kata.CountBy(x, n), inputString);
+        }
         [Test, Description("Your solution should handle arguments and math as defined in specifications")]
         public void RemainderTest()
         {
