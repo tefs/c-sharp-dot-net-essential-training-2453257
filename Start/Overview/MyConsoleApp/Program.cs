@@ -755,6 +755,13 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int[] CountPositivesSumNegatives(int[] input)
+        {
+            return (input == null || input.Length == 0) ? new int[0] : new int[] { input.Count(o => o > 0), input.Where(o => o < 0).Sum() };
+            // if (input == null || input.Length == 0) return new int[0];
+            // var _auxNegatives = input.Where(z => z < 0);
+            // return new int[] { input.Count(z => z > 0), _auxNegatives.Sum() };
+        }
         public static int[] CountBy(int x, int n) => Enumerable.Range(1, n).Select((z, index) => z * x).ToArray();
         public static int Remainder(int a, int b)
         {
