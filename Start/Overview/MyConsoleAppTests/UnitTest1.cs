@@ -899,6 +899,13 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void BasicTests()
+        {
+            Assert.AreEqual("One", Kata.SwitchItUp(1));
+            Assert.AreEqual("Three", Kata.SwitchItUp(3));
+            Assert.AreEqual("Five", Kata.SwitchItUp(5));
+        }
+        [Test]
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 1, 5, "Array does not match")]
         [TestCase(new int[] { 2, 4, 6, 8, 10 }, 2, 5, "Array does not match")]
         public static void CountByTest(int[] expected, int x, int n, string inputString)

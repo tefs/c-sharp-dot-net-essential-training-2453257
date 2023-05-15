@@ -755,6 +755,58 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string SwitchItUp(int number)
+        {
+            var dic = new Dictionary<int, string>()
+            {
+            {1, "One"},
+            {2, "Two"},
+            {3, "Three"},
+            {4, "Four"},
+            {5, "Five"},
+            {6, "Six"},
+            {7, "Seven"},
+            {8, "Eight"},
+            {9, "Nine"},
+            {0, "Zero"}
+            };
+            return dic[number];
+            // string _aux = string.Empty;
+            // switch (number)
+            // {
+            //     case 0:
+            //         _aux = "Zero";
+            //         break;
+            //     case 1:
+            //         _aux = "One";
+            //         break;
+            //     case 2:
+            //         _aux = "Two";
+            //         break;
+            //     case 3:
+            //         _aux = "Three";
+            //         break;
+            //     case 4:
+            //         _aux = "Four";
+            //         break;
+            //     case 5:
+            //         _aux = "Five";
+            //         break;
+            //     case 6:
+            //         _aux = "Six";
+            //         break;
+            //     case 7:
+            //         _aux = "Seven";
+            //         break;
+            //     case 8:
+            //         _aux = "Eight";
+            //         break;
+            //     case 9:
+            //         _aux = "Nine";
+            //         break;
+            // }
+            // return _aux;
+        }
         public static int[] CountPositivesSumNegatives(int[] input)
         {
             return (input == null || input.Length == 0) ? new int[0] : new int[] { input.Count(o => o > 0), input.Where(o => o < 0).Sum() };
