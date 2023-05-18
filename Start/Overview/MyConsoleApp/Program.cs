@@ -755,6 +755,30 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string Position(char alphabet)
+        {
+            return $"Position of alphabet: {1 + alphabet - 'a'}";
+            // return $"Position of alphabet: {("abcdefghijklmnopqrstuvwxyz".LastIndexOf(alphabet)+1).ToString()}";
+        }
+        public static string EncryptThis(string input)
+        {
+            if (input.Equals(string.Empty)) return string.Empty;
+            if (input.Length == 1) return ((int)input.First()).ToString();// input.Select(z => z == input.First() ? (int)input.First() : z).ToArray();
+            if (input.Length == 2) return $"{(int)input.First()}{input.Last()}";
+            if (input.Length == 3) return $"{(int)input.First()}{input.Last()}{input.ElementAt(1)}";
+
+            string _aux1 = $"{(int)input.First()}{input.Last()}";
+            // var _aux = input.Select(z => z == input.First() ? (int)input.First() : z);
+            // string _aux=$"{(int)input.First()}{input.Last()}";
+            string _auxIEnumerable = string.Join("", input.Skip(2));
+            var _aux3 = _aux1.Concat(input.Skip(2));
+
+            var _aux2 = _aux3.Select(z => z == _aux3.Last() ? '_' : z);
+            var _aux4 = _aux2.Concat(input.ElementAt(1).ToString());
+            return string.Join("", new string(_aux4.ToArray()));
+            // return $"{(int)input.First()}{input.Last()}{input.ElementAt(1)}";
+            // Implement me! :)
+        }
         public static string SwitchItUp(int number)
         {
             var dic = new Dictionary<int, string>()
