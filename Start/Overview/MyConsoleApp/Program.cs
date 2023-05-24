@@ -755,6 +755,18 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string GetDrinkByProfession(string p)
+        {
+            return new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+            {
+            { "Jabroni", "Patron Tequila" },
+            { "School Counselor", "Anything with Alcohol"},
+            { "Programmer", "Hipster Craft Beer" },
+            { "Bike Gang Member", "Moonshine" },
+            { "Politician", "Your tax dollars" },
+            { "Rapper", "Cristal" }
+            }.TryGetValue(p, out string value) ? value : "Beer";
+        }
         public static string Position(char alphabet)
         {
             return $"Position of alphabet: {1 + alphabet - 'a'}";
@@ -2149,10 +2161,7 @@ one every 3 is eliminated until one remains
                     case 'M':
                         _auxString += 1000;
                         break;
-
                     default:
-
-                        ;
                         break;
                 }
             }
