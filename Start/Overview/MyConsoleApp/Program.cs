@@ -755,6 +755,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string StringClean(string s) => Regex.Replace(s, @"\d", "");
         public static string GetDrinkByProfession(string p)
         {
             return new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
