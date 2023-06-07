@@ -755,10 +755,13 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string Usdcny(int usd)=> $"{(usd * 6.75f):0.00} Chinese Yuan";
+        
+        public static bool SpeakEnglish(string sentence) => sentence.Contains("english", StringComparison.InvariantCultureIgnoreCase);
         public static double SquareArea(double A)
         {
-            var _radiuis = A * 4 / (Math.PI * 2);
-            return Math.Round(_radiuis * _radiuis, 2);
+            var _radious = A * 4 / (Math.PI * 2);
+            return Math.Round(_radious * _radious, 2, MidpointRounding.AwayFromZero);
         }
         public static int[] SortArray(int[] array)
         {
