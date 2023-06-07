@@ -755,6 +755,21 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static double SquareArea(double A)
+        {
+            var _radiuis = A * 4 / (Math.PI * 2);
+            return Math.Round(_radiuis * _radiuis, 2);
+        }
+        public static int[] SortArray(int[] array)
+        {
+            // Queue<int> odds = new Queue<int>(array.Where(e => e % 2 == 1).OrderBy(e => e));
+            // return array.Select(e => e % 2 == 1 ? odds.Dequeue() : e).ToArray();
+
+            if (!array.Any(z => z % 2 == 1)) return array;
+            var _auxOrderedArray1 = array.Where(z => z % 2 == 1).OrderBy(z => z).ToArray();
+            var _auxCount = 0;
+            return array.Select(z => z % 2 == 1 ? _auxOrderedArray1[_auxCount++] : z).ToArray();
+        }
         public static string BreakCamelCase(string str) => string.Join(" ", Regex.Split(str, "(?=[A-Z])"));
 
         public static string StringClean(string s) => Regex.Replace(s, @"\d", "");

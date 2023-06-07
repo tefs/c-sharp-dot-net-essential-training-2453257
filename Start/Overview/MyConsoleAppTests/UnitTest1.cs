@@ -911,8 +911,31 @@ MyConsoleAppTests
         public string Test(string str) => Kata.BreakCamelCase(str);
     }
     [TestFixture]
+    public class SquareAreaTests
+    {
+        private static double[][] testCases = new double[][]
+        {
+      new double[] {2, 1.62},
+      new double[] {0, 0},
+      new double[] {14.05, 80},
+        };
+
+        [Test, TestCaseSource("testCases")]
+        public void SampleTest(double A, double expected)
+        {
+            Assert.AreEqual(expected, Kata.SquareArea(A));
+        }
+    }
+    [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void SortArrayTests()
+        {
+            Assert.AreEqual(new int[] { 1, 3, 2, 8, 5, 4 }, Kata.SortArray(new int[] { 5, 3, 2, 8, 1, 4 }));
+            Assert.AreEqual(new int[] { 1, 3, 5, 8, 0 }, Kata.SortArray(new int[] { 5, 3, 1, 8, 0 }));
+            Assert.AreEqual(new int[] { }, Kata.SortArray(new int[] { }));
+        }
         [Test]
         public void StringCleanTest()
         {
