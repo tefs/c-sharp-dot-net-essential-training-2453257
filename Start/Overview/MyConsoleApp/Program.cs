@@ -753,10 +753,353 @@ one every 3 is eliminated until one remains
             Console.WriteLine(FirstUniqueProduct(new string[] { "Apple", "Computer", "Apple", "Bag" }));
         }
     }
+    /// total amount of ships of each category
+    enum BattleShipTotalAmount
+    {
+        submarine = 4,
+        destroyer = 3,
+        cruiser = 2,
+        battleship = 1
+    }
+    enum BattleShipSizeDefinition
+    {
+        submarine = 1,
+        destroyer = 2,
+        cruiser = 3,
+        battleship = 4
+    }
+
+    #region sol
+     public class BattleShip
+    {
+        public string Type { get; set; }
+        public int Length { get; set; }
+        public int Count { get; set; }
+    }
+    
+    public static class BattleshipField
+    {
+        private static readonly List<BattleShip> Ships = new List<BattleShip>
+        {
+            new BattleShip { Type = "Battleship", Length = 4, Count = 1 },
+            new BattleShip { Type = "Cruiser", Length = 3, Count = 2 },
+            new BattleShip { Type = "Torpedo boat", Length = 2, Count = 3 },
+            new BattleShip { Type = "Submarine", Length = 1, Count = 4 }
+        };
+
+        public static bool ValidateBattlefield(int[,] battlefield)
+        {
+            // Test number of cells.
+            if (battlefield.Cast<int>().Sum() != Ships.Sum(s => s.Count * s.Length))
+            {
+                return Fail("Wrong number of cells!");
+            }
+
+            var height = battlefield.GetLength(0);
+            var width = battlefield.GetLength(1);
+            var lengths = new List<int> { 0, 0, 0, 0 };
+
+            for (var i = 0; i < battlefield.Length; i++)
+            {
+                var y = i % width;
+                var x = (int)Math.Floor((double)i / width);
+
+                var cell = battlefield[x, y];
+
+                if (cell == 0)
+                {
+                    // The current cell is 0. Continue with the next cell.
+                    continue;
+                }
+
+                // The current cell is 1. Validation, go!
+
+                // Test diagonals
+                if (y < height - 1)
+                {
+                    if (x < width - 1 && battlefield[x + 1, y + 1] == 1)
+                    {
+                        return Fail("Can't have a neighbour to the bottom right");
+                    }
+
+                    if (x > 0 && battlefield[x - 1, y + 1] == 1)
+                    {
+                        return Fail("Can't have a neighbour to the bottom left!");
+                    }
+                }
+
+                // Count the ship's length.
+                var hasLeft = x > 0 && battlefield[x - 1, y] == 1;
+                var hasRight = x < width - 1 && battlefield[x + 1, y] == 1;
+                var hasTop = y > 0 && battlefield[x, y - 1] == 1;
+                var hasBottom = y < height - 1 && battlefield[x, y + 1] == 1;
+
+                if (!new[] { hasLeft, hasRight, hasTop, hasBottom }.Any(b => b))
+                {
+                    lengths[0]++;
+                }
+                else if (!hasLeft && hasRight)
+                {
+                    var length = battlefield.CountShipLength(x, y, true);
+                    lengths[length - 1]++;
+                }
+                else if (!hasTop && hasBottom)
+                {
+                    var length = battlefield.CountShipLength(x, y, false);
+                    lengths[length - 1]++;
+                }
+            }
+
+            // Validate found ships
+            Console.WriteLine("  Validation succesfull. Counting ships...\n" +
+                              $"  Battleships:   {lengths[3]}\n" +
+                              $"  Cruisers:      {lengths[2]}\n" +
+                              $"  Torpedo boats: {lengths[1]}\n" +
+                              $"  Submarines:    {lengths[0]}");
+
+            for(var i = 0; i < Ships.Count; i++)
+            {
+                if (lengths[i] != 4 - i)
+                {
+                    return Fail($"Incorrect number of {Ships[i].Type.ToLowerInvariant()}s: {lengths[0]}");
+                }
+            }
+
+            // All validation passed
+            Console.WriteLine("  Success! This barttlefield is valid!");
+
+            return true;
+        }
+
+        /// <summary>
+        /// Fails the test and log a error message.
+        /// </summary>
+        /// <param name="message">The error message.</param>
+        /// <returns></returns>
+        private static bool Fail(string message)
+        {
+            Console.WriteLine($"  Error: {message}");
+            return false;
+        }
+
+        /// <summary>
+        /// Counts the ship's length for a x / y position on the current battlefield.
+        /// </summary>
+        /// <param name="x">The current x coordinate.</param>
+        /// <param name="y">The current y coordinate.</param>
+        /// <param name="battlefield">The battlefield.</param>
+        /// <param name="isHorizontal">if set to <c>true</c> count the ship in horizontal orientation. Otherwise, count the vertical orientation.</param>
+        /// <returns></returns>
+        private static int CountShipLength(this int[,] battlefield, int x, int y, bool isHorizontal)
+        {
+            var height = battlefield.GetLength(0);
+            var width = battlefield.GetLength(1);
+            var cell = battlefield[x, y];
+
+            if (cell == 0 || // cell isn't 1, so return 0.
+                isHorizontal && x == width - 1 || // We're at the right edge of the field, don't count further.
+                !isHorizontal && y == height - 1) // We're at the bottom edge of the field, don't count further.
+            {
+                return cell;
+            }
+
+            // Count the current cell plus a possible neighbour, recursively.
+            return cell +
+                   battlefield.CountShipLength(
+                       isHorizontal ? x + 1 : x,
+                       !isHorizontal ? y + 1 : y,
+                       isHorizontal);
+        }
+    }
+    #endregion
     public static class Kata
     {
-        public static string Usdcny(int usd)=> $"{(usd * 6.75f):0.00} Chinese Yuan";
-        
+        ///1- per each cell verify the if it's empty or not | 2- per each cell verify the positions of ships ( it's only necessary to for >1(submarines doesn't count))
+        public static bool ValidateBattlefield(int[,] field)
+        {
+            var _length = field.GetUpperBound(0);
+            var _totalAmountOfShips = 0;
+            var pivot = new int[,] { { 0 }, { 0 } };
+            Dictionary<string, int> _dicCountCurrentAmount = new Dictionary<string, int>();
+            _dicCountCurrentAmount.Add(BattleShipSizeDefinition.submarine.ToString(), 0);
+            _dicCountCurrentAmount.Add(BattleShipSizeDefinition.battleship.ToString(), 0);
+            _dicCountCurrentAmount.Add(BattleShipSizeDefinition.cruiser.ToString(), 0);
+            _dicCountCurrentAmount.Add(BattleShipSizeDefinition.destroyer.ToString(), 0);
+            bool _validationToken = true;
+            for (int i = 0; i < _length; i++)
+            {
+                var _getlength = field.GetUpperBound(i);
+                for (int x = 0; x < _getlength; x++)
+                {
+                    if (field[i, x] == 1)
+                    {
+                        var _tmpRow = Enumerable.Range(x, field.GetLength(i)).Select(z => field[i, z]).ToArray();
+                        var _tmpColumn = Enumerable.Range(i, field.GetLength(x)).Select(z => field[z, i]).ToArray();
+                        var _auxBatlleshipPosition = x + (int)BattleShipSizeDefinition.battleship;
+                        var _auxDestroyerPosition = x + (int)BattleShipSizeDefinition.destroyer;
+                        var _auxCruiserPosition = x + (int)BattleShipSizeDefinition.cruiser;
+                        if (_auxBatlleshipPosition <= _getlength)//|| _auxDestroyerPosition <= _getlength || _auxCruiserPosition <= _getlength)
+                        {
+                            // var _rowLength = field.GetLength(i);
+                            // var _auxRow = Enumerable.Range(0, _rowLength).Select(z => field[i, z]).ToArray();
+                            var _pivot = 0;
+                            for (int z = 0; z < _tmpRow.Length - 1; z++)
+                            {
+                                if (_tmpRow[z] == 0) break;
+                                _pivot++;
+                            }
+                            //verify the ship length
+                            if ((int)BattleShipSizeDefinition.battleship == _pivot)
+                            {
+                                _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.battleship.ToString(), out int _auxSum);
+                                _auxSum++;
+                                _dicCountCurrentAmount[BattleShipSizeDefinition.battleship.ToString()] = _auxSum;
+                            }
+                            if ((int)BattleShipSizeDefinition.destroyer == _pivot)
+                            {
+                                _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.destroyer.ToString(), out int _auxSum1);
+                                _auxSum1++;
+                                _dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] = _auxSum1;
+                            }
+                            if ((int)BattleShipSizeDefinition.cruiser == _pivot)
+                            {
+                                _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.cruiser.ToString(), out int _auxSum2);
+                                _auxSum2++;
+                                _dicCountCurrentAmount[BattleShipSizeDefinition.cruiser.ToString()] = _auxSum2;
+                            }
+                        }
+
+                        // _validationToken = true;
+                        // //check all cell in horizontal and vertical, till 4 positions
+                        // var _auxBatlleship = field[i, x + (int)BattleShipSizeDefinition.battleship];
+                        // var _auxDestroyer = field[i, x + (int)BattleShipSizeDefinition.destroyer];
+                        // if (_auxBatlleship <= _getlength)
+                        // {
+                        //     if (field[i, _auxBatlleship] == 0) _validationToken = false;
+                        // }
+
+                        // var _auxCruiser = field[i, x + (int)BattleShipSizeDefinition.cruiser];
+                        // if (_auxCruiser <= _getlength)
+                        // {
+                        //     if (field[i, _auxCruiser] == 0) _validationToken = false;
+                        // }
+                    }
+
+
+                    // // if (field[i, x] == 1)
+                    // // {
+                    //     _totalAmountOfShips++;
+                    //     //identify which craft is
+                    //     //destroyer definition
+                    //     var _auxTotalHorizontalLength = x + (int)BattleShipSizeDefinition.destroyer;
+                    //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
+                    //         if (field[i, _auxTotalHorizontalLength] == 0) _validationToken = false;
+                    //     var _auxTotalVerticalLength = i + (int)BattleShipSizeDefinition.destroyer;
+                    //     if (_auxTotalVerticalLength <= _getlength)
+                    //         if (field[_auxTotalVerticalLength, x] == 0) _validationToken = false;
+                    //     if (_validationToken)
+                    //     {
+                    //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.destroyer.ToString(), out int _auxSum);
+                    //         _auxSum++;
+                    //         _dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] = _auxSum;
+                    //     }
+
+                    //     //battleship definition
+                    //     _validationToken = true;
+                    //     _auxTotalHorizontalLength = x + (int)BattleShipSizeDefinition.battleship;
+                    //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
+                    //         if (field[i, _auxTotalHorizontalLength] == 0) _validationToken = false;
+                    //     _auxTotalVerticalLength = i + (int)BattleShipSizeDefinition.battleship;
+                    //     if (_auxTotalVerticalLength <= _getlength)
+                    //         if (field[_auxTotalVerticalLength, x] == 0) _validationToken = false;
+                    //     if (_validationToken)
+                    //     {
+                    //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.battleship.ToString(), out int _auxSum);
+                    //         _auxSum++;
+                    //         _dicCountCurrentAmount[BattleShipSizeDefinition.battleship.ToString()] = _auxSum;
+                    //     }
+
+                    //     //cruiser definition
+                    //     _validationToken = true;
+                    //     _auxTotalHorizontalLength = i + (int)BattleShipSizeDefinition.cruiser;
+                    //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
+                    //         if (field[i, _auxTotalHorizontalLength] == 0) _validationToken = false;
+
+                    //     _auxTotalVerticalLength = x + (int)BattleShipSizeDefinition.cruiser;
+                    //     if (_auxTotalVerticalLength <= _getlength)
+                    //         if (field[_auxTotalVerticalLength, x] == 0) _validationToken = false;
+                    //     if (_validationToken)
+                    //     {
+                    //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.cruiser.ToString(), out int _auxSum);
+                    //         _auxSum++;
+                    //         _dicCountCurrentAmount[BattleShipSizeDefinition.cruiser.ToString()] = _auxSum;
+                    //     }
+
+                    //     //submarine definition
+                    //     _validationToken = true;
+                    //     _auxTotalHorizontalLength = x + (int)BattleShipSizeDefinition.submarine;
+                    //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
+                    //         if (field[i, _auxTotalHorizontalLength] == 1) _validationToken = false;
+                    //     _auxTotalVerticalLength = i + (int)BattleShipSizeDefinition.submarine;
+                    //     if (_auxTotalVerticalLength <= _getlength)
+                    //         if (field[_auxTotalVerticalLength, x] == 1) _validationToken = false;
+                    //     if (_validationToken)
+                    //     {
+                    //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.submarine.ToString(), out int _auxSum);
+                    //         _auxSum++;
+                    //         _dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] = _auxSum;
+                    //     }
+                    // }
+                }
+            }
+
+            // private static void StringBuilderTest()
+            //     {
+            //         ConcurrentDictionary<int, string> concurrentDictionary = new ConcurrentDictionary<int, string>();
+            //         for (int i = 0; i < 1500; i++)
+            //         {
+            //             concurrentDictionary[i] = getBigStringWith60KCharecters();
+            //         }
+
+            //         int counter = 1;
+            //         Collection<int> ids = new Collection<int>();
+            //         StringBuilder caseExpression = new StringBuilder();
+            //         try
+            //         {
+            //             foreach (KeyValuePair<int, string> keyValuePair in concurrentDictionary)
+            //             {
+            //                 ids.Add(keyValuePair.Key);
+            //                 caseExpression.AppendLine($"WHEN Document_Id = {keyValuePair.Key} THEN {keyValuePair.Value}");
+            //                 const int MAX_PREFERD_AMOUNT_OF_CHARECTERS = 100000000;
+            //                 if (caseExpression.Length > MAX_PREFERD_AMOUNT_OF_CHARECTERS || counter == concurrentDictionary.Count)
+            //                 {
+            //                     string tempString = caseExpression.ToString();
+            //                     TryUpdateBatchOfWebDocuments(tempString, ids);
+            //                     caseExpression.Clear();
+            //                     ids.Clear();
+            //                 }
+
+            //                 counter++;
+            //             }
+            //         }
+            //         catch (Exception exc)
+            //         {
+            //             throw;
+            //         }
+            //     }
+
+            //final confirm total of ships
+            if (_dicCountCurrentAmount[BattleShipSizeDefinition.battleship.ToString()] == (int)BattleShipTotalAmount.battleship) return false;
+            if (_dicCountCurrentAmount[BattleShipSizeDefinition.cruiser.ToString()] == (int)BattleShipTotalAmount.cruiser) return false;
+            if (_dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] == (int)BattleShipTotalAmount.destroyer) return false;
+            if (_dicCountCurrentAmount[BattleShipSizeDefinition.submarine.ToString()] == (int)BattleShipTotalAmount.submarine) return false;
+
+            // Must return False if unwanted ships are present
+            // if (((int)BattleShipTotalAmount.submarine + (int)BattleShipTotalAmount.battleship + (int)BattleShipTotalAmount.cruiser + (int)BattleShipTotalAmount.destroyer) != _totalAmountOfShips) return false;
+
+            return true;
+        }
+        public static string Usdcny(int usd) => $"{(usd * 6.75F):0.00} Chinese Yuan";
         public static bool SpeakEnglish(string sentence) => sentence.Contains("english", StringComparison.InvariantCultureIgnoreCase);
         public static double SquareArea(double A)
         {

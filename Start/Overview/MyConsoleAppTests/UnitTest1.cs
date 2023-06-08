@@ -929,8 +929,24 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
-        [TestCase(1,  "6.75 Chinese Yuan")]
-        [TestCase(3,  "20.25 Chinese Yuan")]
+        [Test]
+        public void ValidateBattlefieldTest()
+        {
+            int[,] field = new int[10, 10]
+                           {{1, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+                      {1, 0, 1, 0, 0, 0, 0, 0, 1, 0},
+                      {1, 0, 1, 0, 1, 1, 1, 0, 1, 0},
+                      {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                      {0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                      {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+            Assert.IsTrue(BattleshipField.ValidateBattlefield(field));
+        }
+        [TestCase(1, "6.75 Chinese Yuan")]
+        [TestCase(3, "20.25 Chinese Yuan")]
         public void UsdcnyTest(int input, string expected)
         {
             Assert.AreEqual(expected, Kata.Usdcny(input));
