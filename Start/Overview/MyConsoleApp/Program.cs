@@ -914,6 +914,18 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
+        public static double Arithmetic(double a, double b, string op)
+        {
+            double _aux = 0;
+            switch (op)
+            {
+                case "add": _aux = a + b; break;
+                case "subtract": _aux = a - b; break;
+                case "multiply": _aux = a * b; break;
+                default: _aux = a / b; break;
+            }
+            return Math.Round(_aux, 2);
+        }
         public static int NoBoringZerosV2(int n)
         {
             //return int.Parse(n.ToString().Replace(0.ToString(),string.Empty));

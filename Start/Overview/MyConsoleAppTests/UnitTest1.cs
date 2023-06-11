@@ -930,7 +930,15 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
-        public static void test1()
+        public void ArithmeticTests()
+        {
+            Assert.AreEqual(3, Kata.Arithmetic(1, 2, "add"));
+            Assert.AreEqual(6, Kata.Arithmetic(8, 2, "subtract"));
+            Assert.AreEqual(10, Kata.Arithmetic(5, 2, "multiply"));
+            Assert.AreEqual(4, Kata.Arithmetic(8, 2, "divide"));
+        }
+        [Test]
+        public static void NoBoringZerosV2Test()
         {
             Console.WriteLine("Basic Tests NoBoringZeros");
             Assert.AreEqual(145, Kata.NoBoringZerosV2(1450));
