@@ -930,6 +930,15 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public static void test1()
+        {
+            Console.WriteLine("Basic Tests NoBoringZeros");
+            Assert.AreEqual(145, Kata.NoBoringZerosV2(1450));
+            Assert.AreEqual(96, Kata.NoBoringZerosV2(960000));
+            Assert.AreEqual(105, Kata.NoBoringZerosV2(1050));
+            Assert.AreEqual(-105, Kata.NoBoringZerosV2(-1050));
+        }
+        [Test]
         public void ValidateBattlefieldTest()
         {
             int[,] field = new int[10, 10]

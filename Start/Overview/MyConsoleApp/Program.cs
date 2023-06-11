@@ -770,13 +770,13 @@ one every 3 is eliminated until one remains
     }
 
     #region sol
-     public class BattleShip
+    public class BattleShip
     {
         public string Type { get; set; }
         public int Length { get; set; }
         public int Count { get; set; }
     }
-    
+
     public static class BattleshipField
     {
         private static readonly List<BattleShip> Ships = new List<BattleShip>
@@ -857,7 +857,7 @@ one every 3 is eliminated until one remains
                               $"  Torpedo boats: {lengths[1]}\n" +
                               $"  Submarines:    {lengths[0]}");
 
-            for(var i = 0; i < Ships.Count; i++)
+            for (var i = 0; i < Ships.Count; i++)
             {
                 if (lengths[i] != 4 - i)
                 {
@@ -914,7 +914,12 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
-        ///1- per each cell verify the if it's empty or not | 2- per each cell verify the positions of ships ( it's only necessary to for >1(submarines doesn't count))
+        public static int NoBoringZerosV2(int n)
+        {
+            //return int.Parse(n.ToString().Replace(0.ToString(),string.Empty));
+            return int.Parse(n.ToString().TrimEnd('0'));
+            //int.Parse(n.ToString().Select(z=>z!=0?z:'\0').ToArray().ToString());
+        }
         public static bool ValidateBattlefield(int[,] field)
         {
             var _length = field.GetUpperBound(0);
