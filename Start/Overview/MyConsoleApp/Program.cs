@@ -914,6 +914,14 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
+        ///
+        public static int RoundToNext5(int n)
+        {
+            while(n % 5 != 0) n++;
+            return n;
+            // if (n == 0) return 0;
+            // return n % 5 == 0 ? n : int.Parse(Enumerable.Range(n+1, 5).Where(z => int.Parse(z.ToString()) % 5 == 0).First().ToString());
+        }
         public static double Arithmetic(double a, double b, string op)
         {
             double _aux = 0;
