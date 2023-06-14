@@ -912,11 +912,99 @@ one every 3 is eliminated until one remains
         }
     }
     #endregion
+
+
+    public class DirReduction
+    {
+        enum Direction { NORTH, EAST, WEST, SOUTH }
+
+        public static string[] dirReduc(String[] arr)
+        {
+            List<string> _list = new List<string>();
+            int _totalNorth = arr.Count(z => z.ToUpperInvariant().Equals(Direction.NORTH.ToString()));
+            int _totalSouth = arr.Count(z => z.ToUpperInvariant().Equals(Direction.SOUTH.ToString()));
+            int _totalWest = arr.Count(z => z.ToUpperInvariant().Equals(Direction.WEST.ToString()));
+            int _totalEast = arr.Count(z => z.ToUpperInvariant().Equals(Direction.EAST.ToString()));
+            bool _northSouth = arr.All(z => arr.Count(x => x.ToUpper().Equals(Direction.NORTH.ToString())) == arr.Count(c => c.ToUpper().Equals(Direction.SOUTH.ToString())));
+            bool _westEast = arr.All(z => arr.Count(x => x.ToUpper().Equals(Direction.WEST.ToString())) == arr.Count(c => c.ToUpper().Equals(Direction.EAST.ToString())));
+            if (_northSouth && _westEast)
+            {
+                return arr;
+            }
+            if (_totalNorth != _totalSouth)
+            {
+                if (_totalNorth > _totalSouth)
+                {
+                    for (int i = 0; i < (_totalNorth - _totalSouth); i++)
+                    {
+                        _list.Add(Direction.NORTH.ToString());
+                    }
+                }
+                if (_totalSouth > _totalNorth)
+                {
+                    for (int i = 0; i < _totalSouth - _totalNorth; i++)
+                    {
+                        _list.Add(Direction.SOUTH.ToString());
+                    }
+                }
+            }
+            if (_totalWest != _totalEast)
+            {
+                if (_totalWest > _totalEast)
+                {
+                    for (int i = 0; i < _totalWest - _totalEast; i++)
+                    {
+                        _list.Add(Direction.WEST.ToString());
+                    }
+                }
+                if (_totalEast > _totalWest)
+                {
+                    for (int i = 0; i < _totalEast - _totalWest; i++)
+                    {
+                        _list.Add(Direction.EAST.ToString());
+                    }
+                }
+            }
+            return _list.ToArray();
+        }
+    }
+    public class EqualityComparerLast : IEqualityComparer<string>
+    {
+        public bool Equals(string current, string original)
+        {
+            if (current == null && original == null) return true;
+            else if (original == null || current == null) return true;
+            else return false;
+        }
+        public int GetHashCode(string current)
+        {
+            return current.GetHashCode();
+        }
+    }
     public static class Kata
     {
+        public static string Arrays(string s)
+        {
+            // solution1
+            var arr = s.Split(",");
+            return arr.Length > 2 ? string.Join(" ", arr[1..^1]) : null;
+
+            // solution2
+            // return s.Count(c => c == ',') < 2 ? null : string.Join(" ", s.Split(',')[1..^1]);
+
+
+            //failed in equal letters test| the rest passed
+            // if (s.Split(',').Length < 3) return null;
+            // var _auxArray = s.Split(',');
+            // EqualityComparerLast _equalityComparerLast = new EqualityComparerLast();
+            // Dictionary<string, string> _dicEqualityComparer = new Dictionary<string, string>(_equalityComparerLast);
+            // _dicEqualityComparer.Add(_auxArray.First(), "1");
+            // _dicEqualityComparer.Add(_auxArray.Last(), "1");
+            // return string.Join(" ", _auxArray.Except( _dicEqualityComparer.Keys ).ToArray());
+        }
         public static string[] TowerBuilder(int nFloors)
         {
-          return Enumerable.Range(1, nFloors).Select(i => string.Format("{0}{1}{0}", i == nFloors ? "" : new string(' ', nFloors - i), new string('*', 2 * i - 1))).ToArray();
+            return Enumerable.Range(1, nFloors).Select(i => string.Format("{0}{1}{0}", i == nFloors ? "" : new string(' ', nFloors - i), new string('*', 2 * i - 1))).ToArray();
         }
         public static int RoundToNext5(int n)
         {
@@ -2113,12 +2201,13 @@ one every 3 is eliminated until one remains
                                     return string.Join(" ", text.Where(z => char.IsLetter(z)).Select(z => _dic[char.Parse(z.ToString().ToLower())].ToString()).ToArray());
                                 */
         }
+        ///Desc: find pangram on string
+        ///return: true: found | false: not found
         public static bool IsPangram(string str)
         {
             // return str.Where(ch => Char.IsLetter(ch)).Select(ch => Char.ToLower(ch)).Distinct().Count() == 26;
             // return "abcdefghijklmnopqrstuvwxyz".All(x => str.ToLower().Contains(char.ToLower(x)));
             return str.ToUpper().Where(char.IsLetter).Distinct().Count() == 26;
-
         }
         /*
                 public static bool IsPangram(string str)

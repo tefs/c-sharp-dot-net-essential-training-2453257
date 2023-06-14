@@ -927,8 +927,40 @@ MyConsoleAppTests
         }
     }
     [TestFixture]
+    public class DirReductionTests
+    {
+
+        [Test]
+        public void Test1()
+        {
+            string[] a = new string[] { "NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST" };
+            string[] b = new string[] { "WEST" };
+            Assert.AreEqual(b, DirReduction.dirReduc(a));
+        }
+        [Test]
+        public void Test2()
+        {
+            string[] a = new string[] { "NORTH", "WEST", "SOUTH", "EAST" };
+            string[] b = new string[] { "NORTH", "WEST", "SOUTH", "EAST" };
+            Assert.AreEqual(b, DirReduction.dirReduc(a));
+        }
+    }
+
+    [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void ArraysTest()
+        {
+            // Assert.AreEqual(null, Kata.Arrays(""));
+            // Assert.AreEqual(null, Kata.Arrays("1"));
+            // Assert.AreEqual(null, Kata.Arrays("1, 3"));
+            // Assert.AreEqual("2", Kata.Arrays("1,2,3"));
+            // Assert.AreEqual("2 3", Kata.Arrays("1,2,3,4"));
+            // Assert.AreEqual("2 3 4 6 7 8 9 11", Kata.Arrays("1,2,3,4,6,7,8,9,11,100"));
+            // Assert.AreEqual("1 0 2 3 4 6 7 8 9 11", Kata.Arrays("5,1,0,2,3,4,6,7,8,9,11,100"));
+            Assert.AreEqual("343 11d 452 5 2 2e 2", Kata.Arrays("6,343,11d,452,5,2,2e,2,31"));
+        }
         [Test]
         public void TowerBuilderTests()
         {
