@@ -930,6 +930,13 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void TowerBuilderTests()
+        {
+            Assert.AreEqual(string.Join(",", new[] { "*" }), string.Join(",", Kata.TowerBuilder(1)));
+            Assert.AreEqual(string.Join(",", new[] { " * ", "***" }), string.Join(",", Kata.TowerBuilder(2)));
+            Assert.AreEqual(string.Join(",", new[] { "  *  ", " *** ", "*****" }), string.Join(",", Kata.TowerBuilder(3)));
+        }
+        [Test]
         [TestCase(0, ExpectedResult = 0)]
         [TestCase(1, ExpectedResult = 5)]
         [TestCase(3, ExpectedResult = 5)]

@@ -914,10 +914,13 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
-        ///
+        public static string[] TowerBuilder(int nFloors)
+        {
+          return Enumerable.Range(1, nFloors).Select(i => string.Format("{0}{1}{0}", i == nFloors ? "" : new string(' ', nFloors - i), new string('*', 2 * i - 1))).ToArray();
+        }
         public static int RoundToNext5(int n)
         {
-            while(n % 5 != 0) n++;
+            while (n % 5 != 0) n++;
             return n;
             // if (n == 0) return 0;
             // return n % 5 == 0 ? n : int.Parse(Enumerable.Range(n+1, 5).Where(z => int.Parse(z.ToString()) % 5 == 0).First().ToString());
