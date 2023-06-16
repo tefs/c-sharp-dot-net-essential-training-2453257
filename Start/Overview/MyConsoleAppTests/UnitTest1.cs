@@ -952,6 +952,7 @@ MyConsoleAppTests
         [Test]
         public void ReverseLetterTests()
         {
+            Assert.AreEqual("nbupefrekmnpkeoqgtmsabhyu", Kata.ReverseLetter(@"uyhb77asmtg\q^oek3p4n=mkerf.ep_u %b\n7"));
             Assert.AreEqual("nahsirk", Kata.ReverseLetter("krishan"));
             Assert.AreEqual("nortlu", Kata.ReverseLetter("ultr53o?n"));
             Assert.AreEqual("cba", Kata.ReverseLetter("ab23c"));

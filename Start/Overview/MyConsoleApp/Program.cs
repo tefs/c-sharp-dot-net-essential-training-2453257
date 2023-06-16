@@ -985,7 +985,10 @@ one every 3 is eliminated until one remains
     {
         public static string ReverseLetter(string str)
         {
-            return new string (str.Reverse().Select(z => char.IsLetter(z) ? z : '\0').Except(new char[]{'\0'}).ToArray());//,'\0',''); //.Reverse(). (z => char.IsLetter(z) ? z : '\0').ToArray());
+            // best solution
+            return new string(str.Where(char.IsLetter).Reverse().ToArray()) ;
+            
+            // return new string(str.Reverse().Select(z => char.IsLetter(z) ? z : char.MinValue).ToArray()).Replace(char.MinValue.ToString(),string.Empty);
         }
         public static int[] MergeArrays(int[] arr1, int[] arr2)
         {
