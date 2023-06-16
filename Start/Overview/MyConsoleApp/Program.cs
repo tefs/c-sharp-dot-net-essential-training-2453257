@@ -983,6 +983,18 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string ReverseLetter(string str)
+        {
+            // return Regex.Replace(new string (str.Reverse().Select(z => char.IsLetter(z) ? z : '\0')).Remove( )//,'\0',''); //.Reverse(). (z => char.IsLetter(z) ? z : '\0').ToArray());
+            return new string (str.Reverse().Select(z => char.IsLetter(z) ? z : '\0').Except(new char[]{'\0'}).ToArray());//,'\0',''); //.Reverse(). (z => char.IsLetter(z) ? z : '\0').ToArray());
+        }
+        public static int[] MergeArrays(int[] arr1, int[] arr2)
+        {
+            // best resolution
+            return arr1.Union(arr2).OrderBy(i => i).ToArray();
+
+            // return arr1.Length == 0 && arr2.Length == 0 ? new int[0] : arr1.Union(arr2).Distinct().OrderBy(z => z).ToArray();
+        }
         public static string Arrays(string s)
         {
             // solution1
@@ -990,8 +1002,7 @@ one every 3 is eliminated until one remains
             return arr.Length > 2 ? string.Join(" ", arr[1..^1]) : null;
 
             // solution2
-            // return s.Count(c => c == ',') < 2 ? null : string.Join(" ", s.Split(',')[1..^1]);
-
+            return s.Count(c => c == ',') < 2 ? null : string.Join(" ", s.Split(',')[1..^1]);
 
             //failed in equal letters test| the rest passed
             // if (s.Split(',').Length < 3) return null;
