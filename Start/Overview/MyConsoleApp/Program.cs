@@ -3,6 +3,10 @@ using System.Text.RegularExpressions;
 using System.Net.Sockets;
 using System.Numerics;
 using System.Globalization;
+using System.Collections;
+using System.Text;
+using System.Diagnostics;
+using NUnit.Framework;
 // This program shows how to use the IPAddress class to obtain a server
 // IP addressess and related information.
 namespace TechnicaExam_MultiVision
@@ -981,13 +985,70 @@ one every 3 is eliminated until one remains
             return current.GetHashCode();
         }
     }
+    public class MixStructure
+    {
+        private int _value;
+        //total count of occurrences
+        public int Value
+        {
+            get { return _value; }
+            set { _value = value; }
+        }
+        private int arrayFrom;
+        //letter original array 
+        private string? letter;
+        //letter it self 
+        public string? Letter
+        {
+            get { return letter; }
+            set { letter = value; }
+        }
+        public int ArrayFrom
+        {
+            get { return arrayFrom; }
+            set { arrayFrom = value; }
+        }
+        public MixStructure() { }
+        public MixStructure(int array, string letter, int value)
+        {
+            this.ArrayFrom = array;
+            this.Letter = letter;
+            this.Value = value;
+        }
+        public void Print()
+        {
+            Debug.WriteLine(" this.ArrayFrom={0}, this.Letter={1},this.Value={2}", this.ArrayFrom, this.Letter, this.Value);
+        }
+    }
     public static class Kata
     {
+        public static string Mix(string s1, string s2)
+        {
+            //igrouping sort
+            var s1Group = s1.Where(c => char.IsLower(c) && char.IsLetter(c)).GroupBy(a => a, b => b).Select(a => new { letter = a.Key, count = a.Count() });
+
+            var s2Group = s2.Where(c => char.IsLower(c) && char.IsLetter(c)).GroupBy(a => a, b => b).Select(a => new { letter = a.Key, count = a.Count() });
+
+            var s12Group = s1Group.Concat(s2Group).GroupBy(a => a.letter, b => b);
+
+            //businesss logic 
+            var sGrouped = s12Group.Select(a => new
+            {
+                count = a.OrderByDescending((p => p.count)).First().count,
+                letter = a.Key,
+                winner = s1.Count(i => i == a.Key) > s2.Count(i => i == a.Key)
+                                                ? "1" : s1.Count(i => i == a.Key) < s2.Count(i => i == a.Key) ? "2" : "="
+            });
+
+            return string.Join("/", sGrouped.Where(o => o.count > 1).OrderByDescending(o => o.count)
+            .ThenBy(o => int.Parse(o.winner == "=" ? "3" : o.winner))
+            .ThenBy(o => o.letter).Select(gz => gz.winner + ":" + new string(gz.letter, gz.count)));
+        }
         public static string ReverseLetter(string str)
         {
             // best solution
-            return new string(str.Where(char.IsLetter).Reverse().ToArray()) ;
-            
+            return new string(str.Where(char.IsLetter).Reverse().ToArray());
+
             // return new string(str.Reverse().Select(z => char.IsLetter(z) ? z : char.MinValue).ToArray()).Replace(char.MinValue.ToString(),string.Empty);
         }
         public static int[] MergeArrays(int[] arr1, int[] arr2)
@@ -2151,8 +2212,8 @@ one every 3 is eliminated until one remains
         public static string OrderWords(string words)
         {//todo 1 - split string  2 - Find number in string  3 - create new ordered string
          //   if (string.IsNullOrEmpty(words)) return words;
+         //   if (string.IsNullOrEmpty(words)) return words;
          // return string.Join(" ", words.Split(' ').OrderBy(s => s.ToList().Find(c => char.IsDigit(c))));
-
             return string.Join(" ", words.Split().OrderBy(w => w.SingleOrDefault(char.IsDigit)));
 
             /*
