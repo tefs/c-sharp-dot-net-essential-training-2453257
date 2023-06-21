@@ -973,6 +973,12 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void MultiplicationTableTest()
+        {
+            int[,] expected = new int[,] { { 1, 2, 3 }, { 2, 4, 6 }, { 3, 6, 9 } };
+            Assert.AreEqual(expected, Kata.MultiplicationTable(3));
+        }
         ///draft test
         [Test]
         public static void MixTestV2()

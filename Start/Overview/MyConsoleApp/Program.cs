@@ -1022,6 +1022,13 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int[,] MultiplicationTable(int size)
+        {
+            var _tmpTable = new int[size, size];
+            var _row = Enumerable.Range(1, size).ToList();
+            _row.ForEach(z => _row.ForEach(x => _tmpTable[z - 1, x - 1] = z * x));
+            return _tmpTable;
+        }
         public static int[] GetEvenNumbers(int[] numbers) => numbers.Where(z => z % 2 == 0).Select(z => z).ToArray();
         public static string Mix(string s1, string s2)
         {
