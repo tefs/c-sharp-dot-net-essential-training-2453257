@@ -1022,6 +1022,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int[] GetEvenNumbers(int[] numbers) => numbers.Where(z => z % 2 == 0).Select(z => z).ToArray();
         public static string Mix(string s1, string s2)
         {
             //igrouping sort
@@ -1060,15 +1061,16 @@ one every 3 is eliminated until one remains
 
             // return arr1.Length == 0 && arr2.Length == 0 ? new int[0] : arr1.Union(arr2).Distinct().OrderBy(z => z).ToArray();
         }
+        ///draft method
         public static string MixV2(string s1, string s2)
         {
-            //todo 1 - group arrrys poer letter and count |2- unite the results |3- construct string with thre sults
-            var _s1ArrayGroup = s1.Where(z => char.IsLower(z) && char.IsLetter(z)).GroupBy(z => z, x => x).Select(z => new { letter = z.Key, count = z.Count() });
+            //todo 1 - group arrays per letter and count |2- unite the results |3- construct string with the results
+            var _s1ArrayGroup = s1.Where(char.IsLower).GroupBy(z => z, x => x).Select(z => new { letter = z.Key, count = z.Count() });
             var _s2ArrayGroup = s2.Where(char.IsLower).GroupBy(z => z, x => x).Select(z => new { letter = z.Key, count = z.Count() });
             var _arraysGrouped = _s1ArrayGroup.Concat(_s2ArrayGroup).GroupBy(z => z.letter, x => x);
             var _arraysGroupedSecondPhase = _arraysGrouped.Select(z => new
             {
-                count = z.OrderByDescending((x => x.count)).First().count
+                count = z.OrderByDescending(x => x.count).First().count
                 ,
                 letter = z.Key
                 ,
@@ -1080,7 +1082,6 @@ one every 3 is eliminated until one remains
             .ThenBy(z => int.Parse(z.winner == "=" ? "3" : z.winner))
             .ThenBy(z => z.letter)
             .Select(z => $"{z.winner}:{new string(z.letter, z.count)}"));
-            return string.Empty;
         }
         public static string Arrays(string s)
         {

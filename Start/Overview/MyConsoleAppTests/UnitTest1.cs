@@ -947,13 +947,37 @@ MyConsoleAppTests
     }
 
     [TestFixture]
+    public class GetEvenNumbersClass
+    {
+        private static IEnumerable<TestCaseData> testCases
+        {
+            get
+            {
+                yield return new TestCaseData(new int[] { 1, 2 })
+                                             .Returns(new int[] { 2 });
+                yield return new TestCaseData(new int[] { 2, 6, 8, 10 })
+                                             .Returns(new int[] { 2, 6, 8, 10 });
+                yield return new TestCaseData(new int[] { 12, 14, 15 })
+                                             .Returns(new int[] { 12, 14 });
+                yield return new TestCaseData(new int[] { 13, 15 })
+                                             .Returns(new int[] { });
+                yield return new TestCaseData(new int[] { 1, 3, 9 })
+                                             .Returns(new int[] { });
+                yield return new TestCaseData(new int[] { -1, -3, -9 })
+                                             .Returns(new int[] { });
+            }
+        }
+        [Test, TestCaseSource("testCases")]
+        public int[] FixedTests(int[] numbers) => Kata.GetEvenNumbers(numbers);
+    }
+    [TestFixture]
     public class KataTests
     {
         ///draft test
-         [Test]
+        [Test]
         public static void MixTestV2()
         {
-            // Assert.AreEqual("2:eeeee/2:yy/=:hh/=:rr", Kata.MixV2("Are they here", "yes, they are here"));
+            Assert.AreEqual("2:eeeee/2:yy/=:hh/=:rr", Kata.MixV2("Are they here", "yes, they are here"));
             Assert.AreEqual("1:ooo/1:uuu/2:sss/=:nnn/1:ii/2:aa/2:dd/2:ee/=:gg",
                     Kata.MixV2("looping is fun but dangerous", "less dangerous than coding"));
             Assert.AreEqual("1:aaa/1:nnn/1:gg/2:ee/2:ff/2:ii/2:oo/2:rr/2:ss/2:tt",
