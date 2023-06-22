@@ -1022,6 +1022,23 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int ExpressionsMatter(int a, int b, int c)
+        {
+            //other simpler solution
+            return new[] { a * (b + c), (a + b) * c, a + b * c, a * b + c, a + b + c, a * b * c }.Max();
+
+            // var _auxArray = new int[] { a, b, c };
+            // var max = _auxArray.Where(z => z == _auxArray.Max()).Select((z, auxindex) => new { number = z, index = auxindex }).First();
+            // var _allSum = _auxArray.Sum();
+            // var _allMultiplication = _auxArray.ElementAt(0) * _auxArray.ElementAt(1) * _auxArray.ElementAt(2);
+            // var _allFirstParenthesis = _auxArray.Take(2).Sum() * _auxArray.ElementAt(2);
+            // var _allLastParenthesis = _auxArray.ElementAt(0) * _auxArray.Skip(1).Sum();
+            // return Math.Max(_allSum, Math.Max(_allMultiplication, Math.Max(_allFirstParenthesis, _allLastParenthesis)));
+        }
+        public static string PrinterError(String s)
+        {
+            return s.Count(z => z > 'm') + "/" + s.Length;
+        }
         public static int[,] MultiplicationTable(int size)
         {
             var _tmpTable = new int[size, size];
