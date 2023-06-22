@@ -1022,6 +1022,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int SumDigits(int number) => number.ToString().Where(char.IsDigit).Sum(z => int.Parse(z.ToString()));
         public static int ExpressionsMatter(int a, int b, int c)
         {
             //other simpler solution
