@@ -1692,11 +1692,7 @@ one every 3 is eliminated until one remains
             return _auxReturn < 0 ? 0 : _auxReturn;
         }
         public static int SquareSum(int[] numbers) => (int)numbers.Sum(z => Math.Pow(z, 2));
-        public static object[] RemoveEveryOther(object[] arr)
-        {
-            if (arr.Length < 3) return arr;
-            return new object[] { (arr.Where((_string, index) => (int)index % 2 == 0).ToArray()) };
-        }
+        public static object[] RemoveEveryOther(object[] arr) => arr.Where((z, index) => index % 2 == 0).ToArray();
         public static int Gimme(double[] inputArray) => inputArray.ToList().IndexOf(inputArray.OrderBy(z => z).ElementAt(1));
         public static string Remove(string s) => s.EndsWith('!') ? new string(s.Take(s.Length - 1).ToArray()) : s;
         public static string[] SortByLength(string[] array) => array.OrderBy(z => z.Length).ToArray();
