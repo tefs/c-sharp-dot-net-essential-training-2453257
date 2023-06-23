@@ -1022,6 +1022,17 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int NbDig(int n, int d)
+        {//todo 1- Square all numbers k (0 <= k <= n) between 0 and n.
+         //2-Count the numbers of digits d used in the writing of all the k**2.
+            return Enumerable.Range(0, n + 1).Select(z => z * z).GroupBy(a => a, b => b)
+            .Select(a => new
+            {
+                number = a.Key
+            ,
+                count = a.Key.ToString().Count(c => int.Parse(c.ToString()).Equals(d))
+            }).Sum(z => z.count);
+        }
         public static int SumDigits(int number) => number.ToString().Where(char.IsDigit).Sum(z => int.Parse(z.ToString()));
         public static int ExpressionsMatter(int a, int b, int c)
         {
