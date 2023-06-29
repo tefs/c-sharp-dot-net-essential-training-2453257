@@ -1022,6 +1022,64 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string Encrypt(string text, int n)
+        {
+            //todo 1- given a string S and an integer N concatenates all the odd-indexed characters of S with all the even-indexed characters of S
+            // 2-  this process should be repeated N times.
+            if (n <= 0 || text == string.Empty || text == null) return text;
+            if (n == 1) return new string(text.Where((z, index) => index % 2 != 0).Concat(text.Where((z, index) => index % 2 == 0)).ToArray());
+            var _tmp = text.Where((z, index) => index % 2 != 0).Concat(text.Where((z, index) => index % 2 == 0));
+            IEnumerable<char> _axu = null;
+            for (int i = 0; i < n - 1; i++)
+            {
+                var _tmp1 = _tmp;
+                _tmp = _tmp1.Where((z, index) => index % 2 != 0).Concat(_tmp1.Where((z, index) => index % 2 == 0));
+                _axu = _tmp;
+            }
+            return new string(_axu.ToArray());
+        }
+        public static string Decrypt(string encryptedText, int n)
+        {
+            if (n <= 0 || encryptedText == string.Empty || encryptedText == null) return encryptedText;
+            if (n == 1)
+            {
+                try
+                {
+                    var _auxIEnumerableEven = encryptedText.Where((z, index) => index % 2 == 0).OrderBy(z => z);
+                    var _auxIEnumerableOdd = encryptedText.Where((z, index) => index % 2 == 1).OrderBy(z => z);
+                    var _auxList = new List<char>();
+                    if (_auxIEnumerableEven.Count() != _auxIEnumerableOdd.Count()) throw new InvalidOperationException();
+                    for (int i = 0; i < _auxIEnumerableEven.Count(); i++)
+                    {
+                        if (_auxIEnumerableOdd.ElementAt(i) >= _auxIEnumerableEven.ElementAt(i))
+                        {
+                            _auxList.Add(_auxIEnumerableEven.ElementAt(i));
+                            _auxList.Add(_auxIEnumerableOdd.ElementAt(i));
+                        }
+                        else
+                        {
+                            _auxList.Add(_auxIEnumerableOdd.ElementAt(i));
+                            _auxList.Add(_auxIEnumerableEven.ElementAt(i));
+                        }
+                    }
+                    return new string(_auxList.ToArray());
+                }
+                catch (InvalidOperationException e)
+                {
+                    Console.WriteLine(e.ToString());
+                    Debug.WriteLine(e.ToString());
+                }
+            }
+            var _tmp = encryptedText.Where(z => z % 2 == 0).GroupJoin(encryptedText.Where(z => z % 2 == 1), z => z, x => x, (z, _index) => z).ToArray();
+            IEnumerable<char> _axu = null;
+            for (int i = 0; i < n - 1; i++)
+            {
+                var _tmp1 = _tmp;
+                _tmp = encryptedText.Where(z => z % 2 == 0).GroupJoin(encryptedText.Where(z => z % 2 == 1), z => z, x => x, (z, _index) => z).ToArray();
+                _axu = _tmp;
+            }
+            return new string(_axu.ToArray());
+        }
         public static int NbDig(int n, int d)
         {//todo 1- Square all numbers k (0 <= k <= n) between 0 and n.
          //2-Count the numbers of digits d used in the writing of all the k**2.
@@ -1074,7 +1132,7 @@ one every 3 is eliminated until one remains
                 count = a.OrderByDescending((p => p.count)).First().count,
                 letter = a.Key,
                 winner = s1.Count(i => i == a.Key) > s2.Count(i => i == a.Key)
-                                                ? "1" : s1.Count(i => i == a.Key) < s2.Count(i => i == a.Key) ? "2" : "="
+                ? "1" : s1.Count(i => i == a.Key) < s2.Count(i => i == a.Key) ? "2" : "="
             });
 
             return string.Join("/", sGrouped.Where(o => o.count > 1).OrderByDescending(o => o.count)
