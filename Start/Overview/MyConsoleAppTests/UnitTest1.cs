@@ -1059,6 +1059,11 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void CodEWaRsR2()
+        {
+            Assert.AreEqual(Kata.CapitalsR2("CodEWaRs"), new int[] { 0, 3, 4, 6 });
+        }
         [TestCase(6, 2, 1, 2)]
         [TestCase(3, 1, 1, 1)]
         [TestCase(4, 2, 1, 1)]

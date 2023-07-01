@@ -7,6 +7,7 @@ using System.Collections;
 using System.Text;
 using System.Diagnostics;
 using NUnit.Framework;
+using System.Linq;
 // This program shows how to use the IPAddress class to obtain a server
 // IP addressess and related information.
 namespace TechnicaExam_MultiVision
@@ -1022,6 +1023,10 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int[] CapitalsR2(string word)
+        {
+            return word.Select((z, index) => new { letter = z, index = index }).Where(z => char.IsUpper(z.letter)).Select(z => z.index).ToArray();
+        }
         public static string Encrypt(string text, int n)
         {
             //todo 1- given a string S and an integer N concatenates all the odd-indexed characters of S with all the even-indexed characters of S
