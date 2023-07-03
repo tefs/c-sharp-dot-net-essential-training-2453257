@@ -675,29 +675,6 @@ one every 3 is eliminated until one remains
             return -1;
         }
     }
-    public class LongestConsecutives
-    {
-        public static string LongestConsec(string[] strarr, int k)
-        {//todo 1- in k cicles 2- calculate the sum of two strings 3- if _highestLength it's not higher then _currentLength, then _highestLength=_currentLength
-            int _highestLength = 0;
-            string _currentString = string.Empty;
-            string _highestString = string.Empty;
-            if (strarr.Length < k)
-            {
-                return string.Empty;
-            }
-            for (int i = 0; i < k; i++)
-            {
-                _currentString = strarr[i] + strarr[i + 1];
-                if (_highestLength < _currentString.Length)
-                {
-                    _highestLength = _currentString.Length;
-                    _highestString = _currentString;
-                }
-            }
-            return _highestString;
-        }
-    }
     public static class TechnicalExam_GameCompany_Adder
     {
         struct DoubleStruct
@@ -1023,6 +1000,25 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string LongestConsec(string[] strarr, int k)
+        {
+            //todo 1- in k cicles 2- calculate the sum of two strings 3- if _highestLength it's not higher then _currentLength, then _highestLength=_currentLength
+            if (strarr.Length < k) return string.Empty;
+            int _highestLength = 0;
+            string _currentString = string.Empty;
+            string _highestString = string.Empty;
+            for (int i = 0; i < k; i++)
+            {
+                _currentString = k == 2 ? strarr[i] + strarr[i + 1] : strarr[i] + strarr[i + 1] + strarr[i + 2];
+                if (_highestLength < _currentString.Length)
+                {
+                    _highestLength = _currentString.Length;
+                    _highestString = _currentString;
+                }
+            }
+            return _highestString;
+        }
+        public static int Mango(int quantity, int price) => price * (quantity - quantity / 3);
         public static int[] CapitalsR2(string word)
         {
             return word.Select((z, index) => new { letter = z, index = index }).Where(z => char.IsUpper(z.letter)).Select(z => z.index).ToArray();

@@ -121,29 +121,6 @@ namespace Solution
 namespace
 MyConsoleAppTests
 {
-
-    [TestFixture]
-    public static class LongestConsecutivesTests
-    {
-        private static void testing(string actual, string expected)
-        {
-            Assert.AreEqual(expected, actual);
-        }
-        [Test]
-        [TestCase(new String[] { "zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail" }, 2, "abigailtheta")]
-        [TestCase(new String[] { }, 3, "")]
-        [TestCase(new String[] { "itvayloxrp", "wkppqsztdkmvcuwvereiupccauycnjutlv", "vweqilsfytihvrzlaodfixoyxvyuyvgpck" }, 2, "wkppqsztdkmvcuwvereiupccauycnjutlvvweqilsfytihvrzlaodfixoyxvyuyvgpck")]
-        [TestCase(new String[] { "wlwsasphmxx", "owiaxujylentrklctozmymu", "wpgozvxxiu" }, 2, "wlwsasphmxxowiaxujylentrklctozmymu")]
-        [TestCase(new String[] { "zone", "abigail", "theta", "form", "libe", "zas" }, -2, "")]
-        // [TestCase(new String[] { "it", "wkppv", "ixoyx", "3452", "zzzzzzzzzzzz" }, 3, "ixoyx3452zzzzzzzzzzzz")]
-        [TestCase(new String[] { "it", "wkppv", "ixoyx", "3452", "zzzzzzzzzzzz" }, 15, "")]
-        [TestCase(new String[] { "it", "wkppv", "ixoyx", "3452", "zzzzzzzzzzzz" }, 0, "")]
-        public static void test1(string[] array, int k, string expected)
-        {
-            Console.WriteLine("Basic Tests");
-            testing(LongestConsecutives.LongestConsec(array, k), expected);
-        }
-    }
     [TestFixture]
     public class JadenCaseTest
     {
@@ -1059,6 +1036,23 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        [TestCase(new String[] { "zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail" }, 2, "abigailtheta")]
+        [TestCase(new String[] { }, 3, "")]
+        [TestCase(new String[] { "itvayloxrp", "wkppqsztdkmvcuwvereiupccauycnjutlv", "vweqilsfytihvrzlaodfixoyxvyuyvgpck" }, 2, "wkppqsztdkmvcuwvereiupccauycnjutlvvweqilsfytihvrzlaodfixoyxvyuyvgpck")]
+        [TestCase(new String[] { "wlwsasphmxx", "owiaxujylentrklctozmymu", "wpgozvxxiu" }, 2, "wlwsasphmxxowiaxujylentrklctozmymu")]
+        [TestCase(new String[] { "zone", "abigail", "theta", "form", "libe", "zas" }, -2, "")]
+        [TestCase(new String[] { "it", "wkppv", "ixoyx", "3452", "zzzzzzzzzzzz" }, 3, "ixoyx3452zzzzzzzzzzzz")]
+        [TestCase(new String[] { "it", "wkppv", "ixoyx", "3452", "zzzzzzzzzzzz" }, 15, "")]
+        [TestCase(new String[] { "it", "wkppv", "ixoyx", "3452", "zzzzzzzzzzzz" }, 0, "")]
+        public static void LongestConsecutivesTest(string[] array, int k, string expected) => Assert.AreEqual(Kata.LongestConsec(array, k), expected);
+        [Test]
+        public void MangoTests()
+        {
+            Assert.AreEqual(6, Kata.Mango(3, 3));
+            // Assert.AreEqual(6, Kata.Mango(9, 5));
+            Assert.AreEqual(30, Kata.Mango(9, 5));
+        }
         [Test]
         public void CodEWaRsR2()
         {
