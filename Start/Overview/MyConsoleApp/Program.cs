@@ -1000,6 +1000,25 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int SumOfDifferences(int[] arr)
+        {
+            //best solution
+            return arr.Any() ? arr.Max() - arr.Min() : 0;
+
+            // var _seed = new { item1 = 0, item2 = 0, array1 = arr, array2 = arr, counter = 0, arrayCount = arr.Count(), result = new List<string>() };
+            // var _ordered = arr.OrderByDescending(z => z);
+            // List<int> _list = new List<int>(arr.OrderByDescending(z => z).Select(z => z));
+            // _list.Add(0);
+            // var _sumDiff = 0;
+            // var _auxArr = arr.OrderByDescending(z => z);
+            // for (int i = 0; i < _auxArr.Count()-1; i++)
+            // {
+            //     _sumDiff += i < _auxArr.Count() 
+            // ? _auxArr.ElementAt(i) - _auxArr.ElementAt(i + 1) 
+            // : _auxArr.ElementAt(i - 1) - _auxArr.Last();
+            // }
+            // return _sumDiff;
+        }
         public static string LongestConsec(string[] strarr, int k)
         {
             //todo 1- in k cicles 2- calculate the sum of two strings 3- if _highestLength it's not higher then _currentLength, then _highestLength=_currentLength
