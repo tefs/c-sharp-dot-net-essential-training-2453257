@@ -998,9 +998,43 @@ one every 3 is eliminated until one remains
             Debug.WriteLine(" this.ArrayFrom={0}, this.Letter={1},this.Value={2}", this.ArrayFrom, this.Letter, this.Value);
         }
     }
+    public class Fighter
+    {
+        public string Name;
+        public int Health, DamagePerAttack;
+        public Fighter(string name, int health, int damagePerAttack)
+        {
+            this.Name = name;
+            this.Health = health;
+            this.DamagePerAttack = damagePerAttack;
+        }
+        //Return the attacked with updated health value
+        public void Strike(Fighter attacker, Fighter attacked)
+        {
+            attacked.Health -= attacker.DamagePerAttack;
+        }
+        public void PrintBattle(Fighter attacker, Fighter attacked) => Console.WriteLine("{0} attacks {1}; {2} now has {3} health.", attacker, attacked, attacked, attacked.Health);
+    }
     public static class Kata
     {
-        // .Select(l => (int)(l - 'a' + 1)));
+        public static string DeclareWinner(Fighter fighter1, Fighter fighter2, string firstAttacker)
+        {
+            Fighter? _nextAttacker= fighter1.Name.Equals(firstAttacker) ? fighter1 :fighter2;
+            while (fighter1.Health > 0 && fighter2.Health > 0)
+            {
+                if (fighter1.Equals(_nextAttacker))
+                {
+                    fighter2.Health -= fighter1.DamagePerAttack;
+                    _nextAttacker = fighter2;
+                }
+                else
+                {
+                    fighter1.Health -= fighter2.DamagePerAttack;
+                    _nextAttacker = fighter1;
+                }
+            }
+            return fighter1.Health > 0 ? fighter1.Name : fighter2.Name;
+        }
         public static int WordsToMarks(string str) => str.ToArray().Sum(z => (int)z - 'a' + 1);
         public static int SumOfDifferences(int[] arr)
         {
@@ -1585,7 +1619,7 @@ one every 3 is eliminated until one remains
         {
             var _last2 = year.ToString().ToArray().Skip(2);
             var _first2 = year.ToString().ToArray().Take(2);
-            return new string(_last2.ToArray()).Equals("00") ? Convert.ToInt32(new string(_first2.ToArray())) 
+            return new string(_last2.ToArray()).Equals("00") ? Convert.ToInt32(new string(_first2.ToArray()))
             : Convert.ToInt32(new string(_first2.ToArray())) + 1;
         }
         public static string SeriesSum(int n) => Enumerable.Range(0, n).Sum(x => 1.0 / (x * 3 + 1)).ToString("F");

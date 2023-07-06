@@ -1033,25 +1033,36 @@ MyConsoleAppTests
             // Assert.AreEqual(null, Kata.Decrypt(null, 0));
         }
     }
-  [TestFixture]
-  public class SampleTest
-  {
-    public static TestCaseData[] testCases = new TestCaseData[]
+    [TestFixture]
+    public class SampleTest
     {
+        public static TestCaseData[] testCases = new TestCaseData[]
+        {
       new TestCaseData("attitude").Returns(100).SetDescription("Input: \"attitude\"\n      Expected: 100"),
       new TestCaseData("friends").Returns(75).SetDescription("Input: \"friends\"\n      Expected: 75"),
       new TestCaseData("family").Returns(66).SetDescription("Input: \"family\"\n      Expected: 66"),
       new TestCaseData("selfness").Returns(99).SetDescription("Input: \"selfness\"\n      Expected: 99"),
       new TestCaseData("knowledge").Returns(96).SetDescription("Input: \"knowledge\"\n      Expected: 96"),
-    };
-  
-    [Test, TestCaseSource("testCases")]
-    public int Test(string str) =>
-      Kata.WordsToMarks(str);
-  }
+        };
+
+        [Test, TestCaseSource("testCases")]
+        public int Test(string str) =>
+          Kata.WordsToMarks(str);
+    }
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void DeclareWinnerTests()
+        {
+            Assert.AreEqual("Lew", Kata.DeclareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Lew"));
+            Assert.AreEqual("Harry", Kata.DeclareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Harry"));
+            Assert.AreEqual("Harald", Kata.DeclareWinner(new Fighter("Harald", 20, 5), new Fighter("Harry", 5, 4), "Harry"));
+            Assert.AreEqual("Harald", Kata.DeclareWinner(new Fighter("Harald", 20, 5), new Fighter("Harry", 5, 4), "Harald"));
+            Assert.AreEqual("Harald", Kata.DeclareWinner(new Fighter("Jerry", 30, 3), new Fighter("Harald", 20, 5), "Jerry"));
+            Assert.AreEqual("Harald", Kata.DeclareWinner(new Fighter("Jerry", 30, 3), new Fighter("Harald", 20, 5), "Harald"));
+
+        }
         [Test]
         public void SumOfDifferencesTest()
         {
