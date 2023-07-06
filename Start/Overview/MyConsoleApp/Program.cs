@@ -1000,6 +1000,8 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        // .Select(l => (int)(l - 'a' + 1)));
+        public static int WordsToMarks(string str) => str.ToArray().Sum(z => (int)z - 'a' + 1);
         public static int SumOfDifferences(int[] arr)
         {
             //best solution
@@ -1581,15 +1583,10 @@ one every 3 is eliminated until one remains
         }
         public static int СenturyFromYear(int year)
         {
-            var _auxLast = new string(year.ToString().Skip(2).ToArray());
-            var _auxBegin = int.Parse(year.ToString().Substring(0, 2));
-            var _aux = int.Parse(year.ToString().Take(2).ToArray());
-            if (!_auxLast.Equals("00"))
-            {
-                _auxBegin++;
-                return _auxBegin;
-            }
-            return _auxBegin;
+            var _last2 = year.ToString().ToArray().Skip(2);
+            var _first2 = year.ToString().ToArray().Take(2);
+            return new string(_last2.ToArray()).Equals("00") ? Convert.ToInt32(new string(_first2.ToArray())) 
+            : Convert.ToInt32(new string(_first2.ToArray())) + 1;
         }
         public static string SeriesSum(int n) => Enumerable.Range(0, n).Sum(x => 1.0 / (x * 3 + 1)).ToString("F");
         public static int find_it(int[] seq) => seq.First(z => seq.Count(x => x == z) % 2 == 1);
