@@ -1017,9 +1017,20 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string DefineSuit(string card)
+        {
+            switch (card.ElementAt(1))
+            {
+                case '♣': return "clubs";
+                case '♦': return "diamonds";
+                case '♥': return "hearts";
+                case '♠': return "spades";
+                default: return string.Empty;
+            }
+        }
         public static string DeclareWinner(Fighter fighter1, Fighter fighter2, string firstAttacker)
         {
-            Fighter? _nextAttacker= fighter1.Name.Equals(firstAttacker) ? fighter1 :fighter2;
+            Fighter? _nextAttacker = fighter1.Name.Equals(firstAttacker) ? fighter1 : fighter2;
             while (fighter1.Health > 0 && fighter2.Health > 0)
             {
                 if (fighter1.Equals(_nextAttacker))

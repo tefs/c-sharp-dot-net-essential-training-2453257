@@ -1053,6 +1053,14 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void DefineSuitTest()
+        {
+            Assert.AreEqual("clubs", Kata.DefineSuit("3♣"), "Should return clubs with \"3♣\"");
+            Assert.AreEqual("spades", Kata.DefineSuit("Q♠"), "Should return spades with \"Q♠\"");
+            Assert.AreEqual("diamonds", Kata.DefineSuit("9♦"), "Should return diamonds with \"9♦\"");
+            Assert.AreEqual("hearts", Kata.DefineSuit("J♥"), "Should return hearts with \"J♥\"");
+        }
+        [Test]
         public void DeclareWinnerTests()
         {
             Assert.AreEqual("Lew", Kata.DeclareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Lew"));
