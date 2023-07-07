@@ -1053,6 +1053,13 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void IsSortedAndHowTests()
+        {
+            Assert.AreEqual("yes, ascending", Kata.IsSortedAndHow(new[] { 1, 2 }));
+            Assert.AreEqual("yes, descending", Kata.IsSortedAndHow(new[] { 15, 7, 3, -8 }));
+            Assert.AreEqual("no", Kata.IsSortedAndHow(new[] { 4, 2, 30 }));
+        }
+        [Test]
         public void DefineSuitTest()
         {
             Assert.AreEqual("clubs", Kata.DefineSuit("3♣"), "Should return clubs with \"3♣\"");

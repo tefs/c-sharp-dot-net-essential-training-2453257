@@ -1017,6 +1017,29 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string IsSortedAndHow(int[] array)
+        {
+            return array.OrderBy(z => z).SequenceEqual(array) ? "yes, ascending"
+            : array.OrderByDescending(z => z).SequenceEqual(array) ? "yes, descending" : "no";
+            // int _auxCount = array.Count() - 1, _intAscendingCount = 0, _intDescendingCount = 0
+            // , _count = array.Count();
+            // for (int i = 0; i < array.Count(); i++)
+            // {
+            //     if (i == _auxCount)
+            //     {
+            //         if (array[_auxCount - 1] < array[i]) _intAscendingCount++;
+            //         else _intDescendingCount++;
+            //     }
+            //     else
+            //     {
+            //         if (array[i] < array[i + 1]) _intAscendingCount++;
+            //         else _intDescendingCount++;
+            //     }
+            // }
+            // if (_intAscendingCount == _count) return "yes, ascending";
+            // if (_intDescendingCount == _count) return "yes, descending";
+            // return "no";
+        }
         public static string DefineSuit(string card)
         {
             switch (card.ElementAt(1))
