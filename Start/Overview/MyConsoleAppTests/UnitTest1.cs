@@ -1052,6 +1052,17 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [TestCase("zodiac", 26)]
+        [TestCase("chruschtschov", 80)]
+        [TestCase("khrushchev", 38)]
+        [TestCase("strength", 57)]
+        [TestCase("catchphrase", 73)]
+        [TestCase("twelfthstreet", 103)]
+        [TestCase("mischtschenkoana", 80)]
+        public void Solve1Tests(string input, int expected)
+        {
+            Assert.That(Kata.SolveConsoants(input), Is.EqualTo(expected));
+        }
         [Test]
         public void IsSortedAndHowTests()
         {

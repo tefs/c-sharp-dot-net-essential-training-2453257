@@ -1017,510 +1017,527 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
-        public static string IsSortedAndHow(int[] array)
+        public static int SolveConsoants(string s)
         {
-            return array.OrderBy(z => z).SequenceEqual(array) ? "yes, ascending"
-            : array.OrderByDescending(z => z).SequenceEqual(array) ? "yes, descending" : "no";
-            // int _auxCount = array.Count() - 1, _intAscendingCount = 0, _intDescendingCount = 0
-            // , _count = array.Count();
-            // for (int i = 0; i < array.Count(); i++)
-            // {
-            //     if (i == _auxCount)
-            //     {
-            //         if (array[_auxCount - 1] < array[i]) _intAscendingCount++;
-            //         else _intDescendingCount++;
-            //     }
-            //     else
-            //     {
-            //         if (array[i] < array[i + 1]) _intAscendingCount++;
-            //         else _intDescendingCount++;
-            //     }
-            // }
-            // if (_intAscendingCount == _count) return "yes, ascending";
-            // if (_intDescendingCount == _count) return "yes, descending";
-            // return "no";
-        }
-        public static string DefineSuit(string card)
-        {
-            switch (card.ElementAt(1))
+            //todo 1-define alphabet |2-define consoants|3-sum sequenctial consoants value
+            var _alphabet = "abcdefghijklmnopqrstuvwxyz";
+            var _consoants = _alphabet.Where(z => !"aeiou".Contains(z));
+            int _sum = 0;
+            List<int> _sumList= new List<int>();
+            foreach (var item in s)
             {
-                case '♣': return "clubs";
-                case '♦': return "diamonds";
-                case '♥': return "hearts";
-                case '♠': return "spades";
-                default: return string.Empty;
+                if (_consoants.Contains(item)) _sum+=(int)item-'a'+1;
+                else {
+                    _sumList.Add(_sum);
+                _sum=0; 
+                }
             }
+            return _sumList.Max();
         }
-        public static string DeclareWinner(Fighter fighter1, Fighter fighter2, string firstAttacker)
+public static string IsSortedAndHow(int[] array)
+{
+    return array.OrderBy(z => z).SequenceEqual(array) ? "yes, ascending"
+    : array.OrderByDescending(z => z).SequenceEqual(array) ? "yes, descending" : "no";
+    // int _auxCount = array.Count() - 1, _intAscendingCount = 0, _intDescendingCount = 0
+    // , _count = array.Count();
+    // for (int i = 0; i < array.Count(); i++)
+    // {
+    //     if (i == _auxCount)
+    //     {
+    //         if (array[_auxCount - 1] < array[i]) _intAscendingCount++;
+    //         else _intDescendingCount++;
+    //     }
+    //     else
+    //     {
+    //         if (array[i] < array[i + 1]) _intAscendingCount++;
+    //         else _intDescendingCount++;
+    //     }
+    // }
+    // if (_intAscendingCount == _count) return "yes, ascending";
+    // if (_intDescendingCount == _count) return "yes, descending";
+    // return "no";
+}
+public static string DefineSuit(string card)
+{
+    switch (card.ElementAt(1))
+    {
+        case '♣': return "clubs";
+        case '♦': return "diamonds";
+        case '♥': return "hearts";
+        case '♠': return "spades";
+        default: return string.Empty;
+    }
+}
+public static string DeclareWinner(Fighter fighter1, Fighter fighter2, string firstAttacker)
+{
+    Fighter? _nextAttacker = fighter1.Name.Equals(firstAttacker) ? fighter1 : fighter2;
+    while (fighter1.Health > 0 && fighter2.Health > 0)
+    {
+        if (fighter1.Equals(_nextAttacker))
         {
-            Fighter? _nextAttacker = fighter1.Name.Equals(firstAttacker) ? fighter1 : fighter2;
-            while (fighter1.Health > 0 && fighter2.Health > 0)
+            fighter2.Health -= fighter1.DamagePerAttack;
+            _nextAttacker = fighter2;
+        }
+        else
+        {
+            fighter1.Health -= fighter2.DamagePerAttack;
+            _nextAttacker = fighter1;
+        }
+    }
+    return fighter1.Health > 0 ? fighter1.Name : fighter2.Name;
+}
+public static int WordsToMarks(string str) => str.ToArray().Sum(z => (int)z - 'a' + 1);
+public static int SumOfDifferences(int[] arr)
+{
+    //best solution
+    return arr.Any() ? arr.Max() - arr.Min() : 0;
+
+    // var _seed = new { item1 = 0, item2 = 0, array1 = arr, array2 = arr, counter = 0, arrayCount = arr.Count(), result = new List<string>() };
+    // var _ordered = arr.OrderByDescending(z => z);
+    // List<int> _list = new List<int>(arr.OrderByDescending(z => z).Select(z => z));
+    // _list.Add(0);
+    // var _sumDiff = 0;
+    // var _auxArr = arr.OrderByDescending(z => z);
+    // for (int i = 0; i < _auxArr.Count()-1; i++)
+    // {
+    //     _sumDiff += i < _auxArr.Count() 
+    // ? _auxArr.ElementAt(i) - _auxArr.ElementAt(i + 1) 
+    // : _auxArr.ElementAt(i - 1) - _auxArr.Last();
+    // }
+    // return _sumDiff;
+}
+public static string LongestConsec(string[] strarr, int k)
+{
+    //todo 1- in k cicles 2- calculate the sum of two strings 3- if _highestLength it's not higher then _currentLength, then _highestLength=_currentLength
+    if (strarr.Length < k) return string.Empty;
+    int _highestLength = 0;
+    string _currentString = string.Empty;
+    string _highestString = string.Empty;
+    for (int i = 0; i < k; i++)
+    {
+        _currentString = k == 2 ? strarr[i] + strarr[i + 1] : strarr[i] + strarr[i + 1] + strarr[i + 2];
+        if (_highestLength < _currentString.Length)
+        {
+            _highestLength = _currentString.Length;
+            _highestString = _currentString;
+        }
+    }
+    return _highestString;
+}
+public static int Mango(int quantity, int price) => price * (quantity - quantity / 3);
+public static int[] CapitalsR2(string word)
+{
+    return word.Select((z, index) => new { letter = z, index = index }).Where(z => char.IsUpper(z.letter)).Select(z => z.index).ToArray();
+}
+public static string Encrypt(string text, int n)
+{
+    //todo 1- given a string S and an integer N concatenates all the odd-indexed characters of S with all the even-indexed characters of S
+    // 2-  this process should be repeated N times.
+    if (n <= 0 || text == string.Empty || text == null) return text;
+    if (n == 1) return new string(text.Where((z, index) => index % 2 != 0).Concat(text.Where((z, index) => index % 2 == 0)).ToArray());
+    var _tmp = text.Where((z, index) => index % 2 != 0).Concat(text.Where((z, index) => index % 2 == 0));
+    IEnumerable<char> _axu = null;
+    for (int i = 0; i < n - 1; i++)
+    {
+        var _tmp1 = _tmp;
+        _tmp = _tmp1.Where((z, index) => index % 2 != 0).Concat(_tmp1.Where((z, index) => index % 2 == 0));
+        _axu = _tmp;
+    }
+    return new string(_axu.ToArray());
+}
+public static string Decrypt(string encryptedText, int n)
+{
+    if (n <= 0 || encryptedText == string.Empty || encryptedText == null) return encryptedText;
+    if (n == 1)
+    {
+        try
+        {
+            var _auxIEnumerableEven = encryptedText.Where((z, index) => index % 2 == 0).OrderBy(z => z);
+            var _auxIEnumerableOdd = encryptedText.Where((z, index) => index % 2 == 1).OrderBy(z => z);
+            var _auxList = new List<char>();
+            if (_auxIEnumerableEven.Count() != _auxIEnumerableOdd.Count()) throw new InvalidOperationException();
+            for (int i = 0; i < _auxIEnumerableEven.Count(); i++)
             {
-                if (fighter1.Equals(_nextAttacker))
+                if (_auxIEnumerableOdd.ElementAt(i) >= _auxIEnumerableEven.ElementAt(i))
                 {
-                    fighter2.Health -= fighter1.DamagePerAttack;
-                    _nextAttacker = fighter2;
+                    _auxList.Add(_auxIEnumerableEven.ElementAt(i));
+                    _auxList.Add(_auxIEnumerableOdd.ElementAt(i));
                 }
                 else
                 {
-                    fighter1.Health -= fighter2.DamagePerAttack;
-                    _nextAttacker = fighter1;
+                    _auxList.Add(_auxIEnumerableOdd.ElementAt(i));
+                    _auxList.Add(_auxIEnumerableEven.ElementAt(i));
                 }
             }
-            return fighter1.Health > 0 ? fighter1.Name : fighter2.Name;
+            return new string(_auxList.ToArray());
         }
-        public static int WordsToMarks(string str) => str.ToArray().Sum(z => (int)z - 'a' + 1);
-        public static int SumOfDifferences(int[] arr)
+        catch (InvalidOperationException e)
         {
-            //best solution
-            return arr.Any() ? arr.Max() - arr.Min() : 0;
+            Console.WriteLine(e.ToString());
+            Debug.WriteLine(e.ToString());
+        }
+    }
+    var _tmp = encryptedText.Where(z => z % 2 == 0).GroupJoin(encryptedText.Where(z => z % 2 == 1), z => z, x => x, (z, _index) => z).ToArray();
+    IEnumerable<char> _axu = null;
+    for (int i = 0; i < n - 1; i++)
+    {
+        var _tmp1 = _tmp;
+        _tmp = encryptedText.Where(z => z % 2 == 0).GroupJoin(encryptedText.Where(z => z % 2 == 1), z => z, x => x, (z, _index) => z).ToArray();
+        _axu = _tmp;
+    }
+    return new string(_axu.ToArray());
+}
+public static int NbDig(int n, int d)
+{//todo 1- Square all numbers k (0 <= k <= n) between 0 and n.
+ //2-Count the numbers of digits d used in the writing of all the k**2.
+    return Enumerable.Range(0, n + 1).Select(z => z * z).GroupBy(a => a, b => b)
+    .Select(a => new
+    {
+        number = a.Key
+    ,
+        count = a.Key.ToString().Count(c => int.Parse(c.ToString()).Equals(d))
+    }).Sum(z => z.count);
+}
+public static int SumDigits(int number) => number.ToString().Where(char.IsDigit).Sum(z => int.Parse(z.ToString()));
+public static int ExpressionsMatter(int a, int b, int c)
+{
+    //other simpler solution
+    return new[] { a * (b + c), (a + b) * c, a + b * c, a * b + c, a + b + c, a * b * c }.Max();
 
-            // var _seed = new { item1 = 0, item2 = 0, array1 = arr, array2 = arr, counter = 0, arrayCount = arr.Count(), result = new List<string>() };
-            // var _ordered = arr.OrderByDescending(z => z);
-            // List<int> _list = new List<int>(arr.OrderByDescending(z => z).Select(z => z));
-            // _list.Add(0);
-            // var _sumDiff = 0;
-            // var _auxArr = arr.OrderByDescending(z => z);
-            // for (int i = 0; i < _auxArr.Count()-1; i++)
-            // {
-            //     _sumDiff += i < _auxArr.Count() 
-            // ? _auxArr.ElementAt(i) - _auxArr.ElementAt(i + 1) 
-            // : _auxArr.ElementAt(i - 1) - _auxArr.Last();
-            // }
-            // return _sumDiff;
-        }
-        public static string LongestConsec(string[] strarr, int k)
+    // var _auxArray = new int[] { a, b, c };
+    // var max = _auxArray.Where(z => z == _auxArray.Max()).Select((z, auxindex) => new { number = z, index = auxindex }).First();
+    // var _allSum = _auxArray.Sum();
+    // var _allMultiplication = _auxArray.ElementAt(0) * _auxArray.ElementAt(1) * _auxArray.ElementAt(2);
+    // var _allFirstParenthesis = _auxArray.Take(2).Sum() * _auxArray.ElementAt(2);
+    // var _allLastParenthesis = _auxArray.ElementAt(0) * _auxArray.Skip(1).Sum();
+    // return Math.Max(_allSum, Math.Max(_allMultiplication, Math.Max(_allFirstParenthesis, _allLastParenthesis)));
+}
+public static string PrinterError(String s)
+{
+    return s.Count(z => z > 'm') + "/" + s.Length;
+}
+public static int[,] MultiplicationTable(int size)
+{
+    var _tmpTable = new int[size, size];
+    var _row = Enumerable.Range(1, size).ToList();
+    _row.ForEach(z => _row.ForEach(x => _tmpTable[z - 1, x - 1] = z * x));
+    return _tmpTable;
+}
+public static int[] GetEvenNumbers(int[] numbers) => numbers.Where(z => z % 2 == 0).Select(z => z).ToArray();
+public static string Mix(string s1, string s2)
+{
+    //igrouping sort
+    var s1Group = s1.Where(c => char.IsLower(c) && char.IsLetter(c)).GroupBy(a => a, b => b).Select(a => new { letter = a.Key, count = a.Count() });
+
+    var s2Group = s2.Where(c => char.IsLower(c) && char.IsLetter(c)).GroupBy(a => a, b => b).Select(a => new { letter = a.Key, count = a.Count() });
+
+    var s12Group = s1Group.Concat(s2Group).GroupBy(a => a.letter, b => b);
+
+    //businesss logic 
+    var sGrouped = s12Group.Select(a => new
+    {
+        count = a.OrderByDescending((p => p.count)).First().count,
+        letter = a.Key,
+        winner = s1.Count(i => i == a.Key) > s2.Count(i => i == a.Key)
+        ? "1" : s1.Count(i => i == a.Key) < s2.Count(i => i == a.Key) ? "2" : "="
+    });
+
+    return string.Join("/", sGrouped.Where(o => o.count > 1).OrderByDescending(o => o.count)
+    .ThenBy(o => int.Parse(o.winner == "=" ? "3" : o.winner))
+    .ThenBy(o => o.letter).Select(gz => gz.winner + ":" + new string(gz.letter, gz.count)));
+}
+public static string ReverseLetter(string str)
+{
+    // best solution
+    return new string(str.Where(char.IsLetter).Reverse().ToArray());
+
+    // return new string(str.Reverse().Select(z => char.IsLetter(z) ? z : char.MinValue).ToArray()).Replace(char.MinValue.ToString(),string.Empty);
+}
+public static int[] MergeArrays(int[] arr1, int[] arr2)
+
+///draft method
+{
+    // best resolution
+    return arr1.Union(arr2).OrderBy(i => i).ToArray();
+
+    // return arr1.Length == 0 && arr2.Length == 0 ? new int[0] : arr1.Union(arr2).Distinct().OrderBy(z => z).ToArray();
+}
+///draft method
+public static string MixV2(string s1, string s2)
+{
+    //todo 1 - group arrays per letter and count |2- unite the results |3- construct string with the results
+    var _s1ArrayGroup = s1.Where(char.IsLower).GroupBy(z => z, x => x).Select(z => new { letter = z.Key, count = z.Count() });
+    var _s2ArrayGroup = s2.Where(char.IsLower).GroupBy(z => z, x => x).Select(z => new { letter = z.Key, count = z.Count() });
+    var _arraysGrouped = _s1ArrayGroup.Concat(_s2ArrayGroup).GroupBy(z => z.letter, x => x);
+    var _arraysGroupedSecondPhase = _arraysGrouped.Select(z => new
+    {
+        count = z.OrderByDescending(x => x.count).First().count
+        ,
+        letter = z.Key
+        ,
+        winner = s1.Count(x => x.Equals(z.Key)) > s2.Count(x => x.Equals(z.Key)) ? "1"
+        : s1.Count(x => x == z.Key) < s2.Count(x => x == z.Key) ? "2" : "="
+    });
+    return string.Join("/", _arraysGroupedSecondPhase.Where(z => z.count > 1)
+    .OrderByDescending(z => z.count)
+    .ThenBy(z => int.Parse(z.winner == "=" ? "3" : z.winner))
+    .ThenBy(z => z.letter)
+    .Select(z => $"{z.winner}:{new string(z.letter, z.count)}"));
+}
+public static string Arrays(string s)
+{
+    // solution1
+    var arr = s.Split(",");
+    return arr.Length > 2 ? string.Join(" ", arr[1..^1]) : null;
+
+    // solution2
+    return s.Count(c => c == ',') < 2 ? null : string.Join(" ", s.Split(',')[1..^1]);
+
+    //failed in equal letters test| the rest passed
+    // if (s.Split(',').Length < 3) return null;
+    // var _auxArray = s.Split(',');
+    // EqualityComparerLast _equalityComparerLast = new EqualityComparerLast();
+    // Dictionary<string, string> _dicEqualityComparer = new Dictionary<string, string>(_equalityComparerLast);
+    // _dicEqualityComparer.Add(_auxArray.First(), "1");
+    // _dicEqualityComparer.Add(_auxArray.Last(), "1");
+    // return string.Join(" ", _auxArray.Except( _dicEqualityComparer.Keys ).ToArray());
+}
+public static string[] TowerBuilder(int nFloors)
+{
+    return Enumerable.Range(1, nFloors).Select(i => string.Format("{0}{1}{0}", i == nFloors ? "" : new string(' ', nFloors - i), new string('*', 2 * i - 1))).ToArray();
+}
+public static int RoundToNext5(int n)
+{
+    while (n % 5 != 0) n++;
+    return n;
+    // if (n == 0) return 0;
+    // return n % 5 == 0 ? n : int.Parse(Enumerable.Range(n+1, 5).Where(z => int.Parse(z.ToString()) % 5 == 0).First().ToString());
+}
+public static double Arithmetic(double a, double b, string op)
+{
+    double _aux = 0;
+    switch (op)
+    {
+        case "add": _aux = a + b; break;
+        case "subtract": _aux = a - b; break;
+        case "multiply": _aux = a * b; break;
+        default: _aux = a / b; break;
+    }
+    return Math.Round(_aux, 2);
+}
+public static int NoBoringZerosV2(int n)
+{
+    //return int.Parse(n.ToString().Replace(0.ToString(),string.Empty));
+    return int.Parse(n.ToString().TrimEnd('0'));
+    //int.Parse(n.ToString().Select(z=>z!=0?z:'\0').ToArray().ToString());
+}
+public static bool ValidateBattlefield(int[,] field)
+{
+    var _length = field.GetUpperBound(0);
+    var _totalAmountOfShips = 0;
+    var pivot = new int[,] { { 0 }, { 0 } };
+    Dictionary<string, int> _dicCountCurrentAmount = new Dictionary<string, int>();
+    _dicCountCurrentAmount.Add(BattleShipSizeDefinition.submarine.ToString(), 0);
+    _dicCountCurrentAmount.Add(BattleShipSizeDefinition.battleship.ToString(), 0);
+    _dicCountCurrentAmount.Add(BattleShipSizeDefinition.cruiser.ToString(), 0);
+    _dicCountCurrentAmount.Add(BattleShipSizeDefinition.destroyer.ToString(), 0);
+    bool _validationToken = true;
+    for (int i = 0; i < _length; i++)
+    {
+        var _getlength = field.GetUpperBound(i);
+        for (int x = 0; x < _getlength; x++)
         {
-            //todo 1- in k cicles 2- calculate the sum of two strings 3- if _highestLength it's not higher then _currentLength, then _highestLength=_currentLength
-            if (strarr.Length < k) return string.Empty;
-            int _highestLength = 0;
-            string _currentString = string.Empty;
-            string _highestString = string.Empty;
-            for (int i = 0; i < k; i++)
+            if (field[i, x] == 1)
             {
-                _currentString = k == 2 ? strarr[i] + strarr[i + 1] : strarr[i] + strarr[i + 1] + strarr[i + 2];
-                if (_highestLength < _currentString.Length)
+                var _tmpRow = Enumerable.Range(x, field.GetLength(i)).Select(z => field[i, z]).ToArray();
+                var _tmpColumn = Enumerable.Range(i, field.GetLength(x)).Select(z => field[z, i]).ToArray();
+                var _auxBatlleshipPosition = x + (int)BattleShipSizeDefinition.battleship;
+                var _auxDestroyerPosition = x + (int)BattleShipSizeDefinition.destroyer;
+                var _auxCruiserPosition = x + (int)BattleShipSizeDefinition.cruiser;
+                if (_auxBatlleshipPosition <= _getlength)//|| _auxDestroyerPosition <= _getlength || _auxCruiserPosition <= _getlength)
                 {
-                    _highestLength = _currentString.Length;
-                    _highestString = _currentString;
-                }
-            }
-            return _highestString;
-        }
-        public static int Mango(int quantity, int price) => price * (quantity - quantity / 3);
-        public static int[] CapitalsR2(string word)
-        {
-            return word.Select((z, index) => new { letter = z, index = index }).Where(z => char.IsUpper(z.letter)).Select(z => z.index).ToArray();
-        }
-        public static string Encrypt(string text, int n)
-        {
-            //todo 1- given a string S and an integer N concatenates all the odd-indexed characters of S with all the even-indexed characters of S
-            // 2-  this process should be repeated N times.
-            if (n <= 0 || text == string.Empty || text == null) return text;
-            if (n == 1) return new string(text.Where((z, index) => index % 2 != 0).Concat(text.Where((z, index) => index % 2 == 0)).ToArray());
-            var _tmp = text.Where((z, index) => index % 2 != 0).Concat(text.Where((z, index) => index % 2 == 0));
-            IEnumerable<char> _axu = null;
-            for (int i = 0; i < n - 1; i++)
-            {
-                var _tmp1 = _tmp;
-                _tmp = _tmp1.Where((z, index) => index % 2 != 0).Concat(_tmp1.Where((z, index) => index % 2 == 0));
-                _axu = _tmp;
-            }
-            return new string(_axu.ToArray());
-        }
-        public static string Decrypt(string encryptedText, int n)
-        {
-            if (n <= 0 || encryptedText == string.Empty || encryptedText == null) return encryptedText;
-            if (n == 1)
-            {
-                try
-                {
-                    var _auxIEnumerableEven = encryptedText.Where((z, index) => index % 2 == 0).OrderBy(z => z);
-                    var _auxIEnumerableOdd = encryptedText.Where((z, index) => index % 2 == 1).OrderBy(z => z);
-                    var _auxList = new List<char>();
-                    if (_auxIEnumerableEven.Count() != _auxIEnumerableOdd.Count()) throw new InvalidOperationException();
-                    for (int i = 0; i < _auxIEnumerableEven.Count(); i++)
+                    // var _rowLength = field.GetLength(i);
+                    // var _auxRow = Enumerable.Range(0, _rowLength).Select(z => field[i, z]).ToArray();
+                    var _pivot = 0;
+                    for (int z = 0; z < _tmpRow.Length - 1; z++)
                     {
-                        if (_auxIEnumerableOdd.ElementAt(i) >= _auxIEnumerableEven.ElementAt(i))
-                        {
-                            _auxList.Add(_auxIEnumerableEven.ElementAt(i));
-                            _auxList.Add(_auxIEnumerableOdd.ElementAt(i));
-                        }
-                        else
-                        {
-                            _auxList.Add(_auxIEnumerableOdd.ElementAt(i));
-                            _auxList.Add(_auxIEnumerableEven.ElementAt(i));
-                        }
+                        if (_tmpRow[z] == 0) break;
+                        _pivot++;
                     }
-                    return new string(_auxList.ToArray());
-                }
-                catch (InvalidOperationException e)
-                {
-                    Console.WriteLine(e.ToString());
-                    Debug.WriteLine(e.ToString());
-                }
-            }
-            var _tmp = encryptedText.Where(z => z % 2 == 0).GroupJoin(encryptedText.Where(z => z % 2 == 1), z => z, x => x, (z, _index) => z).ToArray();
-            IEnumerable<char> _axu = null;
-            for (int i = 0; i < n - 1; i++)
-            {
-                var _tmp1 = _tmp;
-                _tmp = encryptedText.Where(z => z % 2 == 0).GroupJoin(encryptedText.Where(z => z % 2 == 1), z => z, x => x, (z, _index) => z).ToArray();
-                _axu = _tmp;
-            }
-            return new string(_axu.ToArray());
-        }
-        public static int NbDig(int n, int d)
-        {//todo 1- Square all numbers k (0 <= k <= n) between 0 and n.
-         //2-Count the numbers of digits d used in the writing of all the k**2.
-            return Enumerable.Range(0, n + 1).Select(z => z * z).GroupBy(a => a, b => b)
-            .Select(a => new
-            {
-                number = a.Key
-            ,
-                count = a.Key.ToString().Count(c => int.Parse(c.ToString()).Equals(d))
-            }).Sum(z => z.count);
-        }
-        public static int SumDigits(int number) => number.ToString().Where(char.IsDigit).Sum(z => int.Parse(z.ToString()));
-        public static int ExpressionsMatter(int a, int b, int c)
-        {
-            //other simpler solution
-            return new[] { a * (b + c), (a + b) * c, a + b * c, a * b + c, a + b + c, a * b * c }.Max();
-
-            // var _auxArray = new int[] { a, b, c };
-            // var max = _auxArray.Where(z => z == _auxArray.Max()).Select((z, auxindex) => new { number = z, index = auxindex }).First();
-            // var _allSum = _auxArray.Sum();
-            // var _allMultiplication = _auxArray.ElementAt(0) * _auxArray.ElementAt(1) * _auxArray.ElementAt(2);
-            // var _allFirstParenthesis = _auxArray.Take(2).Sum() * _auxArray.ElementAt(2);
-            // var _allLastParenthesis = _auxArray.ElementAt(0) * _auxArray.Skip(1).Sum();
-            // return Math.Max(_allSum, Math.Max(_allMultiplication, Math.Max(_allFirstParenthesis, _allLastParenthesis)));
-        }
-        public static string PrinterError(String s)
-        {
-            return s.Count(z => z > 'm') + "/" + s.Length;
-        }
-        public static int[,] MultiplicationTable(int size)
-        {
-            var _tmpTable = new int[size, size];
-            var _row = Enumerable.Range(1, size).ToList();
-            _row.ForEach(z => _row.ForEach(x => _tmpTable[z - 1, x - 1] = z * x));
-            return _tmpTable;
-        }
-        public static int[] GetEvenNumbers(int[] numbers) => numbers.Where(z => z % 2 == 0).Select(z => z).ToArray();
-        public static string Mix(string s1, string s2)
-        {
-            //igrouping sort
-            var s1Group = s1.Where(c => char.IsLower(c) && char.IsLetter(c)).GroupBy(a => a, b => b).Select(a => new { letter = a.Key, count = a.Count() });
-
-            var s2Group = s2.Where(c => char.IsLower(c) && char.IsLetter(c)).GroupBy(a => a, b => b).Select(a => new { letter = a.Key, count = a.Count() });
-
-            var s12Group = s1Group.Concat(s2Group).GroupBy(a => a.letter, b => b);
-
-            //businesss logic 
-            var sGrouped = s12Group.Select(a => new
-            {
-                count = a.OrderByDescending((p => p.count)).First().count,
-                letter = a.Key,
-                winner = s1.Count(i => i == a.Key) > s2.Count(i => i == a.Key)
-                ? "1" : s1.Count(i => i == a.Key) < s2.Count(i => i == a.Key) ? "2" : "="
-            });
-
-            return string.Join("/", sGrouped.Where(o => o.count > 1).OrderByDescending(o => o.count)
-            .ThenBy(o => int.Parse(o.winner == "=" ? "3" : o.winner))
-            .ThenBy(o => o.letter).Select(gz => gz.winner + ":" + new string(gz.letter, gz.count)));
-        }
-        public static string ReverseLetter(string str)
-        {
-            // best solution
-            return new string(str.Where(char.IsLetter).Reverse().ToArray());
-
-            // return new string(str.Reverse().Select(z => char.IsLetter(z) ? z : char.MinValue).ToArray()).Replace(char.MinValue.ToString(),string.Empty);
-        }
-        public static int[] MergeArrays(int[] arr1, int[] arr2)
-
-        ///draft method
-        {
-            // best resolution
-            return arr1.Union(arr2).OrderBy(i => i).ToArray();
-
-            // return arr1.Length == 0 && arr2.Length == 0 ? new int[0] : arr1.Union(arr2).Distinct().OrderBy(z => z).ToArray();
-        }
-        ///draft method
-        public static string MixV2(string s1, string s2)
-        {
-            //todo 1 - group arrays per letter and count |2- unite the results |3- construct string with the results
-            var _s1ArrayGroup = s1.Where(char.IsLower).GroupBy(z => z, x => x).Select(z => new { letter = z.Key, count = z.Count() });
-            var _s2ArrayGroup = s2.Where(char.IsLower).GroupBy(z => z, x => x).Select(z => new { letter = z.Key, count = z.Count() });
-            var _arraysGrouped = _s1ArrayGroup.Concat(_s2ArrayGroup).GroupBy(z => z.letter, x => x);
-            var _arraysGroupedSecondPhase = _arraysGrouped.Select(z => new
-            {
-                count = z.OrderByDescending(x => x.count).First().count
-                ,
-                letter = z.Key
-                ,
-                winner = s1.Count(x => x.Equals(z.Key)) > s2.Count(x => x.Equals(z.Key)) ? "1"
-                : s1.Count(x => x == z.Key) < s2.Count(x => x == z.Key) ? "2" : "="
-            });
-            return string.Join("/", _arraysGroupedSecondPhase.Where(z => z.count > 1)
-            .OrderByDescending(z => z.count)
-            .ThenBy(z => int.Parse(z.winner == "=" ? "3" : z.winner))
-            .ThenBy(z => z.letter)
-            .Select(z => $"{z.winner}:{new string(z.letter, z.count)}"));
-        }
-        public static string Arrays(string s)
-        {
-            // solution1
-            var arr = s.Split(",");
-            return arr.Length > 2 ? string.Join(" ", arr[1..^1]) : null;
-
-            // solution2
-            return s.Count(c => c == ',') < 2 ? null : string.Join(" ", s.Split(',')[1..^1]);
-
-            //failed in equal letters test| the rest passed
-            // if (s.Split(',').Length < 3) return null;
-            // var _auxArray = s.Split(',');
-            // EqualityComparerLast _equalityComparerLast = new EqualityComparerLast();
-            // Dictionary<string, string> _dicEqualityComparer = new Dictionary<string, string>(_equalityComparerLast);
-            // _dicEqualityComparer.Add(_auxArray.First(), "1");
-            // _dicEqualityComparer.Add(_auxArray.Last(), "1");
-            // return string.Join(" ", _auxArray.Except( _dicEqualityComparer.Keys ).ToArray());
-        }
-        public static string[] TowerBuilder(int nFloors)
-        {
-            return Enumerable.Range(1, nFloors).Select(i => string.Format("{0}{1}{0}", i == nFloors ? "" : new string(' ', nFloors - i), new string('*', 2 * i - 1))).ToArray();
-        }
-        public static int RoundToNext5(int n)
-        {
-            while (n % 5 != 0) n++;
-            return n;
-            // if (n == 0) return 0;
-            // return n % 5 == 0 ? n : int.Parse(Enumerable.Range(n+1, 5).Where(z => int.Parse(z.ToString()) % 5 == 0).First().ToString());
-        }
-        public static double Arithmetic(double a, double b, string op)
-        {
-            double _aux = 0;
-            switch (op)
-            {
-                case "add": _aux = a + b; break;
-                case "subtract": _aux = a - b; break;
-                case "multiply": _aux = a * b; break;
-                default: _aux = a / b; break;
-            }
-            return Math.Round(_aux, 2);
-        }
-        public static int NoBoringZerosV2(int n)
-        {
-            //return int.Parse(n.ToString().Replace(0.ToString(),string.Empty));
-            return int.Parse(n.ToString().TrimEnd('0'));
-            //int.Parse(n.ToString().Select(z=>z!=0?z:'\0').ToArray().ToString());
-        }
-        public static bool ValidateBattlefield(int[,] field)
-        {
-            var _length = field.GetUpperBound(0);
-            var _totalAmountOfShips = 0;
-            var pivot = new int[,] { { 0 }, { 0 } };
-            Dictionary<string, int> _dicCountCurrentAmount = new Dictionary<string, int>();
-            _dicCountCurrentAmount.Add(BattleShipSizeDefinition.submarine.ToString(), 0);
-            _dicCountCurrentAmount.Add(BattleShipSizeDefinition.battleship.ToString(), 0);
-            _dicCountCurrentAmount.Add(BattleShipSizeDefinition.cruiser.ToString(), 0);
-            _dicCountCurrentAmount.Add(BattleShipSizeDefinition.destroyer.ToString(), 0);
-            bool _validationToken = true;
-            for (int i = 0; i < _length; i++)
-            {
-                var _getlength = field.GetUpperBound(i);
-                for (int x = 0; x < _getlength; x++)
-                {
-                    if (field[i, x] == 1)
+                    //verify the ship length
+                    if ((int)BattleShipSizeDefinition.battleship == _pivot)
                     {
-                        var _tmpRow = Enumerable.Range(x, field.GetLength(i)).Select(z => field[i, z]).ToArray();
-                        var _tmpColumn = Enumerable.Range(i, field.GetLength(x)).Select(z => field[z, i]).ToArray();
-                        var _auxBatlleshipPosition = x + (int)BattleShipSizeDefinition.battleship;
-                        var _auxDestroyerPosition = x + (int)BattleShipSizeDefinition.destroyer;
-                        var _auxCruiserPosition = x + (int)BattleShipSizeDefinition.cruiser;
-                        if (_auxBatlleshipPosition <= _getlength)//|| _auxDestroyerPosition <= _getlength || _auxCruiserPosition <= _getlength)
-                        {
-                            // var _rowLength = field.GetLength(i);
-                            // var _auxRow = Enumerable.Range(0, _rowLength).Select(z => field[i, z]).ToArray();
-                            var _pivot = 0;
-                            for (int z = 0; z < _tmpRow.Length - 1; z++)
-                            {
-                                if (_tmpRow[z] == 0) break;
-                                _pivot++;
-                            }
-                            //verify the ship length
-                            if ((int)BattleShipSizeDefinition.battleship == _pivot)
-                            {
-                                _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.battleship.ToString(), out int _auxSum);
-                                _auxSum++;
-                                _dicCountCurrentAmount[BattleShipSizeDefinition.battleship.ToString()] = _auxSum;
-                            }
-                            if ((int)BattleShipSizeDefinition.destroyer == _pivot)
-                            {
-                                _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.destroyer.ToString(), out int _auxSum1);
-                                _auxSum1++;
-                                _dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] = _auxSum1;
-                            }
-                            if ((int)BattleShipSizeDefinition.cruiser == _pivot)
-                            {
-                                _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.cruiser.ToString(), out int _auxSum2);
-                                _auxSum2++;
-                                _dicCountCurrentAmount[BattleShipSizeDefinition.cruiser.ToString()] = _auxSum2;
-                            }
-                        }
-
-                        // _validationToken = true;
-                        // //check all cell in horizontal and vertical, till 4 positions
-                        // var _auxBatlleship = field[i, x + (int)BattleShipSizeDefinition.battleship];
-                        // var _auxDestroyer = field[i, x + (int)BattleShipSizeDefinition.destroyer];
-                        // if (_auxBatlleship <= _getlength)
-                        // {
-                        //     if (field[i, _auxBatlleship] == 0) _validationToken = false;
-                        // }
-
-                        // var _auxCruiser = field[i, x + (int)BattleShipSizeDefinition.cruiser];
-                        // if (_auxCruiser <= _getlength)
-                        // {
-                        //     if (field[i, _auxCruiser] == 0) _validationToken = false;
-                        // }
+                        _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.battleship.ToString(), out int _auxSum);
+                        _auxSum++;
+                        _dicCountCurrentAmount[BattleShipSizeDefinition.battleship.ToString()] = _auxSum;
                     }
-
-
-                    // // if (field[i, x] == 1)
-                    // // {
-                    //     _totalAmountOfShips++;
-                    //     //identify which craft is
-                    //     //destroyer definition
-                    //     var _auxTotalHorizontalLength = x + (int)BattleShipSizeDefinition.destroyer;
-                    //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
-                    //         if (field[i, _auxTotalHorizontalLength] == 0) _validationToken = false;
-                    //     var _auxTotalVerticalLength = i + (int)BattleShipSizeDefinition.destroyer;
-                    //     if (_auxTotalVerticalLength <= _getlength)
-                    //         if (field[_auxTotalVerticalLength, x] == 0) _validationToken = false;
-                    //     if (_validationToken)
-                    //     {
-                    //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.destroyer.ToString(), out int _auxSum);
-                    //         _auxSum++;
-                    //         _dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] = _auxSum;
-                    //     }
-
-                    //     //battleship definition
-                    //     _validationToken = true;
-                    //     _auxTotalHorizontalLength = x + (int)BattleShipSizeDefinition.battleship;
-                    //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
-                    //         if (field[i, _auxTotalHorizontalLength] == 0) _validationToken = false;
-                    //     _auxTotalVerticalLength = i + (int)BattleShipSizeDefinition.battleship;
-                    //     if (_auxTotalVerticalLength <= _getlength)
-                    //         if (field[_auxTotalVerticalLength, x] == 0) _validationToken = false;
-                    //     if (_validationToken)
-                    //     {
-                    //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.battleship.ToString(), out int _auxSum);
-                    //         _auxSum++;
-                    //         _dicCountCurrentAmount[BattleShipSizeDefinition.battleship.ToString()] = _auxSum;
-                    //     }
-
-                    //     //cruiser definition
-                    //     _validationToken = true;
-                    //     _auxTotalHorizontalLength = i + (int)BattleShipSizeDefinition.cruiser;
-                    //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
-                    //         if (field[i, _auxTotalHorizontalLength] == 0) _validationToken = false;
-
-                    //     _auxTotalVerticalLength = x + (int)BattleShipSizeDefinition.cruiser;
-                    //     if (_auxTotalVerticalLength <= _getlength)
-                    //         if (field[_auxTotalVerticalLength, x] == 0) _validationToken = false;
-                    //     if (_validationToken)
-                    //     {
-                    //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.cruiser.ToString(), out int _auxSum);
-                    //         _auxSum++;
-                    //         _dicCountCurrentAmount[BattleShipSizeDefinition.cruiser.ToString()] = _auxSum;
-                    //     }
-
-                    //     //submarine definition
-                    //     _validationToken = true;
-                    //     _auxTotalHorizontalLength = x + (int)BattleShipSizeDefinition.submarine;
-                    //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
-                    //         if (field[i, _auxTotalHorizontalLength] == 1) _validationToken = false;
-                    //     _auxTotalVerticalLength = i + (int)BattleShipSizeDefinition.submarine;
-                    //     if (_auxTotalVerticalLength <= _getlength)
-                    //         if (field[_auxTotalVerticalLength, x] == 1) _validationToken = false;
-                    //     if (_validationToken)
-                    //     {
-                    //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.submarine.ToString(), out int _auxSum);
-                    //         _auxSum++;
-                    //         _dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] = _auxSum;
-                    //     }
-                    // }
+                    if ((int)BattleShipSizeDefinition.destroyer == _pivot)
+                    {
+                        _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.destroyer.ToString(), out int _auxSum1);
+                        _auxSum1++;
+                        _dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] = _auxSum1;
+                    }
+                    if ((int)BattleShipSizeDefinition.cruiser == _pivot)
+                    {
+                        _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.cruiser.ToString(), out int _auxSum2);
+                        _auxSum2++;
+                        _dicCountCurrentAmount[BattleShipSizeDefinition.cruiser.ToString()] = _auxSum2;
+                    }
                 }
+
+                // _validationToken = true;
+                // //check all cell in horizontal and vertical, till 4 positions
+                // var _auxBatlleship = field[i, x + (int)BattleShipSizeDefinition.battleship];
+                // var _auxDestroyer = field[i, x + (int)BattleShipSizeDefinition.destroyer];
+                // if (_auxBatlleship <= _getlength)
+                // {
+                //     if (field[i, _auxBatlleship] == 0) _validationToken = false;
+                // }
+
+                // var _auxCruiser = field[i, x + (int)BattleShipSizeDefinition.cruiser];
+                // if (_auxCruiser <= _getlength)
+                // {
+                //     if (field[i, _auxCruiser] == 0) _validationToken = false;
+                // }
             }
 
-            // private static void StringBuilderTest()
+
+            // // if (field[i, x] == 1)
+            // // {
+            //     _totalAmountOfShips++;
+            //     //identify which craft is
+            //     //destroyer definition
+            //     var _auxTotalHorizontalLength = x + (int)BattleShipSizeDefinition.destroyer;
+            //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
+            //         if (field[i, _auxTotalHorizontalLength] == 0) _validationToken = false;
+            //     var _auxTotalVerticalLength = i + (int)BattleShipSizeDefinition.destroyer;
+            //     if (_auxTotalVerticalLength <= _getlength)
+            //         if (field[_auxTotalVerticalLength, x] == 0) _validationToken = false;
+            //     if (_validationToken)
             //     {
-            //         ConcurrentDictionary<int, string> concurrentDictionary = new ConcurrentDictionary<int, string>();
-            //         for (int i = 0; i < 1500; i++)
-            //         {
-            //             concurrentDictionary[i] = getBigStringWith60KCharecters();
-            //         }
-
-            //         int counter = 1;
-            //         Collection<int> ids = new Collection<int>();
-            //         StringBuilder caseExpression = new StringBuilder();
-            //         try
-            //         {
-            //             foreach (KeyValuePair<int, string> keyValuePair in concurrentDictionary)
-            //             {
-            //                 ids.Add(keyValuePair.Key);
-            //                 caseExpression.AppendLine($"WHEN Document_Id = {keyValuePair.Key} THEN {keyValuePair.Value}");
-            //                 const int MAX_PREFERD_AMOUNT_OF_CHARECTERS = 100000000;
-            //                 if (caseExpression.Length > MAX_PREFERD_AMOUNT_OF_CHARECTERS || counter == concurrentDictionary.Count)
-            //                 {
-            //                     string tempString = caseExpression.ToString();
-            //                     TryUpdateBatchOfWebDocuments(tempString, ids);
-            //                     caseExpression.Clear();
-            //                     ids.Clear();
-            //                 }
-
-            //                 counter++;
-            //             }
-            //         }
-            //         catch (Exception exc)
-            //         {
-            //             throw;
-            //         }
+            //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.destroyer.ToString(), out int _auxSum);
+            //         _auxSum++;
+            //         _dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] = _auxSum;
             //     }
 
-            //final confirm total of ships
-            if (_dicCountCurrentAmount[BattleShipSizeDefinition.battleship.ToString()] == (int)BattleShipTotalAmount.battleship) return false;
-            if (_dicCountCurrentAmount[BattleShipSizeDefinition.cruiser.ToString()] == (int)BattleShipTotalAmount.cruiser) return false;
-            if (_dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] == (int)BattleShipTotalAmount.destroyer) return false;
-            if (_dicCountCurrentAmount[BattleShipSizeDefinition.submarine.ToString()] == (int)BattleShipTotalAmount.submarine) return false;
+            //     //battleship definition
+            //     _validationToken = true;
+            //     _auxTotalHorizontalLength = x + (int)BattleShipSizeDefinition.battleship;
+            //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
+            //         if (field[i, _auxTotalHorizontalLength] == 0) _validationToken = false;
+            //     _auxTotalVerticalLength = i + (int)BattleShipSizeDefinition.battleship;
+            //     if (_auxTotalVerticalLength <= _getlength)
+            //         if (field[_auxTotalVerticalLength, x] == 0) _validationToken = false;
+            //     if (_validationToken)
+            //     {
+            //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.battleship.ToString(), out int _auxSum);
+            //         _auxSum++;
+            //         _dicCountCurrentAmount[BattleShipSizeDefinition.battleship.ToString()] = _auxSum;
+            //     }
 
-            // Must return False if unwanted ships are present
-            // if (((int)BattleShipTotalAmount.submarine + (int)BattleShipTotalAmount.battleship + (int)BattleShipTotalAmount.cruiser + (int)BattleShipTotalAmount.destroyer) != _totalAmountOfShips) return false;
+            //     //cruiser definition
+            //     _validationToken = true;
+            //     _auxTotalHorizontalLength = i + (int)BattleShipSizeDefinition.cruiser;
+            //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
+            //         if (field[i, _auxTotalHorizontalLength] == 0) _validationToken = false;
 
-            return true;
+            //     _auxTotalVerticalLength = x + (int)BattleShipSizeDefinition.cruiser;
+            //     if (_auxTotalVerticalLength <= _getlength)
+            //         if (field[_auxTotalVerticalLength, x] == 0) _validationToken = false;
+            //     if (_validationToken)
+            //     {
+            //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.cruiser.ToString(), out int _auxSum);
+            //         _auxSum++;
+            //         _dicCountCurrentAmount[BattleShipSizeDefinition.cruiser.ToString()] = _auxSum;
+            //     }
+
+            //     //submarine definition
+            //     _validationToken = true;
+            //     _auxTotalHorizontalLength = x + (int)BattleShipSizeDefinition.submarine;
+            //     if (_auxTotalHorizontalLength <= _length)//validate in horizontal
+            //         if (field[i, _auxTotalHorizontalLength] == 1) _validationToken = false;
+            //     _auxTotalVerticalLength = i + (int)BattleShipSizeDefinition.submarine;
+            //     if (_auxTotalVerticalLength <= _getlength)
+            //         if (field[_auxTotalVerticalLength, x] == 1) _validationToken = false;
+            //     if (_validationToken)
+            //     {
+            //         _dicCountCurrentAmount.TryGetValue(BattleShipSizeDefinition.submarine.ToString(), out int _auxSum);
+            //         _auxSum++;
+            //         _dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] = _auxSum;
+            //     }
+            // }
         }
-        public static string Usdcny(int usd) => $"{(usd * 6.75F):0.00} Chinese Yuan";
-        public static bool SpeakEnglish(string sentence) => sentence.Contains("english", StringComparison.InvariantCultureIgnoreCase);
-        public static double SquareArea(double A)
-        {
-            var _radious = A * 4 / (Math.PI * 2);
-            return Math.Round(_radious * _radious, 2, MidpointRounding.AwayFromZero);
-        }
-        public static int[] SortArray(int[] array)
-        {
-            // Queue<int> odds = new Queue<int>(array.Where(e => e % 2 == 1).OrderBy(e => e));
-            // return array.Select(e => e % 2 == 1 ? odds.Dequeue() : e).ToArray();
+    }
 
-            if (!array.Any(z => z % 2 == 1)) return array;
-            var _auxOrderedArray1 = array.Where(z => z % 2 == 1).OrderBy(z => z).ToArray();
-            var _auxCount = 0;
-            return array.Select(z => z % 2 == 1 ? _auxOrderedArray1[_auxCount++] : z).ToArray();
-        }
-        public static string BreakCamelCase(string str) => string.Join(" ", Regex.Split(str, "(?=[A-Z])"));
+    // private static void StringBuilderTest()
+    //     {
+    //         ConcurrentDictionary<int, string> concurrentDictionary = new ConcurrentDictionary<int, string>();
+    //         for (int i = 0; i < 1500; i++)
+    //         {
+    //             concurrentDictionary[i] = getBigStringWith60KCharecters();
+    //         }
 
-        public static string StringClean(string s) => Regex.Replace(s, @"\d", "");
-        public static string GetDrinkByProfession(string p)
-        {
-            return new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+    //         int counter = 1;
+    //         Collection<int> ids = new Collection<int>();
+    //         StringBuilder caseExpression = new StringBuilder();
+    //         try
+    //         {
+    //             foreach (KeyValuePair<int, string> keyValuePair in concurrentDictionary)
+    //             {
+    //                 ids.Add(keyValuePair.Key);
+    //                 caseExpression.AppendLine($"WHEN Document_Id = {keyValuePair.Key} THEN {keyValuePair.Value}");
+    //                 const int MAX_PREFERD_AMOUNT_OF_CHARECTERS = 100000000;
+    //                 if (caseExpression.Length > MAX_PREFERD_AMOUNT_OF_CHARECTERS || counter == concurrentDictionary.Count)
+    //                 {
+    //                     string tempString = caseExpression.ToString();
+    //                     TryUpdateBatchOfWebDocuments(tempString, ids);
+    //                     caseExpression.Clear();
+    //                     ids.Clear();
+    //                 }
+
+    //                 counter++;
+    //             }
+    //         }
+    //         catch (Exception exc)
+    //         {
+    //             throw;
+    //         }
+    //     }
+
+    //final confirm total of ships
+    if (_dicCountCurrentAmount[BattleShipSizeDefinition.battleship.ToString()] == (int)BattleShipTotalAmount.battleship) return false;
+    if (_dicCountCurrentAmount[BattleShipSizeDefinition.cruiser.ToString()] == (int)BattleShipTotalAmount.cruiser) return false;
+    if (_dicCountCurrentAmount[BattleShipSizeDefinition.destroyer.ToString()] == (int)BattleShipTotalAmount.destroyer) return false;
+    if (_dicCountCurrentAmount[BattleShipSizeDefinition.submarine.ToString()] == (int)BattleShipTotalAmount.submarine) return false;
+
+    // Must return False if unwanted ships are present
+    // if (((int)BattleShipTotalAmount.submarine + (int)BattleShipTotalAmount.battleship + (int)BattleShipTotalAmount.cruiser + (int)BattleShipTotalAmount.destroyer) != _totalAmountOfShips) return false;
+
+    return true;
+}
+public static string Usdcny(int usd) => $"{(usd * 6.75F):0.00} Chinese Yuan";
+public static bool SpeakEnglish(string sentence) => sentence.Contains("english", StringComparison.InvariantCultureIgnoreCase);
+public static double SquareArea(double A)
+{
+    var _radious = A * 4 / (Math.PI * 2);
+    return Math.Round(_radious * _radious, 2, MidpointRounding.AwayFromZero);
+}
+public static int[] SortArray(int[] array)
+{
+    // Queue<int> odds = new Queue<int>(array.Where(e => e % 2 == 1).OrderBy(e => e));
+    // return array.Select(e => e % 2 == 1 ? odds.Dequeue() : e).ToArray();
+
+    if (!array.Any(z => z % 2 == 1)) return array;
+    var _auxOrderedArray1 = array.Where(z => z % 2 == 1).OrderBy(z => z).ToArray();
+    var _auxCount = 0;
+    return array.Select(z => z % 2 == 1 ? _auxOrderedArray1[_auxCount++] : z).ToArray();
+}
+public static string BreakCamelCase(string str) => string.Join(" ", Regex.Split(str, "(?=[A-Z])"));
+
+public static string StringClean(string s) => Regex.Replace(s, @"\d", "");
+public static string GetDrinkByProfession(string p)
+{
+    return new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
             { "Jabroni", "Patron Tequila" },
             { "School Counselor", "Anything with Alcohol"},
@@ -1529,34 +1546,34 @@ one every 3 is eliminated until one remains
             { "Politician", "Your tax dollars" },
             { "Rapper", "Cristal" }
             }.TryGetValue(p, out string value) ? value : "Beer";
-        }
-        public static string Position(char alphabet)
-        {
-            return $"Position of alphabet: {1 + alphabet - 'a'}";
-            // return $"Position of alphabet: {("abcdefghijklmnopqrstuvwxyz".LastIndexOf(alphabet)+1).ToString()}";
-        }
-        public static string EncryptThis(string input)
-        {
-            if (input.Equals(string.Empty)) return string.Empty;
-            if (input.Length == 1) return ((int)input.First()).ToString();// input.Select(z => z == input.First() ? (int)input.First() : z).ToArray();
-            if (input.Length == 2) return $"{(int)input.First()}{input.Last()}";
-            if (input.Length == 3) return $"{(int)input.First()}{input.Last()}{input.ElementAt(1)}";
+}
+public static string Position(char alphabet)
+{
+    return $"Position of alphabet: {1 + alphabet - 'a'}";
+    // return $"Position of alphabet: {("abcdefghijklmnopqrstuvwxyz".LastIndexOf(alphabet)+1).ToString()}";
+}
+public static string EncryptThis(string input)
+{
+    if (input.Equals(string.Empty)) return string.Empty;
+    if (input.Length == 1) return ((int)input.First()).ToString();// input.Select(z => z == input.First() ? (int)input.First() : z).ToArray();
+    if (input.Length == 2) return $"{(int)input.First()}{input.Last()}";
+    if (input.Length == 3) return $"{(int)input.First()}{input.Last()}{input.ElementAt(1)}";
 
-            string _aux1 = $"{(int)input.First()}{input.Last()}";
-            // var _aux = input.Select(z => z == input.First() ? (int)input.First() : z);
-            // string _aux=$"{(int)input.First()}{input.Last()}";
-            string _auxIEnumerable = string.Join("", input.Skip(2));
-            var _aux3 = _aux1.Concat(input.Skip(2));
+    string _aux1 = $"{(int)input.First()}{input.Last()}";
+    // var _aux = input.Select(z => z == input.First() ? (int)input.First() : z);
+    // string _aux=$"{(int)input.First()}{input.Last()}";
+    string _auxIEnumerable = string.Join("", input.Skip(2));
+    var _aux3 = _aux1.Concat(input.Skip(2));
 
-            var _aux2 = _aux3.Select(z => z == _aux3.Last() ? '_' : z);
-            var _aux4 = _aux2.Concat(input.ElementAt(1).ToString());
-            return string.Join("", new string(_aux4.ToArray()));
-            // return $"{(int)input.First()}{input.Last()}{input.ElementAt(1)}";
-            // Implement me! :)
-        }
-        public static string SwitchItUp(int number)
-        {
-            var dic = new Dictionary<int, string>()
+    var _aux2 = _aux3.Select(z => z == _aux3.Last() ? '_' : z);
+    var _aux4 = _aux2.Concat(input.ElementAt(1).ToString());
+    return string.Join("", new string(_aux4.ToArray()));
+    // return $"{(int)input.First()}{input.Last()}{input.ElementAt(1)}";
+    // Implement me! :)
+}
+public static string SwitchItUp(int number)
+{
+    var dic = new Dictionary<int, string>()
             {
             {1, "One"},
             {2, "Two"},
@@ -1569,112 +1586,112 @@ one every 3 is eliminated until one remains
             {9, "Nine"},
             {0, "Zero"}
             };
-            return dic[number];
-            // string _aux = string.Empty;
-            // switch (number)
-            // {
-            //     case 0:
-            //         _aux = "Zero";
-            //         break;
-            //     case 1:
-            //         _aux = "One";
-            //         break;
-            //     case 2:
-            //         _aux = "Two";
-            //         break;
-            //     case 3:
-            //         _aux = "Three";
-            //         break;
-            //     case 4:
-            //         _aux = "Four";
-            //         break;
-            //     case 5:
-            //         _aux = "Five";
-            //         break;
-            //     case 6:
-            //         _aux = "Six";
-            //         break;
-            //     case 7:
-            //         _aux = "Seven";
-            //         break;
-            //     case 8:
-            //         _aux = "Eight";
-            //         break;
-            //     case 9:
-            //         _aux = "Nine";
-            //         break;
-            // }
-            // return _aux;
-        }
-        public static int[] CountPositivesSumNegatives(int[] input)
-        {
-            return (input == null || input.Length == 0) ? new int[0] : new int[] { input.Count(o => o > 0), input.Where(o => o < 0).Sum() };
-            // if (input == null || input.Length == 0) return new int[0];
-            // var _auxNegatives = input.Where(z => z < 0);
-            // return new int[] { input.Count(z => z > 0), _auxNegatives.Sum() };
-        }
-        public static int[] CountBy(int x, int n) => Enumerable.Range(1, n).Select((z, index) => z * x).ToArray();
-        public static int Remainder(int a, int b)
-        {
-            return Math.Max(a, b) % Math.Min(a, b);
-            // var _max = Math.Max(a, b);
-            // var _min = Math.Min(a, b);
-            // var _remainder = 0;
-            // try
-            // {
-            //     _remainder = _max % _min;
-            // }
-            // catch (System.DivideByZeroException)
-            // {
-            //     throw new DivideByZeroException();
-            // }
-            // return _remainder;
-        }
-        public static int SequenceSum(int start, int end, int step)
-        {
-            return start > end ? 0 : Enumerable.Repeat(start, (end - start) / step + 1).Select((z, index) => z + step * index).Sum();
-            // if(start>end)return 0;
-            // var _auxSum=0;
-            // for (int i = start; i <= end; i+=step)
-            // {
-            //     _auxSum+=i;
-            // }
-            // return _auxSum;
-        }
-        public static bool BetterThanAverage(int[] ClassPoints, int YourPoints)
-        {
-            return YourPoints > ClassPoints.Average();
-        }
-        public static string Reverse(string text)
-        {
-            return string.Join(" ", text.Split(' ').Reverse());
-        }
-        public static int СenturyFromYear(int year)
-        {
-            var _last2 = year.ToString().ToArray().Skip(2);
-            var _first2 = year.ToString().ToArray().Take(2);
-            return new string(_last2.ToArray()).Equals("00") ? Convert.ToInt32(new string(_first2.ToArray()))
-            : Convert.ToInt32(new string(_first2.ToArray())) + 1;
-        }
-        public static string SeriesSum(int n) => Enumerable.Range(0, n).Sum(x => 1.0 / (x * 3 + 1)).ToString("F");
-        public static int find_it(int[] seq) => seq.First(z => seq.Count(x => x == z) % 2 == 1);
-        public static string RemoveExclamationMarks(string s) => s.Replace("!", "");
-        public static bool IsUpperCase(this string text) => !text.Any(char.IsLower);
-        public static IEnumerable<string> GooseFilter(IEnumerable<string> birds)
-        {
-            // return IEnumerable of string containing all of the strings in the input collection, except those that match strings in geese
-            string[] geese = new string[] { "African", "Roman Tufted", "Toulouse", "Pilgrim", "Steinbacher" };
-            return birds.Except(geese);
-        }
-        public static bool Xor(bool a, bool b) => a ^ b;
-        public static string[] Capitalize(string s)
-        {
-            return Enumerable.Range(0, 2).Select(n => string.Concat(s.Select((x, i) => i % 2 == n ? char.ToUpper(x) : x))).ToArray();
-            //   var _aux1 = string.Concat(s.Select((_char, _index) => _index % 2 == 0 ? char.ToUpperInvariant(_char) : _char));
-            //             var _aux2 = string.Concat(s.Select((_char, _index) => _index % 2 != 0 ? char.ToUpperInvariant(_char) : _char));
-            //             return new string[] { _aux1, _aux2 };
-        }
-        private static readonly Dictionary<string, string> lang = new Dictionary<string, string>
+    return dic[number];
+    // string _aux = string.Empty;
+    // switch (number)
+    // {
+    //     case 0:
+    //         _aux = "Zero";
+    //         break;
+    //     case 1:
+    //         _aux = "One";
+    //         break;
+    //     case 2:
+    //         _aux = "Two";
+    //         break;
+    //     case 3:
+    //         _aux = "Three";
+    //         break;
+    //     case 4:
+    //         _aux = "Four";
+    //         break;
+    //     case 5:
+    //         _aux = "Five";
+    //         break;
+    //     case 6:
+    //         _aux = "Six";
+    //         break;
+    //     case 7:
+    //         _aux = "Seven";
+    //         break;
+    //     case 8:
+    //         _aux = "Eight";
+    //         break;
+    //     case 9:
+    //         _aux = "Nine";
+    //         break;
+    // }
+    // return _aux;
+}
+public static int[] CountPositivesSumNegatives(int[] input)
+{
+    return (input == null || input.Length == 0) ? new int[0] : new int[] { input.Count(o => o > 0), input.Where(o => o < 0).Sum() };
+    // if (input == null || input.Length == 0) return new int[0];
+    // var _auxNegatives = input.Where(z => z < 0);
+    // return new int[] { input.Count(z => z > 0), _auxNegatives.Sum() };
+}
+public static int[] CountBy(int x, int n) => Enumerable.Range(1, n).Select((z, index) => z * x).ToArray();
+public static int Remainder(int a, int b)
+{
+    return Math.Max(a, b) % Math.Min(a, b);
+    // var _max = Math.Max(a, b);
+    // var _min = Math.Min(a, b);
+    // var _remainder = 0;
+    // try
+    // {
+    //     _remainder = _max % _min;
+    // }
+    // catch (System.DivideByZeroException)
+    // {
+    //     throw new DivideByZeroException();
+    // }
+    // return _remainder;
+}
+public static int SequenceSum(int start, int end, int step)
+{
+    return start > end ? 0 : Enumerable.Repeat(start, (end - start) / step + 1).Select((z, index) => z + step * index).Sum();
+    // if(start>end)return 0;
+    // var _auxSum=0;
+    // for (int i = start; i <= end; i+=step)
+    // {
+    //     _auxSum+=i;
+    // }
+    // return _auxSum;
+}
+public static bool BetterThanAverage(int[] ClassPoints, int YourPoints)
+{
+    return YourPoints > ClassPoints.Average();
+}
+public static string Reverse(string text)
+{
+    return string.Join(" ", text.Split(' ').Reverse());
+}
+public static int СenturyFromYear(int year)
+{
+    var _last2 = year.ToString().ToArray().Skip(2);
+    var _first2 = year.ToString().ToArray().Take(2);
+    return new string(_last2.ToArray()).Equals("00") ? Convert.ToInt32(new string(_first2.ToArray()))
+    : Convert.ToInt32(new string(_first2.ToArray())) + 1;
+}
+public static string SeriesSum(int n) => Enumerable.Range(0, n).Sum(x => 1.0 / (x * 3 + 1)).ToString("F");
+public static int find_it(int[] seq) => seq.First(z => seq.Count(x => x == z) % 2 == 1);
+public static string RemoveExclamationMarks(string s) => s.Replace("!", "");
+public static bool IsUpperCase(this string text) => !text.Any(char.IsLower);
+public static IEnumerable<string> GooseFilter(IEnumerable<string> birds)
+{
+    // return IEnumerable of string containing all of the strings in the input collection, except those that match strings in geese
+    string[] geese = new string[] { "African", "Roman Tufted", "Toulouse", "Pilgrim", "Steinbacher" };
+    return birds.Except(geese);
+}
+public static bool Xor(bool a, bool b) => a ^ b;
+public static string[] Capitalize(string s)
+{
+    return Enumerable.Range(0, 2).Select(n => string.Concat(s.Select((x, i) => i % 2 == n ? char.ToUpper(x) : x))).ToArray();
+    //   var _aux1 = string.Concat(s.Select((_char, _index) => _index % 2 == 0 ? char.ToUpperInvariant(_char) : _char));
+    //             var _aux2 = string.Concat(s.Select((_char, _index) => _index % 2 != 0 ? char.ToUpperInvariant(_char) : _char));
+    //             return new string[] { _aux1, _aux2 };
+}
+private static readonly Dictionary<string, string> lang = new Dictionary<string, string>
     {
         {"english", "Welcome"},
         {"czech", "Vitejte"},
@@ -1694,953 +1711,953 @@ one every 3 is eliminated until one remains
         {"swedish", "Valkommen"},
         {"welsh", "Croeso"}
     };
-        public static string Greet(string language)
-        {
-            return (lang.ContainsKey(language)) ? lang[language] : "Welcome";
-            // Dictionary<string, string> _auxDictionary = new Dictionary<string, string>();
-            // _auxDictionary.Add("english", "Welcome");
-            // _auxDictionary.Add("czech", "Vitejte");
-            // _auxDictionary.Add("danish", "Velkomst");
-            // _auxDictionary.Add("dutch", "Welkom");
-            // _auxDictionary.Add("estonian", "Tere tulemast");
-            // _auxDictionary.Add("finnish", "Tervetuloa");
-            // _auxDictionary.Add("flemish", "Welgekomen");
-            // _auxDictionary.Add("french", "Bienvenue");
-            // _auxDictionary.Add("german", "Willkommen");
-            // _auxDictionary.Add("irish", "Failte");
-            // _auxDictionary.Add("italian", "Benvenuto");
-            // _auxDictionary.Add("latvian", "Gaidits");
-            // _auxDictionary.Add("lithuanian", "Laukiamas");
-            // _auxDictionary.Add("polish", "Witamy");
-            // _auxDictionary.Add("spanish", "Bienvenido");
-            // _auxDictionary.Add("swedish", "Valkommen");
-            // _auxDictionary.Add("welsh", "Croeso");
-            // return _auxDictionary.ContainsKey(language) ? _auxDictionary.Where(z => z.Key.Equals(language)).SingleOrDefault().Value
-            // : _auxDictionary.Where(z => z.Key.Equals("english")).SingleOrDefault().Value;
-        }
-        public static string[] AddLength(string str) => str.Split(' ').Select(z => z + " " + z.Length).ToArray();
-        public static bool CheckCoupon(string enteredCode, string correctCode, string currentDate, string expirationDate)
-        {
-            return enteredCode.Equals(correctCode)
-            && DateTime.Parse(currentDate) <= DateTime.Parse(expirationDate);
-            // if (!enteredCode.Equals(correctCode)) return false;
-            // var _auxCurrentDatetime = DateTime.Parse(currentDate, provider: null, DateTimeStyles.None);
-            // var _auxExpirationDatetime = DateTime.Parse(expirationDate, provider: null, DateTimeStyles.None);
-            // if (_auxCurrentDatetime > _auxExpirationDatetime) return false;
-            // return true;
-        }
-        public static int SaleHotDogs(int n)
-        {
-            return n * (n < 5 ? 100 : n >= 5 && n < 10 ? 95 : 90);
-        }
-        public static string PeopleWithAgeDrink(int old) => "drink " + (old < 14 ? "toddy" : old < 18 ? "coke" : old < 21 ? "beer" : "whisky");
-        public static string Shortcut(string input)
-        {
-            // return Regex.Replace(input, "[aeiou]", "");
-            return string.Concat(input.Where(z => !"aeiou".Contains(z)));
-            // return string.Concat(input.Select(z => "aeiouAEIOU".Contains(z) ? '!' : z)).Replace("!", "".ToString(), StringComparison.Ordinal);
-        }
-        public static string Solve(string s)
-        {
-            // return s.Count(char.IsLower) < s.Length / 2 ? s.ToUpper() : s.ToLower();
-            return s.Count(char.IsUpper) > s.Count(char.IsLower) ? s.ToUpper() : s.ToLower();
-        }
-        public static int FindDifference(int[] a, int[] b)
-        {
-            return Math.Abs(a.Aggregate(1, (aggre, x) => aggre *= x) - b.Aggregate(1, (aggre, x) => aggre *= x));
-            // aggregate sample
-            //             string sentence = "the quick brown fox jumps over the lazy dog";
+public static string Greet(string language)
+{
+    return (lang.ContainsKey(language)) ? lang[language] : "Welcome";
+    // Dictionary<string, string> _auxDictionary = new Dictionary<string, string>();
+    // _auxDictionary.Add("english", "Welcome");
+    // _auxDictionary.Add("czech", "Vitejte");
+    // _auxDictionary.Add("danish", "Velkomst");
+    // _auxDictionary.Add("dutch", "Welkom");
+    // _auxDictionary.Add("estonian", "Tere tulemast");
+    // _auxDictionary.Add("finnish", "Tervetuloa");
+    // _auxDictionary.Add("flemish", "Welgekomen");
+    // _auxDictionary.Add("french", "Bienvenue");
+    // _auxDictionary.Add("german", "Willkommen");
+    // _auxDictionary.Add("irish", "Failte");
+    // _auxDictionary.Add("italian", "Benvenuto");
+    // _auxDictionary.Add("latvian", "Gaidits");
+    // _auxDictionary.Add("lithuanian", "Laukiamas");
+    // _auxDictionary.Add("polish", "Witamy");
+    // _auxDictionary.Add("spanish", "Bienvenido");
+    // _auxDictionary.Add("swedish", "Valkommen");
+    // _auxDictionary.Add("welsh", "Croeso");
+    // return _auxDictionary.ContainsKey(language) ? _auxDictionary.Where(z => z.Key.Equals(language)).SingleOrDefault().Value
+    // : _auxDictionary.Where(z => z.Key.Equals("english")).SingleOrDefault().Value;
+}
+public static string[] AddLength(string str) => str.Split(' ').Select(z => z + " " + z.Length).ToArray();
+public static bool CheckCoupon(string enteredCode, string correctCode, string currentDate, string expirationDate)
+{
+    return enteredCode.Equals(correctCode)
+    && DateTime.Parse(currentDate) <= DateTime.Parse(expirationDate);
+    // if (!enteredCode.Equals(correctCode)) return false;
+    // var _auxCurrentDatetime = DateTime.Parse(currentDate, provider: null, DateTimeStyles.None);
+    // var _auxExpirationDatetime = DateTime.Parse(expirationDate, provider: null, DateTimeStyles.None);
+    // if (_auxCurrentDatetime > _auxExpirationDatetime) return false;
+    // return true;
+}
+public static int SaleHotDogs(int n)
+{
+    return n * (n < 5 ? 100 : n >= 5 && n < 10 ? 95 : 90);
+}
+public static string PeopleWithAgeDrink(int old) => "drink " + (old < 14 ? "toddy" : old < 18 ? "coke" : old < 21 ? "beer" : "whisky");
+public static string Shortcut(string input)
+{
+    // return Regex.Replace(input, "[aeiou]", "");
+    return string.Concat(input.Where(z => !"aeiou".Contains(z)));
+    // return string.Concat(input.Select(z => "aeiouAEIOU".Contains(z) ? '!' : z)).Replace("!", "".ToString(), StringComparison.Ordinal);
+}
+public static string Solve(string s)
+{
+    // return s.Count(char.IsLower) < s.Length / 2 ? s.ToUpper() : s.ToLower();
+    return s.Count(char.IsUpper) > s.Count(char.IsLower) ? s.ToUpper() : s.ToLower();
+}
+public static int FindDifference(int[] a, int[] b)
+{
+    return Math.Abs(a.Aggregate(1, (aggre, x) => aggre *= x) - b.Aggregate(1, (aggre, x) => aggre *= x));
+    // aggregate sample
+    //             string sentence = "the quick brown fox jumps over the lazy dog";
 
-            // // Split the string into individual words.
-            // string[] words = sentence.Split(' ');
+    // // Split the string into individual words.
+    // string[] words = sentence.Split(' ');
 
-            // // Prepend each word to the beginning of the
-            // // new sentence to reverse the word order.
-            // string reversed = words.Aggregate((workingSentence, next) =>next + " " + workingSentence);
-        }
-        public static int NoBoringZeros(int n) => int.Parse(n.ToString().TrimEnd('0'));
-        public static int Opposite(int number)
-        {
-            return -number;
-            // return n * -1;
-        }
-        public static int GetSum(int a, int b) => Enumerable.Range(Math.Min(a, b), Math.Max(b, a) - Math.Min(a, b) + 1).Sum();
-        public static string Replace(string s)
-        {
-            return string.Concat(s.Select(z => "aeiouAEIOU".Contains(z) ? '!' : z));
-            // return  Regex.Replace(s, @"[aeiou]", "!", RegexOptions.IgnoreCase);
-            // return Regex.Replace(s, "[aeiouAEIOU]", "!");
-        }
-        public static string HowMuchILoveYou(int nb_petals)
-        {
-            return new string[]
-            { "I love you", "a little", "a lot", "passionately", "madly", "not at all" }[(nb_petals - 1) % 6];
-        }
-        public static string Correct(string text) => text.Replace('0', 'O').Replace('5', 'S').Replace('1', 'I');
-        public static bool CheckForFactor(int num, int factor) => num % factor == 0;
-        public static int CountSmileys(string[] smileys)
-        {
-            return smileys.Count(s => Regex.IsMatch(s, @"^[:;]{1}[~-]{0,1}[\)D]{1}$"));
+    // // Prepend each word to the beginning of the
+    // // new sentence to reverse the word order.
+    // string reversed = words.Aggregate((workingSentence, next) =>next + " " + workingSentence);
+}
+public static int NoBoringZeros(int n) => int.Parse(n.ToString().TrimEnd('0'));
+public static int Opposite(int number)
+{
+    return -number;
+    // return n * -1;
+}
+public static int GetSum(int a, int b) => Enumerable.Range(Math.Min(a, b), Math.Max(b, a) - Math.Min(a, b) + 1).Sum();
+public static string Replace(string s)
+{
+    return string.Concat(s.Select(z => "aeiouAEIOU".Contains(z) ? '!' : z));
+    // return  Regex.Replace(s, @"[aeiou]", "!", RegexOptions.IgnoreCase);
+    // return Regex.Replace(s, "[aeiouAEIOU]", "!");
+}
+public static string HowMuchILoveYou(int nb_petals)
+{
+    return new string[]
+    { "I love you", "a little", "a lot", "passionately", "madly", "not at all" }[(nb_petals - 1) % 6];
+}
+public static string Correct(string text) => text.Replace('0', 'O').Replace('5', 'S').Replace('1', 'I');
+public static bool CheckForFactor(int num, int factor) => num % factor == 0;
+public static int CountSmileys(string[] smileys)
+{
+    return smileys.Count(s => Regex.IsMatch(s, @"^[:;]{1}[~-]{0,1}[\)D]{1}$"));
 
-            // List<string> _auxSmileFacesFirstCharacter = new List<string>(new string[] { ":", ";" });
-            // List<string> _auxSmileFacesSecondCharacter = new List<string>(new string[] { "-", "~" });
-            // List<string> _auxSmileFacesThirdCharacter = new List<string>(new string[] { ")", "D" });
-            // int _auxCount = 0;
-            // return smileys.Count(z =>
-            // (
-            //     (z.Length >= 2 && z.Length <= 3)
-            //     && _auxSmileFacesFirstCharacter.Contains(z.ElementAt(0).ToString())
-            //     && (z.Length == 3
-            //     ? (_auxSmileFacesSecondCharacter.Contains(z.ElementAt(1).ToString())
-            //     && _auxSmileFacesThirdCharacter.Contains(z.ElementAt(2).ToString()))
-            //     : _auxSmileFacesThirdCharacter.Contains(z.ElementAt(1).ToString())
-            //     )
-            // )
-            // );
-        }
-        public static string TwoSort(string[] s) => string.Join("***", s.OrderBy(z => z, StringComparer.Ordinal).First().ToArray());
-        public static int FactorialV2(int n)
+    // List<string> _auxSmileFacesFirstCharacter = new List<string>(new string[] { ":", ";" });
+    // List<string> _auxSmileFacesSecondCharacter = new List<string>(new string[] { "-", "~" });
+    // List<string> _auxSmileFacesThirdCharacter = new List<string>(new string[] { ")", "D" });
+    // int _auxCount = 0;
+    // return smileys.Count(z =>
+    // (
+    //     (z.Length >= 2 && z.Length <= 3)
+    //     && _auxSmileFacesFirstCharacter.Contains(z.ElementAt(0).ToString())
+    //     && (z.Length == 3
+    //     ? (_auxSmileFacesSecondCharacter.Contains(z.ElementAt(1).ToString())
+    //     && _auxSmileFacesThirdCharacter.Contains(z.ElementAt(2).ToString()))
+    //     : _auxSmileFacesThirdCharacter.Contains(z.ElementAt(1).ToString())
+    //     )
+    // )
+    // );
+}
+public static string TwoSort(string[] s) => string.Join("***", s.OrderBy(z => z, StringComparer.Ordinal).First().ToArray());
+public static int FactorialV2(int n)
+{
+    if (n < 0 && n > 12) throw new ArgumentOutOfRangeException();
+    if (n == 0) return 1;
+    int _aux = 1;
+    return Enumerable.Range(1, n).Aggregate(1, (x, y) => x * y);
+}
+public static string OddOrEven(int[] array) => array.Sum() % 2 == 0 ? "even" : "odd";
+public static string NameShuffler(string str) => string.Join(" ", str.Split(' ').Reverse());
+public static double Index(int[] array, int n)
+{
+    if (n > array.Length - 1) return -1;
+    return Math.Pow(array[n], 2);
+}
+public static string MakeComplement(string dna)
+{
+    // return dna.Replace('T', '?').Replace('A', 'T').Replace('?', 'A').Replace('G', '?').Replace('C', 'G').Replace('?', 'C');
+    return String.Join("", dna.Select(z => "AGCT"["TCGA".IndexOf(z)]));
+}
+public static string FindNeedle(object[] haystack)
+{
+    //this case its beter to converto into list and use "indexof" method
+    return $"found the needle at position {haystack.ToList().IndexOf("needle")}";
+}
+public static int CheckExam(string[] arr1, string[] arr2)
+{
+    int _auxReturn = 0;
+    for (int i = 0; i < arr1.Length; i++)
+    {
+        if (arr1[i] == arr2[i]) _auxReturn += 4;
+        if (arr1[i] != arr2[i]) _auxReturn -= 1;
+        if (arr2[i] != string.Empty) _auxReturn += 0;
+    }
+    return _auxReturn < 0 ? 0 : _auxReturn;
+}
+public static int SquareSum(int[] numbers) => (int)numbers.Sum(z => Math.Pow(z, 2));
+public static object[] RemoveEveryOther(object[] arr) => arr.Where((z, index) => index % 2 == 0).ToArray();
+public static int Gimme(double[] inputArray) => inputArray.ToList().IndexOf(inputArray.OrderBy(z => z).ElementAt(1));
+public static string Remove(string s) => s.EndsWith('!') ? new string(s.Take(s.Length - 1).ToArray()) : s;
+public static string[] SortByLength(string[] array) => array.OrderBy(z => z.Length).ToArray();
+public static IEnumerable<string> FriendOrFoe(string[] names) => names.Where(z => z.Length == 4);
+public static int[] humanYearsCatYearsDogYears(int humanYears)
+{
+    int catYear = 15 + (humanYears >= 2 ? 9 + 4 * (humanYears - 2) : 0);
+    int dogYear = 15 + (humanYears >= 2 ? 9 + 5 * (humanYears - 2) : 0);
+    return new int[] { humanYears, catYear, dogYear };
+}
+public static int[] Capitals(string word) => word.Where(char.IsUpper).Select(z => word.IndexOf(z)).ToArray();
+public static int[] InvertValues(int[] input) => input.Select(z => z < 0 ? Math.Abs(z) : z * -1).ToArray();
+public static int[] TechnicalExam_GameCompany_CountPositivesSumNegatives(int[] input)
+{
+    if (input == null) return new int[] { };
+    if (input.Length == 0) return new int[] { 0, 0 };
+    var _auxNegatives = input.Where(z => z < 0);
+    return new int[] { input.Count(z => z > 0), _auxNegatives.Sum() };
+}
+public static int[] TechnicalExam_GameCompany_Between(int a, int b) => Enumerable.Range(a, b - a + 1).ToArray();
+public static string SumStrings(string a, string b)
+{
+    double.TryParse(a, out double _auxA);
+    double.TryParse(b, out double _auxB);
+    return (Math.Round(_auxA + _auxB)).ToString();
+}
+public static int[] SortNumbers(int[] nums) => nums == null ? new int[0] : nums.OrderBy(z => z).ToArray();
+public static string CountSheep(int n) => string.Concat(Enumerable.Range(1, n).Select(i => $"{i} sheep..."));
+public static bool ValidatePin(string pin)
+{
+    string _regexPattern = "(^[0-9]{1}[0-9]{3})$|(^[0-9]{1}[0-9]{5})$";
+    return Regex.IsMatch(pin, _regexPattern, RegexOptions.None);
+}
+public static string Problem(String a) => double.TryParse(a, out var _auxResult) ? (_auxResult * 50 + 6).ToString() : "Error";
+public static bool XO(string input) => input.ToLowerInvariant().Count(z => z.Equals('x')) == input.ToLowerInvariant().Count(z => z.Equals('o'));
+public static string RemoveUrlAnchor(string url) => url.Substring(0, url.IndexOf("#") < 0 ? url.Length : url.IndexOf("#"));
+public static int GetRealFloor(int n) => n <= 0 ? n : (n < 13 ? n - 1 : n - 2);
+public static long[] Digitize(long n) => n.ToString().Reverse().Select(z => long.Parse(z.ToString())).ToArray();
+public static bool IsAnagram(string test, string original)
+{
+    return string.Concat(original.ToLower().OrderBy(z => z)) == string.Concat(test.ToLower().OrderBy(z => z));
+    // return test.All(z => original.Contains(z));
+}
+public static int SumPositivesv2(int[] numbers)
+{
+    if (numbers.Length < 3 || numbers.Equals(null) || numbers is null || numbers == null) return 0;
+    int _aux = numbers.Sum();
+    _aux -= (numbers.Min() + numbers.Max());
+    return _aux;
+}
+public static int Summation(int num) => Enumerable.Range(1, num).Sum();
+public static string Extract(int[] args)
+{
+    string _auxReturn = string.Empty;
+    int _nextPosition = 0;
+    int _auxi = 0;
+    bool _getOut = false;
+    _auxReturn += $"{args[0]}";
+    for (int i = 0; i < args.Length; i++)
+    {
+        while (!_getOut || _auxi < args.Length)
         {
-            if (n < 0 && n > 12) throw new ArgumentOutOfRangeException();
-            if (n == 0) return 1;
-            int _aux = 1;
-            return Enumerable.Range(1, n).Aggregate(1, (x, y) => x * y);
-        }
-        public static string OddOrEven(int[] array) => array.Sum() % 2 == 0 ? "even" : "odd";
-        public static string NameShuffler(string str) => string.Join(" ", str.Split(' ').Reverse());
-        public static double Index(int[] array, int n)
-        {
-            if (n > array.Length - 1) return -1;
-            return Math.Pow(array[n], 2);
-        }
-        public static string MakeComplement(string dna)
-        {
-            // return dna.Replace('T', '?').Replace('A', 'T').Replace('?', 'A').Replace('G', '?').Replace('C', 'G').Replace('?', 'C');
-            return String.Join("", dna.Select(z => "AGCT"["TCGA".IndexOf(z)]));
-        }
-        public static string FindNeedle(object[] haystack)
-        {
-            //this case its beter to converto into list and use "indexof" method
-            return $"found the needle at position {haystack.ToList().IndexOf("needle")}";
-        }
-        public static int CheckExam(string[] arr1, string[] arr2)
-        {
-            int _auxReturn = 0;
-            for (int i = 0; i < arr1.Length; i++)
+            if (args[i + 1].Equals(args[i] + 1))
             {
-                if (arr1[i] == arr2[i]) _auxReturn += 4;
-                if (arr1[i] != arr2[i]) _auxReturn -= 1;
-                if (arr2[i] != string.Empty) _auxReturn += 0;
+                _auxReturn += $",{args[i + 1]}";
+                _getOut = true;
             }
-            return _auxReturn < 0 ? 0 : _auxReturn;
         }
-        public static int SquareSum(int[] numbers) => (int)numbers.Sum(z => Math.Pow(z, 2));
-        public static object[] RemoveEveryOther(object[] arr) => arr.Where((z, index) => index % 2 == 0).ToArray();
-        public static int Gimme(double[] inputArray) => inputArray.ToList().IndexOf(inputArray.OrderBy(z => z).ElementAt(1));
-        public static string Remove(string s) => s.EndsWith('!') ? new string(s.Take(s.Length - 1).ToArray()) : s;
-        public static string[] SortByLength(string[] array) => array.OrderBy(z => z.Length).ToArray();
-        public static IEnumerable<string> FriendOrFoe(string[] names) => names.Where(z => z.Length == 4);
-        public static int[] humanYearsCatYearsDogYears(int humanYears)
-        {
-            int catYear = 15 + (humanYears >= 2 ? 9 + 4 * (humanYears - 2) : 0);
-            int dogYear = 15 + (humanYears >= 2 ? 9 + 5 * (humanYears - 2) : 0);
-            return new int[] { humanYears, catYear, dogYear };
-        }
-        public static int[] Capitals(string word) => word.Where(char.IsUpper).Select(z => word.IndexOf(z)).ToArray();
-        public static int[] InvertValues(int[] input) => input.Select(z => z < 0 ? Math.Abs(z) : z * -1).ToArray();
-        public static int[] TechnicalExam_GameCompany_CountPositivesSumNegatives(int[] input)
-        {
-            if (input == null) return new int[] { };
-            if (input.Length == 0) return new int[] { 0, 0 };
-            var _auxNegatives = input.Where(z => z < 0);
-            return new int[] { input.Count(z => z > 0), _auxNegatives.Sum() };
-        }
-        public static int[] TechnicalExam_GameCompany_Between(int a, int b) => Enumerable.Range(a, b - a + 1).ToArray();
-        public static string SumStrings(string a, string b)
-        {
-            double.TryParse(a, out double _auxA);
-            double.TryParse(b, out double _auxB);
-            return (Math.Round(_auxA + _auxB)).ToString();
-        }
-        public static int[] SortNumbers(int[] nums) => nums == null ? new int[0] : nums.OrderBy(z => z).ToArray();
-        public static string CountSheep(int n) => string.Concat(Enumerable.Range(1, n).Select(i => $"{i} sheep..."));
-        public static bool ValidatePin(string pin)
-        {
-            string _regexPattern = "(^[0-9]{1}[0-9]{3})$|(^[0-9]{1}[0-9]{5})$";
-            return Regex.IsMatch(pin, _regexPattern, RegexOptions.None);
-        }
-        public static string Problem(String a) => double.TryParse(a, out var _auxResult) ? (_auxResult * 50 + 6).ToString() : "Error";
-        public static bool XO(string input) => input.ToLowerInvariant().Count(z => z.Equals('x')) == input.ToLowerInvariant().Count(z => z.Equals('o'));
-        public static string RemoveUrlAnchor(string url) => url.Substring(0, url.IndexOf("#") < 0 ? url.Length : url.IndexOf("#"));
-        public static int GetRealFloor(int n) => n <= 0 ? n : (n < 13 ? n - 1 : n - 2);
-        public static long[] Digitize(long n) => n.ToString().Reverse().Select(z => long.Parse(z.ToString())).ToArray();
-        public static bool IsAnagram(string test, string original)
-        {
-            return string.Concat(original.ToLower().OrderBy(z => z)) == string.Concat(test.ToLower().OrderBy(z => z));
-            // return test.All(z => original.Contains(z));
-        }
-        public static int SumPositivesv2(int[] numbers)
-        {
-            if (numbers.Length < 3 || numbers.Equals(null) || numbers is null || numbers == null) return 0;
-            int _aux = numbers.Sum();
-            _aux -= (numbers.Min() + numbers.Max());
-            return _aux;
-        }
-        public static int Summation(int num) => Enumerable.Range(1, num).Sum();
-        public static string Extract(int[] args)
-        {
-            string _auxReturn = string.Empty;
-            int _nextPosition = 0;
-            int _auxi = 0;
-            bool _getOut = false;
-            _auxReturn += $"{args[0]}";
-            for (int i = 0; i < args.Length; i++)
-            {
-                while (!_getOut || _auxi < args.Length)
+    }
+    return _auxReturn;
+}
+public static string Rps(string p1, string p2)
+{
+    if (p1.Equals(p2)) return "Draw!";
+    if (
+        (p1.Equals("scissors") && p2.Equals("paper"))
+        || (p1.Equals("paper") && p2.Equals("rock"))
+        || (p1.Equals("rock") && p2.Equals("scissors"))
+    )
+        return "Player 1 won!";
+    else
+        return "Player 2 won!";
+}
+public static int Move(int position, int roll) => (roll * 2) + position;
+public static int StrCount(string str, string letter) => str.Count(z => char.Parse(letter) == z);
+public static int SumMix(object[] x) => x.Sum(z => Convert.ToInt32(z));
+public static bool Check(object[] a, object x) => a.Any(z => z.Equals(x));
+public static int Min(int[] list) => list.Min();
+public static int Max(int[] list) => list.Max();
+public static string HighAndLow(string numbers)
+{
+    var _query = numbers.Split(' ').Select(z => int.Parse(z));
+    return new string(_query.Max() + " " + _query.Min());
+}
+public static bool IsIsogram(string str) => new string(str.ToLower().Distinct().ToArray()).Equals(str.ToLower()) ? true : false;
+public static string Disemvowel(string str) => string.Concat(str.Where(z => !"aeiouAEIOU".Contains(z)));
+public static string Remove_char(string s)
+{
+    return s.Substring(1, (s.Length - 2));
+
+    // return s.Remove(s.Length - 1, 1).Remove(0, 1);
+
+    // if (s.Length < 2) return s;
+    // s = s.Remove(0, 1);
+    // return s.Remove(s.Length - 1, 1);
+}
+public static int CalculateYears(double principal, double interest, double tax, double desiredPrincipal)
+{
+    var years = 0;
+    while (principal < desiredPrincipal)
+    {
+        principal += principal * interest * (1 - tax);
+        years++;
+    }
+    return years;
+
+    // if (principal == desiredPrincipal) return 0;
+    // int _years = 0;
+    // double _interest = 0;
+    // double _desiredPrincipal = principal ;
+    // double _tax = 0;
+    // while (_desiredPrincipal < desiredPrincipal)
+    // {
+    //     _interest=_desiredPrincipal*interest;
+    //     _tax=_interest-(tax*_interest);
+    //     _desiredPrincipal=_desiredPrincipal+_tax;
+    //     _years++;
+    // }
+    // return _years;
+}
+public static int FindShort(string s)
+{
+    return s.Split(' ').Min(x => x.Length);
+    // return s.Split(' ').Select(z=>z.Length).Min();
+}
+public static double basicOp(char operation, double value1, double value2) => operation.Equals('+') ? value1 + value2 : operation.Equals('-') ? value1 - value2 : operation.Equals('*') ? value1 * value2 : value1 / value2;
+public static string ToAlternatingCase(this string s) => string.Join("", s.Select(z => char.IsUpper(z) ? char.ToLower(z) : char.ToUpper(z)));
+public static IEnumerable<string> OpenOrSenior(int[][] data)
+{
+    return data.Select(z => z[0] > 54 && z[1] > 7 ? "Senior" : "Open");
+    // List<string> _status = new List<string>();
+    // for (int i = 0; i < data.Length; i++)
+    // {
+    //         if (data[i][0] > 54 && data[i][1] > 7)
+    //         {
+    //             _status.Add("Senior");
+    //         }
+    //         else
+    //             _status.Add("Open");
+    // }
+    // return _status;
+}
+public static int Stray(int[] numbers)
+{
+    return numbers.First(x => numbers.Count(i => i == x) == 1);
+    //  var result = numbers.GroupBy(z => z).Select(itemGroup => new { Item = itemGroup.Key, Count = itemGroup.Count() })
+    //             .OrderByDescending(Item => Item.Count).ThenBy(Item => Item);
+    //             Console.WriteLine("{0} {1}\r\n{2} {3}", result.First().Item, result.First().Count, result.Last().Item, result.Last().Count);
+    //             return result.Last().Item;
+}
+public static int Past(int h, int m, int s)
+{
+    //if(h!=0&&m!=0)
+    // return (h != 0 ? h * 60 : 1) * 
+    DateTime _d = new DateTime(1, 1, 1, h, m, s);
+    int _millisecondPerSecond = 1000;
+    int _auxSecond = _d.Second * _millisecondPerSecond;
+    int _auxMinute = _d.Minute * _millisecondPerSecond * 60;
+    int _auxHour = _auxMinute * 60;
+    return _auxHour + _auxMinute + _auxSecond;
+    //    return (m != 0 ? m * 60 : 1) * ((s != 0 ? s * 1000 : 1));
+}
+public static Dictionary<char, int> CountToDictionary(string str) => str.GroupBy(z => z).ToDictionary(z => z.Key, z => z.Count());
+public static string UpdateLight(string current) => current.Equals("green") ? "yellow" : current.Equals("yellow") ? "red" : "green";//current.Equals("red") ? "green" : "";
+public static string DoubleChar(string s) => string.Join("", s.Select(z => $"{z}{z}"));//.Aggregate((_c, _index) => _c)
+public static char GetGrade(int s1, int s2, int s3)
+{
+    var m = (s1 + s2 + s3) / 3.0;
+    return m >= 90 ? 'A' : m >= 80 ? 'B' : m >= 70 ? 'C' : m >= 60 ? 'D' : 'F';
+}
+public static int Persistence(long n)
+{
+    long nF = n.ToString().Aggregate(1, (a, b) => a * (b - '0'));
+    return n < 9 ? 0 : 1 + Persistence(nF);
+    // return n < 10 ? 0 : 1 + Persistence($"{n}".Aggregate(1, (a, b) => a * (b - 48)));
+    // if (n.ToString().Length.Equals(1))
+    // {
+    //     return 0;
+    // }
+    // string _auxStringN = n.ToString();
+    // int _auxN = 1;
+    // int _persistence = 0;
+    // while (_auxStringN.Length != 1)
+    // {
+    //     // _auxN =_auxStringN.OrderBy(z=>z).Select((_number,_index)=>_number).SingleOrDefault();
+    //     for (int i = 0; i < _auxStringN.Length; i++)
+    //     {
+    //         _auxN *= int.Parse(_auxStringN[i].ToString());
+    //     }
+    //     _auxStringN = _auxN.ToString();
+    //     _persistence++;
+    //     _auxN=1;
+    // }
+    // return _persistence;
+}
+public static int Litres(double time)
+{
+    return Convert.ToInt32((Math.Round((time * 0.5), 0, MidpointRounding.ToZero)));
+}
+public static string High(string s)
+{
+    return s.Split(' ').OrderBy(a => a.Select(b => b - 96).Sum()).Last();
+
+    // =>  s.Split(' ').OrderBy(w => w.Sum(c => c - 'a' + 1)).Last();
+
+    // int _auxSum = 0;
+    // int _auxMax = 0;
+    // string _auxWord = string.Empty;
+    // foreach (var item in s.Split(' '))
+    // {
+    //     _auxSum = item.Sum(z => "abcdefghijklmnopqrstuvwxyz".IndexOf(z) + 1);
+    //     if (_auxMax < _auxSum)
+    //     {
+    //         _auxMax = _auxSum;
+    //         _auxWord = item;
+    //     }
+    // }
+    // return _auxWord;
+}
+public static string RepeatStr(int n, string s)
+{
+    return string.Join("", Enumerable.Repeat(s, n));
+
+    // Console.WriteLine($"n {n}\ns {s}");
+    // if (n==0)return string.Empty;
+    // string _auxS = s;
+    // for (int i = 0; i < n-1; i++)
+    //         _auxS+=s;
+    // return _auxS;
+}
+public static int GetVowelCount(string str)
+{
+    // return str.Count(i => "aeiou".Contains(i));
+    return str.Count(z => z.Equals('a') || z.Equals('e') || z.Equals('i') || z.Equals('o') || z.Equals('u'));
+}
+public static String Accum(string s)
+{
+    return string.Join("-", s.Select((x, i) => char.ToUpper(x) + new string(char.ToLower(x), i)));
+
+    // string _auxString = string.Empty;
+    //         var _array = s.Split('-', StringSplitOptions.TrimEntries);
+    //         int _auxCount = 1;
+    //         for (int i = 0; i < s.Length; i++)
+    //         {
+    //             for (int j = 0; j < _auxCount; j++)
+    //             {
+    //                 _auxString += j == 0 ? s[i].ToString().ToUpperInvariant() : s[i].ToString().ToLowerInvariant();
+    //             }
+    //             _auxCount++;
+    //             _auxString += i == s.Length - 1 ? "" : "-";
+    //         }
+    //         return _auxString;
+}
+public static IEnumerable<int> GetIntegersFromList(List<object> listOfItems)
+{
+    listOfItems.ForEach(z => Console.WriteLine(z));
+    IEnumerable<int> _aux = listOfItems.OfType<int>().Select(z => z);
+    // foreach (var item in _aux)
+    // {
+    //     Console.WriteLine($"-{item}");
+    // }
+    _aux.ToList().ForEach(z => Console.WriteLine(z));
+
+    return _aux;
+}
+public static string AreYouPlayingBanjo(string name)
+{
+    return name.ToLower()[0] == 'r' ? name + " plays banjo" : name + " does not play banjo";
+    /*
+                if (name.First().Equals('r') || name.First().Equals('R'))
+                    return $"{name} plays banjo";
+                return $"{name} does not play banjo";
+    */
+}
+public static int TotalPoints(string[] games)
+{
+    return games.Sum(s => s[0] < s[2] ? 0 : s[0] == s[2] ? 1 : 3);
+    /*
+     int total = 0;
+foreach (string game in games) {
+if (game[0] > game[2])
+total += 3;
+else if (game[0] == game[2])
+total += 1;            
+}
+return total;
+*/
+    /*
+                int _auxTotal = 0;
+                int _win = 3;
+                int _draw = 1;
+
+                for (int i = 0; i < games.Length; i++)
                 {
-                    if (args[i + 1].Equals(args[i] + 1))
+                    int.TryParse(games[i].Split(':').First(), out var _auxTeam1TotalGoals);
+                    int.TryParse(games[i].Split(':').ElementAt(1), out var _auxTeam2TotalGoals);
+                    if (_auxTeam1TotalGoals > _auxTeam2TotalGoals) _auxTotal += _win;
+                    if (_auxTeam1TotalGoals.Equals(_auxTeam2TotalGoals)) _auxTotal += _draw;
+                }
+                return _auxTotal;
+                */
+}
+public static int SumPositivesv1(int[] numbers)
+{
+    if (numbers.Length.Equals(0) || numbers.Length.Equals(1) || numbers.Equals(null)) return -1;
+    List<int> _auxList = numbers.ToList();
+    _auxList.Remove(_auxList.Min());
+    _auxList.Remove(_auxList.Max());
+    return _auxList.Sum();
+}
+public static string[] SplitStrings(string str)
+{
+    if (str.Length % 2 != 0) str += "_";
+    return Enumerable.Range(0, str.Length).Where(x => x % 2 == 0).Select(x => str.Substring(x, 2)).ToArray();
+}
+public static int PositiveSum(int[] arr)
+{
+    return arr.Sum(c => (c < 0 ? 0 : c));
+    //return arr.Where(z=>z>0).Sum();
+}
+public static int SumTwoSmallestNumbers(int[] numbers)
+{
+    return numbers.OrderBy(i => i).Take(2).Sum();
+
+    /*      
+          var _list=numbers.ToList();
+          int _n1 =_list.Min();
+          _list.Remove(_n1);
+          return _n1+_list.Min();
+  */
+}
+public static int DigitalRoot(long n)
+{
+    while (n > 9)
+    {
+        n = n.ToString().Select(c => Convert.ToInt32(c.ToString())).Sum();
+    }
+    return (int)n;
+}
+public static string DuplicateEncode(string word)
+{
+    return string.Join("", word.ToLower().Select(z => word.Count(x => z == x) > 1 ? ")" : "("));
+}
+public static string ToWeirdCase(string s)
+{
+    return string.Join(" ", s.Split(' ').Select(w => string.Concat(w.Select((ch, i) => i % 2 == 0 ? char.ToUpper(ch) : char.ToLower(ch)
+))));
+    /*
+                Console.WriteLine($"s {s}");
+                if (s.Equals(string.Empty)) return new string(' ', s.Length);
+                string[] _aux = s.Split(' ');
+                string _auxString = "";
+                foreach (var item in _aux)
+                {
+                    bool _isDivisibleBy2 = item.Length % 2 == 0;
+                    int _auxLength = item.Length;
+                    for (int i = 0; i < _auxLength; i++)
                     {
-                        _auxReturn += $",{args[i + 1]}";
-                        _getOut = true;
+                        Console.WriteLine($"item[i]: {item[i]}");
+                        if (char.IsWhiteSpace(item[i])) _auxString += " ";
+                        else
+                        {
+                            bool _auxInt = i % 2 == 0;
+                            if (_auxInt)
+                                _auxString += $"{char.ToUpper(item[i])}";
+                            else
+                                _auxString += $"{char.ToLower(item[i])}";
+                        }
+                    }
+                    _auxString += " ";
+                }
+                return _auxString.TrimEnd(' ');
+                */
+}
+///Write a function that will return the count of distinct case-insensitive alphabetic characters and numeric digits that occur more than once in the input string. The input string can be assumed to contain only alphabets (both uppercase and lowercase) and numeric digits.
+public static int DuplicateCount(string str)
+=>
+
+    str.ToLower().GroupBy(c => c).Count(c => c.Count() > 1);
+
+// str.ToLower().GroupBy(c => c).Where(g => g.Count() > 1).Count();
+
+//  (from z in str.ToUpperInvariant()
+//                 group z by z
+//                 into x
+//                 where x.Count()>1
+//                 select x.Key)
+//             .Count();
+public static string ReverseWords(string str)
+{
+    return string.Join(' ', str.Split(' ').Select(z => new string(z.Reverse().ToArray())));
+    /*
+    var _aux1 = str.Split(' ');
+    string _return = string.Empty;
+    for (int i = 0; i < _aux1.Length; i++){
+
+        var _q = _aux1[i].AsEnumerable().Reverse();
+        _return+=$"{string.Join(' ',new string(_q.ToArray()))}";
+        if(!i.Equals(_aux1.Length-1)) _return+=' ';
+    }
+    return _return;
+    */
+}
+public static bool StringEndsWith(string str, string ending)
+{
+    //best practices
+    return str.EndsWith(ending);
+    /*
+                // TODO: complete
+                int _endingLength = ending.Length;
+                int _diffLength = str.Length - _endingLength;
+                var _q = new string(str.Skip(_diffLength).ToArray());
+                if (!ending.Equals(_q)) return false;
+                    Console.WriteLine($"_endingLength: {_endingLength}");
+                    Console.WriteLine($"str.Length- _endingLength: {str.Length- _endingLength}\n_q {_q}\nending {ending}");
+                return true;
+                */
+}
+public static string[] SplitString(string str)
+{
+    // return Regex.Matches(str + "_", @"\w{2}").Select(x => x.Value).ToArray();
+
+    if (str.Length % 2 != 0)
+        str += "_";
+    return Enumerable.Range(0, str.Length)
+      .Where(x => x % 2 == 0)
+      .Select(x => str.Substring(x, 2))
+      .ToArray();
+
+    /*
+                if (str.Length % 2 == 1)
+                    str += "_";
+
+                List<string> list = new List<string>();
+                for (int i = 0; i < str.Length; i += 2)
+                {
+                    list.Add(str[i].ToString() + str[i + 1]);
+                }
+
+                return list.ToArray();
+                */
+
+    /*
+                bool _auxBool = str.Length % 2 == 0;
+                string _auxString = string.Empty;
+                List<string> _auxList = new List<string>();
+                int _auxCounter = 0;
+                int _byPass = 2;
+                if (_auxBool)
+                {
+                    Console.WriteLine("->1");
+                    for (int i = 0; i < str.Length; i = i + _byPass)
+                    {
+                        _auxList.Add(str.Substring(_auxCounter, _byPass));
+                        _auxCounter += _byPass;
                     }
                 }
-            }
-            return _auxReturn;
-        }
-        public static string Rps(string p1, string p2)
-        {
-            if (p1.Equals(p2)) return "Draw!";
-            if (
-                (p1.Equals("scissors") && p2.Equals("paper"))
-                || (p1.Equals("paper") && p2.Equals("rock"))
-                || (p1.Equals("rock") && p2.Equals("scissors"))
-            )
-                return "Player 1 won!";
-            else
-                return "Player 2 won!";
-        }
-        public static int Move(int position, int roll) => (roll * 2) + position;
-        public static int StrCount(string str, string letter) => str.Count(z => char.Parse(letter) == z);
-        public static int SumMix(object[] x) => x.Sum(z => Convert.ToInt32(z));
-        public static bool Check(object[] a, object x) => a.Any(z => z.Equals(x));
-        public static int Min(int[] list) => list.Min();
-        public static int Max(int[] list) => list.Max();
-        public static string HighAndLow(string numbers)
-        {
-            var _query = numbers.Split(' ').Select(z => int.Parse(z));
-            return new string(_query.Max() + " " + _query.Min());
-        }
-        public static bool IsIsogram(string str) => new string(str.ToLower().Distinct().ToArray()).Equals(str.ToLower()) ? true : false;
-        public static string Disemvowel(string str) => string.Concat(str.Where(z => !"aeiouAEIOU".Contains(z)));
-        public static string Remove_char(string s)
-        {
-            return s.Substring(1, (s.Length - 2));
-
-            // return s.Remove(s.Length - 1, 1).Remove(0, 1);
-
-            // if (s.Length < 2) return s;
-            // s = s.Remove(0, 1);
-            // return s.Remove(s.Length - 1, 1);
-        }
-        public static int CalculateYears(double principal, double interest, double tax, double desiredPrincipal)
-        {
-            var years = 0;
-            while (principal < desiredPrincipal)
-            {
-                principal += principal * interest * (1 - tax);
-                years++;
-            }
-            return years;
-
-            // if (principal == desiredPrincipal) return 0;
-            // int _years = 0;
-            // double _interest = 0;
-            // double _desiredPrincipal = principal ;
-            // double _tax = 0;
-            // while (_desiredPrincipal < desiredPrincipal)
-            // {
-            //     _interest=_desiredPrincipal*interest;
-            //     _tax=_interest-(tax*_interest);
-            //     _desiredPrincipal=_desiredPrincipal+_tax;
-            //     _years++;
-            // }
-            // return _years;
-        }
-        public static int FindShort(string s)
-        {
-            return s.Split(' ').Min(x => x.Length);
-            // return s.Split(' ').Select(z=>z.Length).Min();
-        }
-        public static double basicOp(char operation, double value1, double value2) => operation.Equals('+') ? value1 + value2 : operation.Equals('-') ? value1 - value2 : operation.Equals('*') ? value1 * value2 : value1 / value2;
-        public static string ToAlternatingCase(this string s) => string.Join("", s.Select(z => char.IsUpper(z) ? char.ToLower(z) : char.ToUpper(z)));
-        public static IEnumerable<string> OpenOrSenior(int[][] data)
-        {
-            return data.Select(z => z[0] > 54 && z[1] > 7 ? "Senior" : "Open");
-            // List<string> _status = new List<string>();
-            // for (int i = 0; i < data.Length; i++)
-            // {
-            //         if (data[i][0] > 54 && data[i][1] > 7)
-            //         {
-            //             _status.Add("Senior");
-            //         }
-            //         else
-            //             _status.Add("Open");
-            // }
-            // return _status;
-        }
-        public static int Stray(int[] numbers)
-        {
-            return numbers.First(x => numbers.Count(i => i == x) == 1);
-            //  var result = numbers.GroupBy(z => z).Select(itemGroup => new { Item = itemGroup.Key, Count = itemGroup.Count() })
-            //             .OrderByDescending(Item => Item.Count).ThenBy(Item => Item);
-            //             Console.WriteLine("{0} {1}\r\n{2} {3}", result.First().Item, result.First().Count, result.Last().Item, result.Last().Count);
-            //             return result.Last().Item;
-        }
-        public static int Past(int h, int m, int s)
-        {
-            //if(h!=0&&m!=0)
-            // return (h != 0 ? h * 60 : 1) * 
-            DateTime _d = new DateTime(1, 1, 1, h, m, s);
-            int _millisecondPerSecond = 1000;
-            int _auxSecond = _d.Second * _millisecondPerSecond;
-            int _auxMinute = _d.Minute * _millisecondPerSecond * 60;
-            int _auxHour = _auxMinute * 60;
-            return _auxHour + _auxMinute + _auxSecond;
-            //    return (m != 0 ? m * 60 : 1) * ((s != 0 ? s * 1000 : 1));
-        }
-        public static Dictionary<char, int> CountToDictionary(string str) => str.GroupBy(z => z).ToDictionary(z => z.Key, z => z.Count());
-        public static string UpdateLight(string current) => current.Equals("green") ? "yellow" : current.Equals("yellow") ? "red" : "green";//current.Equals("red") ? "green" : "";
-        public static string DoubleChar(string s) => string.Join("", s.Select(z => $"{z}{z}"));//.Aggregate((_c, _index) => _c)
-        public static char GetGrade(int s1, int s2, int s3)
-        {
-            var m = (s1 + s2 + s3) / 3.0;
-            return m >= 90 ? 'A' : m >= 80 ? 'B' : m >= 70 ? 'C' : m >= 60 ? 'D' : 'F';
-        }
-        public static int Persistence(long n)
-        {
-            long nF = n.ToString().Aggregate(1, (a, b) => a * (b - '0'));
-            return n < 9 ? 0 : 1 + Persistence(nF);
-            // return n < 10 ? 0 : 1 + Persistence($"{n}".Aggregate(1, (a, b) => a * (b - 48)));
-            // if (n.ToString().Length.Equals(1))
-            // {
-            //     return 0;
-            // }
-            // string _auxStringN = n.ToString();
-            // int _auxN = 1;
-            // int _persistence = 0;
-            // while (_auxStringN.Length != 1)
-            // {
-            //     // _auxN =_auxStringN.OrderBy(z=>z).Select((_number,_index)=>_number).SingleOrDefault();
-            //     for (int i = 0; i < _auxStringN.Length; i++)
-            //     {
-            //         _auxN *= int.Parse(_auxStringN[i].ToString());
-            //     }
-            //     _auxStringN = _auxN.ToString();
-            //     _persistence++;
-            //     _auxN=1;
-            // }
-            // return _persistence;
-        }
-        public static int Litres(double time)
-        {
-            return Convert.ToInt32((Math.Round((time * 0.5), 0, MidpointRounding.ToZero)));
-        }
-        public static string High(string s)
-        {
-            return s.Split(' ').OrderBy(a => a.Select(b => b - 96).Sum()).Last();
-
-            // =>  s.Split(' ').OrderBy(w => w.Sum(c => c - 'a' + 1)).Last();
-
-            // int _auxSum = 0;
-            // int _auxMax = 0;
-            // string _auxWord = string.Empty;
-            // foreach (var item in s.Split(' '))
-            // {
-            //     _auxSum = item.Sum(z => "abcdefghijklmnopqrstuvwxyz".IndexOf(z) + 1);
-            //     if (_auxMax < _auxSum)
-            //     {
-            //         _auxMax = _auxSum;
-            //         _auxWord = item;
-            //     }
-            // }
-            // return _auxWord;
-        }
-        public static string RepeatStr(int n, string s)
-        {
-            return string.Join("", Enumerable.Repeat(s, n));
-
-            // Console.WriteLine($"n {n}\ns {s}");
-            // if (n==0)return string.Empty;
-            // string _auxS = s;
-            // for (int i = 0; i < n-1; i++)
-            //         _auxS+=s;
-            // return _auxS;
-        }
-        public static int GetVowelCount(string str)
-        {
-            // return str.Count(i => "aeiou".Contains(i));
-            return str.Count(z => z.Equals('a') || z.Equals('e') || z.Equals('i') || z.Equals('o') || z.Equals('u'));
-        }
-        public static String Accum(string s)
-        {
-            return string.Join("-", s.Select((x, i) => char.ToUpper(x) + new string(char.ToLower(x), i)));
-
-            // string _auxString = string.Empty;
-            //         var _array = s.Split('-', StringSplitOptions.TrimEntries);
-            //         int _auxCount = 1;
-            //         for (int i = 0; i < s.Length; i++)
-            //         {
-            //             for (int j = 0; j < _auxCount; j++)
-            //             {
-            //                 _auxString += j == 0 ? s[i].ToString().ToUpperInvariant() : s[i].ToString().ToLowerInvariant();
-            //             }
-            //             _auxCount++;
-            //             _auxString += i == s.Length - 1 ? "" : "-";
-            //         }
-            //         return _auxString;
-        }
-        public static IEnumerable<int> GetIntegersFromList(List<object> listOfItems)
-        {
-            listOfItems.ForEach(z => Console.WriteLine(z));
-            IEnumerable<int> _aux = listOfItems.OfType<int>().Select(z => z);
-            // foreach (var item in _aux)
-            // {
-            //     Console.WriteLine($"-{item}");
-            // }
-            _aux.ToList().ForEach(z => Console.WriteLine(z));
-
-            return _aux;
-        }
-        public static string AreYouPlayingBanjo(string name)
-        {
-            return name.ToLower()[0] == 'r' ? name + " plays banjo" : name + " does not play banjo";
-            /*
-                        if (name.First().Equals('r') || name.First().Equals('R'))
-                            return $"{name} plays banjo";
-                        return $"{name} does not play banjo";
-            */
-        }
-        public static int TotalPoints(string[] games)
-        {
-            return games.Sum(s => s[0] < s[2] ? 0 : s[0] == s[2] ? 1 : 3);
-            /*
-             int total = 0;
-    foreach (string game in games) {
-      if (game[0] > game[2])
-        total += 3;
-      else if (game[0] == game[2])
-        total += 1;            
-    }
-    return total;
-    */
-            /*
-                        int _auxTotal = 0;
-                        int _win = 3;
-                        int _draw = 1;
-
-                        for (int i = 0; i < games.Length; i++)
+                else
+                {
+                    Console.WriteLine("->2");
+                    for (int i = 0; i < str.Length; i = i + _byPass)
+                    {
+                        if (_auxCounter < str.Length - 1)
                         {
-                            int.TryParse(games[i].Split(':').First(), out var _auxTeam1TotalGoals);
-                            int.TryParse(games[i].Split(':').ElementAt(1), out var _auxTeam2TotalGoals);
-                            if (_auxTeam1TotalGoals > _auxTeam2TotalGoals) _auxTotal += _win;
-                            if (_auxTeam1TotalGoals.Equals(_auxTeam2TotalGoals)) _auxTotal += _draw;
-                        }
-                        return _auxTotal;
-                        */
-        }
-        public static int SumPositivesv1(int[] numbers)
-        {
-            if (numbers.Length.Equals(0) || numbers.Length.Equals(1) || numbers.Equals(null)) return -1;
-            List<int> _auxList = numbers.ToList();
-            _auxList.Remove(_auxList.Min());
-            _auxList.Remove(_auxList.Max());
-            return _auxList.Sum();
-        }
-        public static string[] SplitStrings(string str)
-        {
-            if (str.Length % 2 != 0) str += "_";
-            return Enumerable.Range(0, str.Length).Where(x => x % 2 == 0).Select(x => str.Substring(x, 2)).ToArray();
-        }
-        public static int PositiveSum(int[] arr)
-        {
-            return arr.Sum(c => (c < 0 ? 0 : c));
-            //return arr.Where(z=>z>0).Sum();
-        }
-        public static int SumTwoSmallestNumbers(int[] numbers)
-        {
-            return numbers.OrderBy(i => i).Take(2).Sum();
-
-            /*      
-                  var _list=numbers.ToList();
-                  int _n1 =_list.Min();
-                  _list.Remove(_n1);
-                  return _n1+_list.Min();
-          */
-        }
-        public static int DigitalRoot(long n)
-        {
-            while (n > 9)
-            {
-                n = n.ToString().Select(c => Convert.ToInt32(c.ToString())).Sum();
-            }
-            return (int)n;
-        }
-        public static string DuplicateEncode(string word)
-        {
-            return string.Join("", word.ToLower().Select(z => word.Count(x => z == x) > 1 ? ")" : "("));
-        }
-        public static string ToWeirdCase(string s)
-        {
-            return string.Join(" ", s.Split(' ').Select(w => string.Concat(w.Select((ch, i) => i % 2 == 0 ? char.ToUpper(ch) : char.ToLower(ch)
-     ))));
-            /*
-                        Console.WriteLine($"s {s}");
-                        if (s.Equals(string.Empty)) return new string(' ', s.Length);
-                        string[] _aux = s.Split(' ');
-                        string _auxString = "";
-                        foreach (var item in _aux)
-                        {
-                            bool _isDivisibleBy2 = item.Length % 2 == 0;
-                            int _auxLength = item.Length;
-                            for (int i = 0; i < _auxLength; i++)
-                            {
-                                Console.WriteLine($"item[i]: {item[i]}");
-                                if (char.IsWhiteSpace(item[i])) _auxString += " ";
-                                else
-                                {
-                                    bool _auxInt = i % 2 == 0;
-                                    if (_auxInt)
-                                        _auxString += $"{char.ToUpper(item[i])}";
-                                    else
-                                        _auxString += $"{char.ToLower(item[i])}";
-                                }
-                            }
-                            _auxString += " ";
-                        }
-                        return _auxString.TrimEnd(' ');
-                        */
-        }
-        ///Write a function that will return the count of distinct case-insensitive alphabetic characters and numeric digits that occur more than once in the input string. The input string can be assumed to contain only alphabets (both uppercase and lowercase) and numeric digits.
-        public static int DuplicateCount(string str)
-        =>
-
-            str.ToLower().GroupBy(c => c).Count(c => c.Count() > 1);
-
-        // str.ToLower().GroupBy(c => c).Where(g => g.Count() > 1).Count();
-
-        //  (from z in str.ToUpperInvariant()
-        //                 group z by z
-        //                 into x
-        //                 where x.Count()>1
-        //                 select x.Key)
-        //             .Count();
-        public static string ReverseWords(string str)
-        {
-            return string.Join(' ', str.Split(' ').Select(z => new string(z.Reverse().ToArray())));
-            /*
-            var _aux1 = str.Split(' ');
-            string _return = string.Empty;
-            for (int i = 0; i < _aux1.Length; i++){
-
-                var _q = _aux1[i].AsEnumerable().Reverse();
-                _return+=$"{string.Join(' ',new string(_q.ToArray()))}";
-                if(!i.Equals(_aux1.Length-1)) _return+=' ';
-            }
-            return _return;
-            */
-        }
-        public static bool StringEndsWith(string str, string ending)
-        {
-            //best practices
-            return str.EndsWith(ending);
-            /*
-                        // TODO: complete
-                        int _endingLength = ending.Length;
-                        int _diffLength = str.Length - _endingLength;
-                        var _q = new string(str.Skip(_diffLength).ToArray());
-                        if (!ending.Equals(_q)) return false;
-                            Console.WriteLine($"_endingLength: {_endingLength}");
-                            Console.WriteLine($"str.Length- _endingLength: {str.Length- _endingLength}\n_q {_q}\nending {ending}");
-                        return true;
-                        */
-        }
-        public static string[] SplitString(string str)
-        {
-            // return Regex.Matches(str + "_", @"\w{2}").Select(x => x.Value).ToArray();
-
-            if (str.Length % 2 != 0)
-                str += "_";
-            return Enumerable.Range(0, str.Length)
-              .Where(x => x % 2 == 0)
-              .Select(x => str.Substring(x, 2))
-              .ToArray();
-
-            /*
-                        if (str.Length % 2 == 1)
-                            str += "_";
-
-                        List<string> list = new List<string>();
-                        for (int i = 0; i < str.Length; i += 2)
-                        {
-                            list.Add(str[i].ToString() + str[i + 1]);
-                        }
-
-                        return list.ToArray();
-                        */
-
-            /*
-                        bool _auxBool = str.Length % 2 == 0;
-                        string _auxString = string.Empty;
-                        List<string> _auxList = new List<string>();
-                        int _auxCounter = 0;
-                        int _byPass = 2;
-                        if (_auxBool)
-                        {
-                            Console.WriteLine("->1");
-                            for (int i = 0; i < str.Length; i = i + _byPass)
-                            {
-                                _auxList.Add(str.Substring(_auxCounter, _byPass));
-                                _auxCounter += _byPass;
-                            }
+                            Console.WriteLine("->3");
+                            _auxList.Add(str.Substring(_auxCounter, _byPass));
                         }
                         else
                         {
-                            Console.WriteLine("->2");
-                            for (int i = 0; i < str.Length; i = i + _byPass)
-                            {
-                                if (_auxCounter < str.Length - 1)
-                                {
-                                    Console.WriteLine("->3");
-                                    _auxList.Add(str.Substring(_auxCounter, _byPass));
-                                }
-                                else
-                                {
-                                    Console.WriteLine("->4");
-                                    Console.WriteLine($"_auxCounter {_auxCounter}");
-                                    _auxList.Add($"{str.Substring(_auxCounter)}_");
-                                }
-                                _auxCounter += _byPass;
-                            }
+                            Console.WriteLine("->4");
+                            Console.WriteLine($"_auxCounter {_auxCounter}");
+                            _auxList.Add($"{str.Substring(_auxCounter)}_");
                         }
-                        return _auxList.ToArray();
+                        _auxCounter += _byPass;
+                    }
+                }
+                return _auxList.ToArray();
+                */
+}
+public static int NbYear(int p0, double percent, int aug, int p)
+{
+    double _auxCount = p0;
+    int _auxCountInteger = 0;
+    double _auxPercentage = percent * 0.01;
+    while (_auxCount < p)
+    {
+        _auxCount = Math.Round(_auxCount + _auxCount * _auxPercentage + aug, 0);
+        _auxCountInteger++;
+    }
+    return _auxCountInteger;
+}
+public static int CountSheeps(bool[] sheeps)
+{
+    return sheeps.Where(z => z.Equals(true)).Count();
+
+    int _count = 0;
+    for (int i = 0; i < sheeps.Length; i++)
+    {
+        if (sheeps[i].Equals(true))
+            _count++;
+    }
+    return _count;
+}
+public static int Divisors(int n)
+{
+    return Enumerable.Range(1, n).Where(t => n % t == 0).Count();
+
+    // if (n == 1) return 1;
+    // int _count = 0;
+    // for (int i = 1; i <= n; i++)
+    // {
+    //     if (n % i == 0)
+    //         _count++;
+    // }
+    // return _count;
+}
+public static int[] ArrayDiff(int[] a, int[] b)
+{
+    Console.WriteLine("test");
+    var _auxA = a.OrderBy(z => z);
+    var _auxB = b.OrderBy(x => x);
+    List<int> _auxList = new List<int>();
+    if (_auxA.Count() >= _auxB.Count())
+    {
+        for (int i = 0; i < _auxA.Count(); i++)
+        {
+            if (!_auxB.Contains(_auxA.ElementAt(i)))
+                _auxList.Add(_auxA.ElementAt(i));
+        }
+    }
+    else
+    {
+        for (int i = 0; i < _auxA.Count(); i++)
+        {
+            if (!_auxA.Contains(_auxB.ElementAt(i)))
+                _auxList.Add(_auxA.ElementAt(i));
+        }
+    }
+    return _auxList.ToArray();
+}
+public static string BigNumbersAdd(string a, string b)
+{
+    return (BigInteger.Parse(a) + BigInteger.Parse(b)).ToString(); // Fix this!
+
+    //     if(BigInteger.TryParse(a,out BigInteger _a) && BigInteger.TryParse(b,out BigInteger _b))
+    //     return ( _a + _b).ToString(); // Fix this!
+    // else return "error";
+}
+public static string AlphabetPosition1(string text)
+{
+    return string.Join(" ", text.ToLowerInvariant()
+                                          .Where(char.IsLetter)
+                                          .Select(z => "abcdefghijklmnopqrstuvwxyz".IndexOf(z) + 1)
+                                          .ToArray());
+
+    //return string.Join(" ",text.ToLowerInvariant().Where(char.IsLetter).Select(z => z-'a'+1 ));
+    // z-'a'  return integer that is the subtraction result of letter position with a letter position
+    //+1 (it's a zero based index)
+}
+public static bool IsPerfectSquare(int n)
+{
+    return Math.Sqrt(n) % 1 == 0;
+}
+public static string OrderWords(string words)
+{//todo 1 - split string  2 - Find number in string  3 - create new ordered string
+ //   if (string.IsNullOrEmpty(words)) return words;
+ //   if (string.IsNullOrEmpty(words)) return words;
+ // return string.Join(" ", words.Split(' ').OrderBy(s => s.ToList().Find(c => char.IsDigit(c))));
+    return string.Join(" ", words.Split().OrderBy(w => w.SingleOrDefault(char.IsDigit)));
+
+    /*
+    if (words.Equals(string.Empty))
+    {
+        return string.Empty;
+    }
+    string[] _auxWordsArray = words.Split(' ');
+    Dictionary<string, int> _dic = new Dictionary<string, int>();
+    foreach (var item in _auxWordsArray)
+    {
+        Console.WriteLine(item);
+        _dic.Add(item, item.Where(z => char.IsDigit(z)).Select(z => z).Single());
+    }
+    string _auxReturnString = string.Empty;
+    var _auxDic = (from z in _dic orderby z.Value ascending select z).ToDictionary(z=>z.Key,z=>z.Value);
+    _auxReturnString = string.Join(' ', _auxDic.Keys);
+    Console.WriteLine(_auxReturnString);
+    return _auxReturnString;
+    */
+}
+public static string AlphabetPosition(string text)
+{//best practice
+    return string.Join(" ", text.ToLower()
+                                .Where(l => char.IsLetter(l))
+                                .Select(l => (int)(l - 'a' + 1)));
+    /*
+                 return string.Join(" ", text.ToLower().Where(char.IsLetter).Select(x => x - 'a' + 1));
+                    return string.Join(" ", text.Where(char.IsLetter).Select(c => c & 31));
+
+                    my solution
+                            Dictionary<char, int> _dic = new Dictionary<char, int>();
+                            _dic.Add('a', 1);
+                            _dic.Add('b', 2);
+                            _dic.Add('c', 3);
+                            _dic.Add('d', 4);
+                            _dic.Add('e', 5);
+                            _dic.Add('f', 6);
+                            _dic.Add('g', 7);
+                            _dic.Add('h', 8);
+                            _dic.Add('i', 9);
+                            _dic.Add('j', 10);
+                            _dic.Add('k', 11);
+                            _dic.Add('l', 12);
+                            _dic.Add('m', 13);
+                            _dic.Add('n', 14);
+                            _dic.Add('o', 15);
+                            _dic.Add('p', 16);
+                            _dic.Add('q', 17);
+                            _dic.Add('r', 18);
+                            _dic.Add('s', 19);
+                            _dic.Add('t', 20);
+                            _dic.Add('u', 21);
+                            _dic.Add('v', 22);
+                            _dic.Add('w', 23);
+                            _dic.Add('x', 24);
+                            _dic.Add('y', 25);
+                            _dic.Add('z', 26);
+                            return string.Join(" ", text.Where(z => char.IsLetter(z)).Select(z => _dic[char.Parse(z.ToString().ToLower())].ToString()).ToArray());
                         */
-        }
-        public static int NbYear(int p0, double percent, int aug, int p)
-        {
-            double _auxCount = p0;
-            int _auxCountInteger = 0;
-            double _auxPercentage = percent * 0.01;
-            while (_auxCount < p)
-            {
-                _auxCount = Math.Round(_auxCount + _auxCount * _auxPercentage + aug, 0);
-                _auxCountInteger++;
-            }
-            return _auxCountInteger;
-        }
-        public static int CountSheeps(bool[] sheeps)
-        {
-            return sheeps.Where(z => z.Equals(true)).Count();
-
-            int _count = 0;
-            for (int i = 0; i < sheeps.Length; i++)
-            {
-                if (sheeps[i].Equals(true))
-                    _count++;
-            }
-            return _count;
-        }
-        public static int Divisors(int n)
-        {
-            return Enumerable.Range(1, n).Where(t => n % t == 0).Count();
-
-            // if (n == 1) return 1;
-            // int _count = 0;
-            // for (int i = 1; i <= n; i++)
-            // {
-            //     if (n % i == 0)
-            //         _count++;
-            // }
-            // return _count;
-        }
-        public static int[] ArrayDiff(int[] a, int[] b)
-        {
-            Console.WriteLine("test");
-            var _auxA = a.OrderBy(z => z);
-            var _auxB = b.OrderBy(x => x);
-            List<int> _auxList = new List<int>();
-            if (_auxA.Count() >= _auxB.Count())
-            {
-                for (int i = 0; i < _auxA.Count(); i++)
-                {
-                    if (!_auxB.Contains(_auxA.ElementAt(i)))
-                        _auxList.Add(_auxA.ElementAt(i));
-                }
-            }
-            else
-            {
-                for (int i = 0; i < _auxA.Count(); i++)
-                {
-                    if (!_auxA.Contains(_auxB.ElementAt(i)))
-                        _auxList.Add(_auxA.ElementAt(i));
-                }
-            }
-            return _auxList.ToArray();
-        }
-        public static string BigNumbersAdd(string a, string b)
-        {
-            return (BigInteger.Parse(a) + BigInteger.Parse(b)).ToString(); // Fix this!
-
-            //     if(BigInteger.TryParse(a,out BigInteger _a) && BigInteger.TryParse(b,out BigInteger _b))
-            //     return ( _a + _b).ToString(); // Fix this!
-            // else return "error";
-        }
-        public static string AlphabetPosition1(string text)
-        {
-            return string.Join(" ", text.ToLowerInvariant()
-                                                  .Where(char.IsLetter)
-                                                  .Select(z => "abcdefghijklmnopqrstuvwxyz".IndexOf(z) + 1)
-                                                  .ToArray());
-
-            //return string.Join(" ",text.ToLowerInvariant().Where(char.IsLetter).Select(z => z-'a'+1 ));
-            // z-'a'  return integer that is the subtraction result of letter position with a letter position
-            //+1 (it's a zero based index)
-        }
-        public static bool IsPerfectSquare(int n)
-        {
-            return Math.Sqrt(n) % 1 == 0;
-        }
-        public static string OrderWords(string words)
-        {//todo 1 - split string  2 - Find number in string  3 - create new ordered string
-         //   if (string.IsNullOrEmpty(words)) return words;
-         //   if (string.IsNullOrEmpty(words)) return words;
-         // return string.Join(" ", words.Split(' ').OrderBy(s => s.ToList().Find(c => char.IsDigit(c))));
-            return string.Join(" ", words.Split().OrderBy(w => w.SingleOrDefault(char.IsDigit)));
-
-            /*
-            if (words.Equals(string.Empty))
-            {
-                return string.Empty;
-            }
-            string[] _auxWordsArray = words.Split(' ');
-            Dictionary<string, int> _dic = new Dictionary<string, int>();
-            foreach (var item in _auxWordsArray)
-            {
-                Console.WriteLine(item);
-                _dic.Add(item, item.Where(z => char.IsDigit(z)).Select(z => z).Single());
-            }
-            string _auxReturnString = string.Empty;
-            var _auxDic = (from z in _dic orderby z.Value ascending select z).ToDictionary(z=>z.Key,z=>z.Value);
-            _auxReturnString = string.Join(' ', _auxDic.Keys);
-            Console.WriteLine(_auxReturnString);
-            return _auxReturnString;
-            */
-        }
-        public static string AlphabetPosition(string text)
-        {//best practice
-            return string.Join(" ", text.ToLower()
-                                        .Where(l => char.IsLetter(l))
-                                        .Select(l => (int)(l - 'a' + 1)));
-            /*
-                         return string.Join(" ", text.ToLower().Where(char.IsLetter).Select(x => x - 'a' + 1));
-                            return string.Join(" ", text.Where(char.IsLetter).Select(c => c & 31));
-
-                            my solution
-                                    Dictionary<char, int> _dic = new Dictionary<char, int>();
-                                    _dic.Add('a', 1);
-                                    _dic.Add('b', 2);
-                                    _dic.Add('c', 3);
-                                    _dic.Add('d', 4);
-                                    _dic.Add('e', 5);
-                                    _dic.Add('f', 6);
-                                    _dic.Add('g', 7);
-                                    _dic.Add('h', 8);
-                                    _dic.Add('i', 9);
-                                    _dic.Add('j', 10);
-                                    _dic.Add('k', 11);
-                                    _dic.Add('l', 12);
-                                    _dic.Add('m', 13);
-                                    _dic.Add('n', 14);
-                                    _dic.Add('o', 15);
-                                    _dic.Add('p', 16);
-                                    _dic.Add('q', 17);
-                                    _dic.Add('r', 18);
-                                    _dic.Add('s', 19);
-                                    _dic.Add('t', 20);
-                                    _dic.Add('u', 21);
-                                    _dic.Add('v', 22);
-                                    _dic.Add('w', 23);
-                                    _dic.Add('x', 24);
-                                    _dic.Add('y', 25);
-                                    _dic.Add('z', 26);
-                                    return string.Join(" ", text.Where(z => char.IsLetter(z)).Select(z => _dic[char.Parse(z.ToString().ToLower())].ToString()).ToArray());
-                                */
-        }
-        ///Desc: find pangram on string
-        ///return: true: found | false: not found
+}
+///Desc: find pangram on string
+///return: true: found | false: not found
+public static bool IsPangram(string str)
+{
+    // return str.Where(ch => Char.IsLetter(ch)).Select(ch => Char.ToLower(ch)).Distinct().Count() == 26;
+    // return "abcdefghijklmnopqrstuvwxyz".All(x => str.ToLower().Contains(char.ToLower(x)));
+    return str.ToUpper().Where(char.IsLetter).Distinct().Count() == 26;
+}
+/*
         public static bool IsPangram(string str)
         {
-            // return str.Where(ch => Char.IsLetter(ch)).Select(ch => Char.ToLower(ch)).Distinct().Count() == 26;
-            // return "abcdefghijklmnopqrstuvwxyz".All(x => str.ToLower().Contains(char.ToLower(x)));
-            return str.ToUpper().Where(char.IsLetter).Distinct().Count() == 26;
-        }
-        /*
-                public static bool IsPangram(string str)
+            string _alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9";
+            var _auxArray = _alphabet.Split(' ');
+            Dictionary<char,bool> _dic=new Dictionary<char, bool>();
+            foreach (var item in _auxArray)
+            {
+                _dic.Add(char.Parse(item),false);
+            }
+            Regex _regex = new Regex("[^a-zA-Z0-9]");
+            string _str = _regex.Replace(str, "");
+            _str = _str.ToLower();
+            StringBuilder _sb = new StringBuilder();
+            foreach (var item in _str)
+            {
+                if (!Char.IsPunctuation(item)||Char.IsWhiteSpace(item))
                 {
-                    string _alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9";
-                    var _auxArray = _alphabet.Split(' ');
-                    Dictionary<char,bool> _dic=new Dictionary<char, bool>();
-                    foreach (var item in _auxArray)
-                    {
-                        _dic.Add(char.Parse(item),false);
-                    }
-                    Regex _regex = new Regex("[^a-zA-Z0-9]");
-                    string _str = _regex.Replace(str, "");
-                    _str = _str.ToLower();
-                    StringBuilder _sb = new StringBuilder();
-                    foreach (var item in _str)
-                    {
-                        if (!Char.IsPunctuation(item)||Char.IsWhiteSpace(item))
-                        {
-                            _sb.Append(item);
-                        }
-                    }
-                    string _aq = new string(_str.Where(z => Char.IsPunctuation(z)).ToArray());
-                    // return _auxArray.Any(_str.Contains);
-
-                    foreach (var item in _sb.ToString().ToArray())
-                    {
-                        Console.WriteLine(item);
-                        if (_auxArray.Any(z => item.ToString().Contains(z)))
-                        {
-                            _dic[item]= true;
-                        }
-                    }
-                    return _dic.ContainsValue(false);
+                    _sb.Append(item);
                 }
-                */
-        /*
-        Write an algorithm that takes an array and moves all of the zeros to the end, preserving the order of the other elements.
+            }
+            string _aq = new string(_str.Where(z => Char.IsPunctuation(z)).ToArray());
+            // return _auxArray.Any(_str.Contains);
 
-        if(numbers.Length==0)
-        return -1;
-    int _max=0;
-       for (int i=0;i<numbers.Length;i++){
-       if(_max<numbers[i])
-       _max=numbers[i];
-       }
-       return _max;
+            foreach (var item in _sb.ToString().ToArray())
+            {
+                Console.WriteLine(item);
+                if (_auxArray.Any(z => item.ToString().Contains(z)))
+                {
+                    _dic[item]= true;
+                }
+            }
+            return _dic.ContainsValue(false);
+        }
         */
-        public static int[] MoveZeroes(int[] arr)
+/*
+Write an algorithm that takes an array and moves all of the zeros to the end, preserving the order of the other elements.
+
+if(numbers.Length==0)
+return -1;
+int _max=0;
+for (int i=0;i<numbers.Length;i++){
+if(_max<numbers[i])
+_max=numbers[i];
+}
+return _max;
+*/
+public static int[] MoveZeroes(int[] arr)
+{
+
+    if (arr.Length == 0) return arr;
+    int[] _array = new int[] { };
+
+    List<int> _listIntegers = new List<int>();
+    _listIntegers = arr.ToList();
+    for (int i = 0; i < arr.Length; i++)
+    {
+        if (_listIntegers.ElementAt(i).Equals(0))
         {
-
-            if (arr.Length == 0) return arr;
-            int[] _array = new int[] { };
-
-            List<int> _listIntegers = new List<int>();
-            _listIntegers = arr.ToList();
-            for (int i = 0; i < arr.Length; i++)
-            {
-                if (_listIntegers.ElementAt(i).Equals(0))
-                {
-                    _listIntegers.RemoveAt(i);
-                    _listIntegers.Add(0);
-                }
-                //questions  review  : 6,8,9
-            }
-            Console.WriteLine(_listIntegers.Max(z => z.ToString()));
-            return _listIntegers.ToArray();
+            _listIntegers.RemoveAt(i);
+            _listIntegers.Add(0);
         }
+        //questions  review  : 6,8,9
+    }
+    Console.WriteLine(_listIntegers.Max(z => z.ToString()));
+    return _listIntegers.ToArray();
+}
 
-        /*In mathematics, the factorial of integer n is written as n!. It is equal to the product of n and every integer preceding it. For example: 5! = 1 x 2 x 3 x 4 x 5 = 120
+/*In mathematics, the factorial of integer n is written as n!. It is equal to the product of n and every integer preceding it. For example: 5! = 1 x 2 x 3 x 4 x 5 = 120
 
-    Your mission is simple: write a function that takes an integer n and returns the value of n!.
+Your mission is simple: write a function that takes an integer n and returns the value of n!.
 
-    You are guaranteed an integer argument. For any values outside the non-negative range, return null, nil or None (return an empty string "" in C and C++). For non-negative numbers a full length number is expected for example, return 25! =  "15511210043330985984000000"  as a string.
+You are guaranteed an integer argument. For any values outside the non-negative range, return null, nil or None (return an empty string "" in C and C++). For non-negative numbers a full length number is expected for example, return 25! =  "15511210043330985984000000"  as a string.
 
-    For more on factorials, see http://en.wikipedia.org/wiki/Factorial
+For more on factorials, see http://en.wikipedia.org/wiki/Factorial
 
-    NOTES:
+NOTES:
 
-    The use of BigInteger or BigNumber functions has been disabled, this requires a complex solution
+The use of BigInteger or BigNumber functions has been disabled, this requires a complex solution
 
-    I have removed the use of require in the javascript language.
+I have removed the use of require in the javascript language.
 
-    */
-        public static string Factorial(int n)
-        {
-            int factorial = n;
-            if (n == 0) return 1.ToString();
-            if (n < 0) return string.Empty;
-            for (int i = 1; i <= n; i++)
-            {
-                factorial = factorial * i;
-            }
-            return factorial.ToString();
-        }
-        /*
-        How can you tell an extrovert from an introvert at NSA? Va gur ryringbef, gur rkgebireg ybbxf ng gur BGURE thl'f fubrf.
+*/
+public static string Factorial(int n)
+{
+    int factorial = n;
+    if (n == 0) return 1.ToString();
+    if (n < 0) return string.Empty;
+    for (int i = 1; i <= n; i++)
+    {
+        factorial = factorial * i;
+    }
+    return factorial.ToString();
+}
+/*
+How can you tell an extrovert from an introvert at NSA? Va gur ryringbef, gur rkgebireg ybbxf ng gur BGURE thl'f fubrf.
 
-    I found this joke on USENET, but the punchline is scrambled. Maybe you can decipher it? According to Wikipedia, ROT13 (http://en.wikipedia.org/wiki/ROT13) is frequently used to obfuscate jokes on USENET.
+I found this joke on USENET, but the punchline is scrambled. Maybe you can decipher it? According to Wikipedia, ROT13 (http://en.wikipedia.org/wiki/ROT13) is frequently used to obfuscate jokes on USENET.
 
-    Hint: For this task you're only supposed to substitue characters. Not spaces, punctuation, numbers etc.
-    */
+Hint: For this task you're only supposed to substitue characters. Not spaces, punctuation, numbers etc.
+*/
 
-        ///best practice2
-        //   public static string Rot13(string input)
-        //   {
-        //      var s1 = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
-        //      var s2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        //      return string.Join("", input.Select(x => char.IsLetter(x)?s1[s2.IndexOf(x)]:x));
-        //   }
+///best practice2
+//   public static string Rot13(string input)
+//   {
+//      var s1 = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+//      var s2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+//      return string.Join("", input.Select(x => char.IsLetter(x)?s1[s2.IndexOf(x)]:x));
+//   }
 
-        ///best practice1
-        public static string Rot13(string input)
-        {
-            return string.Concat("", input.Select(z => char.IsLetter(z) ? (char)(z + (char.ToLower(z) > 'm' ? -13 : 13)) : z));
-            //   return  Regex.Replace(input, "[a-zA-Z]", new MatchEvaluator(z => ((char)(z.Value[0] + (Char.ToLower(z.Value[0]) >= 'n' ? -13 : 13))).ToString()));
-        }
-        ///Complete the function/method so that it takes a PascalCase string and returns the string in snake_case notation. Lowercase characters can be numbers. If the method gets a number as input, it should return a string.
-        public static string ToUnderscore(int str) => str.ToString();
-        // public static string ToUnderscore(int str)
-        // {
-        //      string _return = string.Empty;
-        //      string _auxStr=str.ToString();
-        //     try
-        //     {
-        //         string _auxReturn = string.Empty;
-        //         for (int i = 0; i < _auxStr.Length; i++)
-        //         {
-        //             if (Char.IsLetterOrDigit(_auxStr[i]))
-        //             {
-        //                 if (Char.IsUpper(_auxStr[i]))
-        //                 {
-        //                     if (i == 0)
-        //                     {
-        //                         _auxReturn += _auxStr[i].ToString().ToLower();
-        //                     }
-        //                     else
-        //                     {
-        //                         _auxReturn += '_'+_auxStr[i].ToString().ToLower() ;
-        //                     }
-        //                 }
-        //                 else{_auxReturn+=_auxStr[i];}
-        //             }
-        //         }
-        //         _return = _auxReturn;    
-        //     }
-        //     catch (NotImplementedException e)
-        //     {
-        //         Console.WriteLine($"Error: {e.ToString()}");
-        //     }
-        //     catch (System.Exception e)
-        //     {
-        //         Console.WriteLine($"Error: {e.ToString()}");
-        //     }
-        //     return _return;
-        // }
+///best practice1
+public static string Rot13(string input)
+{
+    return string.Concat("", input.Select(z => char.IsLetter(z) ? (char)(z + (char.ToLower(z) > 'm' ? -13 : 13)) : z));
+    //   return  Regex.Replace(input, "[a-zA-Z]", new MatchEvaluator(z => ((char)(z.Value[0] + (Char.ToLower(z.Value[0]) >= 'n' ? -13 : 13))).ToString()));
+}
+///Complete the function/method so that it takes a PascalCase string and returns the string in snake_case notation. Lowercase characters can be numbers. If the method gets a number as input, it should return a string.
+public static string ToUnderscore(int str) => str.ToString();
+// public static string ToUnderscore(int str)
+// {
+//      string _return = string.Empty;
+//      string _auxStr=str.ToString();
+//     try
+//     {
+//         string _auxReturn = string.Empty;
+//         for (int i = 0; i < _auxStr.Length; i++)
+//         {
+//             if (Char.IsLetterOrDigit(_auxStr[i]))
+//             {
+//                 if (Char.IsUpper(_auxStr[i]))
+//                 {
+//                     if (i == 0)
+//                     {
+//                         _auxReturn += _auxStr[i].ToString().ToLower();
+//                     }
+//                     else
+//                     {
+//                         _auxReturn += '_'+_auxStr[i].ToString().ToLower() ;
+//                     }
+//                 }
+//                 else{_auxReturn+=_auxStr[i];}
+//             }
+//         }
+//         _return = _auxReturn;    
+//     }
+//     catch (NotImplementedException e)
+//     {
+//         Console.WriteLine($"Error: {e.ToString()}");
+//     }
+//     catch (System.Exception e)
+//     {
+//         Console.WriteLine($"Error: {e.ToString()}");
+//     }
+//     return _return;
+// }
 
-        ///Complete the function/method so that it takes a PascalCase string and returns the string in snake_case notation. Lowercase characters can be numbers. If the method gets a number as input, it should return a string.
-        public static string ToUnderscore(string str) => string.Join("_", Regex.Split(str, "(?=[A-Z])").Skip(1)).ToLower();
+///Complete the function/method so that it takes a PascalCase string and returns the string in snake_case notation. Lowercase characters can be numbers. If the method gets a number as input, it should return a string.
+public static string ToUnderscore(string str) => string.Join("_", Regex.Split(str, "(?=[A-Z])").Skip(1)).ToLower();
         // public static string ToUnderscore(string str)
         // {
         //     string _return = string.Empty;
@@ -2679,289 +2696,289 @@ one every 3 is eliminated until one remains
         // }
     }
     public static class SimpleAssembler
+{
+    public static Dictionary<string, int> DictionaryAdd(Dictionary<string, int> returnDic, string variable, int value, bool isToAdd)
     {
-        public static Dictionary<string, int> DictionaryAdd(Dictionary<string, int> returnDic, string variable, int value, bool isToAdd)
+        if (isToAdd)
         {
-            if (isToAdd)
-            {
-                returnDic.Add(variable, value);
-            }
-            else
-            {
-                returnDic[variable] = value;
-            }
-            return returnDic;
+            returnDic.Add(variable, value);
         }
-        /// todo 1- get operation and value | 2- execute operation in varible | 3-add var and value to dict
-        public static Dictionary<string, int> Interpret(string[] program)
+        else
         {
-            int _auxValue = 1;
-            int _minOperationPostion = 0;
-            int _lengthOperationPostion = 3;
-            char _auxVar;
-            string _auxOperation = string.Empty;
-            string _aux = string.Empty;
-            string[] _operations = new string[] { "mov", "inc", "dec", "jnz" };
-            const int _varPosition = 4;
-            const int _valuePosition = 6;
-            Dictionary<string, int> _returnDic = new Dictionary<string, int>();
-            foreach (var item in program)
+            returnDic[variable] = value;
+        }
+        return returnDic;
+    }
+    /// todo 1- get operation and value | 2- execute operation in varible | 3-add var and value to dict
+    public static Dictionary<string, int> Interpret(string[] program)
+    {
+        int _auxValue = 1;
+        int _minOperationPostion = 0;
+        int _lengthOperationPostion = 3;
+        char _auxVar;
+        string _auxOperation = string.Empty;
+        string _aux = string.Empty;
+        string[] _operations = new string[] { "mov", "inc", "dec", "jnz" };
+        const int _varPosition = 4;
+        const int _valuePosition = 6;
+        Dictionary<string, int> _returnDic = new Dictionary<string, int>();
+        foreach (var item in program)
+        {
+            _auxOperation = item.Substring(_minOperationPostion, _lengthOperationPostion);
+            _auxVar = item[_varPosition];
+            if (!_auxOperation.Equals(_operations[1]) && !_auxOperation.Equals(_operations[2]))
             {
-                _auxOperation = item.Substring(_minOperationPostion, _lengthOperationPostion);
-                _auxVar = item[_varPosition];
-                if (!_auxOperation.Equals(_operations[1]) && !_auxOperation.Equals(_operations[2]))
-                {
-                    _aux = item[_valuePosition].ToString();
-                    if (_returnDic.ContainsKey(_aux))
-                        _auxValue = _returnDic[_aux];
-                    else
-                        _auxValue = int.Parse(item.Substring(_valuePosition, item.Length - _valuePosition));
-                }
-                if (_auxOperation.Equals(_operations[0]))
+                _aux = item[_valuePosition].ToString();
+                if (_returnDic.ContainsKey(_aux))
+                    _auxValue = _returnDic[_aux];
+                else
+                    _auxValue = int.Parse(item.Substring(_valuePosition, item.Length - _valuePosition));
+            }
+            if (_auxOperation.Equals(_operations[0]))
+            {
+                _returnDic.Add(_auxVar.ToString(), _auxValue);
+            }
+            if (_auxOperation.Equals(_operations[1]))
+            {
+                _auxValue++;
+            }
+            if (_auxOperation.Equals(_operations[2]))
+            {
+                _auxValue--;
+            }
+            if (_auxOperation.Equals(_operations[3]))
+            {
+                if (!_returnDic[_auxVar.ToString()].Equals(0))
+                    _returnDic[_auxVar.ToString()] = _auxValue;
+            }
+
+            try
+            {
+                if (!_returnDic.ContainsKey(_auxVar.ToString()))
                 {
                     _returnDic.Add(_auxVar.ToString(), _auxValue);
                 }
-                if (_auxOperation.Equals(_operations[1]))
+                else
                 {
-                    _auxValue++;
+                    _returnDic[_auxVar.ToString()] = _auxValue;
                 }
-                if (_auxOperation.Equals(_operations[2]))
-                {
-                    _auxValue--;
-                }
-                if (_auxOperation.Equals(_operations[3]))
-                {
-                    if (!_returnDic[_auxVar.ToString()].Equals(0))
-                        _returnDic[_auxVar.ToString()] = _auxValue;
-                }
+            }
+            catch (System.Exception e)
+            {
+                Console.WriteLine("Exception: " + e.ToString());
+            }
+        }
+        return _returnDic;
+    }
+}
+public class CountIPAddresses
+{
+    public static long IpsBetween(string start, string end)
+    {
+        int _returnTotalCount = -1;
+        IPAddress _IPStart;
+        IPAddress _IPEnd;
+        if (IPAddress.TryParse(start, out _IPStart) && IPAddress.TryParse(end, out _IPEnd))
+        {
+            var _auxIntIpEnd = BitConverter.ToInt32(_IPEnd.GetAddressBytes().Reverse().ToArray(), 0);
+            var _auxIntIpStart = BitConverter.ToInt32(_IPStart.GetAddressBytes().Reverse().ToArray(), 0);
+            if (_auxIntIpEnd < _auxIntIpStart)
+                _returnTotalCount = _auxIntIpStart - _auxIntIpEnd;
+            else
+                _returnTotalCount = _auxIntIpEnd - _auxIntIpStart;
+        }
+        return _returnTotalCount;
+    }
+    ///auxiliar method
+    //logic  is to know the difference( subtract) the class D IP from 2 IP's
+    public static long IpsBetween(string start, string end, bool token)
+    {
+        long _returnTotalCount = -1;
 
-                try
+        IPAddress _IPStart;
+        IPAddress _IPEnd;
+
+        //TODO | 1- get last digits(class D of IP) | 2 - validate IPstart it's bigger than IPend
+        if (IPAddress.TryParse(start, out _IPStart) && IPAddress.TryParse(end, out _IPEnd))
+        {
+            var _enumerableEnd = _IPEnd.ToString().Split('.');
+            var _enumerableStart = _IPStart.ToString().Split('.');
+            int _auxEnd = 0;
+            int _auxStart = 0;
+            try
+            {
+                if (Int32.TryParse(_enumerableEnd[3], out _auxEnd) && Int32.TryParse(_enumerableStart[3], out _auxStart))//it's in the position 3 where is located the Class D IP
                 {
-                    if (!_returnDic.ContainsKey(_auxVar.ToString()))
+                    if (_auxStart > _auxEnd)
                     {
-                        _returnDic.Add(_auxVar.ToString(), _auxValue);
+                        _returnTotalCount = _auxStart - _auxEnd;
                     }
                     else
-                    {
-                        _returnDic[_auxVar.ToString()] = _auxValue;
-                    }
-                }
-                catch (System.Exception e)
-                {
-                    Console.WriteLine("Exception: " + e.ToString());
+                        _returnTotalCount = _auxEnd - _auxStart;
                 }
             }
-            return _returnDic;
+            catch (System.Exception e)
+            {
+                Console.WriteLine("Convertion error of Class D IP: " + e.ToString());
+            }
         }
+        return _returnTotalCount;
     }
-    public class CountIPAddresses
+}
+public class RomanNumerals
+{
+    ///todo | 1- get total digits length | 2 - 
+    public static string ToRoman(int n)
     {
-        public static long IpsBetween(string start, string end)
-        {
-            int _returnTotalCount = -1;
-            IPAddress _IPStart;
-            IPAddress _IPEnd;
-            if (IPAddress.TryParse(start, out _IPStart) && IPAddress.TryParse(end, out _IPEnd))
-            {
-                var _auxIntIpEnd = BitConverter.ToInt32(_IPEnd.GetAddressBytes().Reverse().ToArray(), 0);
-                var _auxIntIpStart = BitConverter.ToInt32(_IPStart.GetAddressBytes().Reverse().ToArray(), 0);
-                if (_auxIntIpEnd < _auxIntIpStart)
-                    _returnTotalCount = _auxIntIpStart - _auxIntIpEnd;
-                else
-                    _returnTotalCount = _auxIntIpEnd - _auxIntIpStart;
-            }
-            return _returnTotalCount;
-        }
-        ///auxiliar method
-        //logic  is to know the difference( subtract) the class D IP from 2 IP's
-        public static long IpsBetween(string start, string end, bool token)
-        {
-            long _returnTotalCount = -1;
+        int _auxLength = n.ToString().Length;
+        int _digit = 0;
+        int _auxItem = 0;
+        string _auxConvert = string.Empty;
+        string _return = string.Empty;
 
-            IPAddress _IPStart;
-            IPAddress _IPEnd;
+        foreach (var item in n.ToString())
+        {
+            Console.WriteLine($"item: {item}");
 
-            //TODO | 1- get last digits(class D of IP) | 2 - validate IPstart it's bigger than IPend
-            if (IPAddress.TryParse(start, out _IPStart) && IPAddress.TryParse(end, out _IPEnd))
+            _auxItem = int.Parse(item.ToString());
+            _digit = n.ToString()[0];
+            if (_auxLength == 4)
             {
-                var _enumerableEnd = _IPEnd.ToString().Split('.');
-                var _enumerableStart = _IPStart.ToString().Split('.');
-                int _auxEnd = 0;
-                int _auxStart = 0;
-                try
+                while (_auxItem != 0)
                 {
-                    if (Int32.TryParse(_enumerableEnd[3], out _auxEnd) && Int32.TryParse(_enumerableStart[3], out _auxStart))//it's in the position 3 where is located the Class D IP
-                    {
-                        if (_auxStart > _auxEnd)
-                        {
-                            _returnTotalCount = _auxStart - _auxEnd;
-                        }
-                        else
-                            _returnTotalCount = _auxEnd - _auxStart;
-                    }
+                    _return += 'M';
+                    _auxItem--;
                 }
-                catch (System.Exception e)
-                {
-                    Console.WriteLine("Convertion error of Class D IP: " + e.ToString());
-                }
+                Console.WriteLine($"M: {_return}");
             }
-            return _returnTotalCount;
+            if (_auxLength == 3)
+            {
+                while (_auxItem != 0)
+                {
+                    _return += 'C';
+                    _auxItem--;
+                }
+                Console.WriteLine($"C: {_return}");
+            }
+            if (_auxLength == 2)
+            {
+                _auxConvert = ConvertBasicRoman(int.Parse(item.ToString()));
+                _return += _auxConvert;
+            }
+            if (_auxLength == 1)
+            {
+                _auxConvert = ConvertBasicRoman(int.Parse(item.ToString()));
+                _return += _auxConvert;
+                Console.WriteLine($"basic : {_return}");
+            }
+            _auxLength--;
         }
+        Console.WriteLine($"_return: {_return}");
+        return _return;
     }
-    public class RomanNumerals
+    static string ConvertBasicRoman(int n)
     {
-        ///todo | 1- get total digits length | 2 - 
-        public static string ToRoman(int n)
-        {
-            int _auxLength = n.ToString().Length;
-            int _digit = 0;
-            int _auxItem = 0;
-            string _auxConvert = string.Empty;
-            string _return = string.Empty;
-
-            foreach (var item in n.ToString())
-            {
-                Console.WriteLine($"item: {item}");
-
-                _auxItem = int.Parse(item.ToString());
-                _digit = n.ToString()[0];
-                if (_auxLength == 4)
-                {
-                    while (_auxItem != 0)
-                    {
-                        _return += 'M';
-                        _auxItem--;
-                    }
-                    Console.WriteLine($"M: {_return}");
-                }
-                if (_auxLength == 3)
-                {
-                    while (_auxItem != 0)
-                    {
-                        _return += 'C';
-                        _auxItem--;
-                    }
-                    Console.WriteLine($"C: {_return}");
-                }
-                if (_auxLength == 2)
-                {
-                    _auxConvert = ConvertBasicRoman(int.Parse(item.ToString()));
-                    _return += _auxConvert;
-                }
-                if (_auxLength == 1)
-                {
-                    _auxConvert = ConvertBasicRoman(int.Parse(item.ToString()));
-                    _return += _auxConvert;
-                    Console.WriteLine($"basic : {_return}");
-                }
-                _auxLength--;
-            }
-            Console.WriteLine($"_return: {_return}");
-            return _return;
-        }
-        static string ConvertBasicRoman(int n)
-        {
-            string _return = "";
-            if (n.Equals(1)) _return = "I";
-            if (n.Equals(2)) _return = "II";
-            if (n.Equals(3)) _return = "III";
-            if (n.Equals(4)) _return = "IV";
-            if (n.Equals(5)) _return = "V";
-            if (n.Equals(6)) _return = "VI";
-            if (n.Equals(7)) _return = "VII";
-            if (n.Equals(8)) _return = "VIII";
-            if (n.Equals(9)) _return = "IX";
-            if (n.Equals(10)) _return = "X";
-            return _return;
-        }
-        static int ConvertBasicRoman(string romanNumeral)
-        {
-            int _return = -1;
-            if (romanNumeral.Equals("I")) _return = 1;
-            if (romanNumeral.Equals("II")) _return = 2;
-            if (romanNumeral.Equals("III")) _return = 3;
-            if (romanNumeral.Equals("IV")) _return = 4;
-            if (romanNumeral.Equals("V")) _return = 5;
-            if (romanNumeral.Equals("VI")) _return = 6;
-            if (romanNumeral.Equals("VII")) _return = 7;
-            if (romanNumeral.Equals("VIII")) _return = 8;
-            if (romanNumeral.Equals("IX")) _return = 9;
-            if (romanNumeral.Equals("X")) _return = 10;
-            return _return;
-        }
-        public static int FromRoman(string romanNumeral)
-        {
-            string? _auxString = null;
-            string _auxToUpper = romanNumeral.ToUpperInvariant();
-            int _return = 0;
-            int _auxConvertBasicRoman = ConvertBasicRoman(romanNumeral);
-            if (_auxConvertBasicRoman != -1) return _auxConvertBasicRoman;
-
-            foreach (var item in romanNumeral)
-            {
-                switch (item)
-                {
-                    case 'L':
-                        _auxString += 50;
-                        break;
-
-                    case 'C':
-                        _auxString += 100;
-                        break;
-
-                    case 'D':
-                        _auxString += 500;
-                        break;
-
-                    case 'M':
-                        _auxString += 1000;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            var _q = (from z in romanNumeral select z);
-            return _return;
-        }
+        string _return = "";
+        if (n.Equals(1)) _return = "I";
+        if (n.Equals(2)) _return = "II";
+        if (n.Equals(3)) _return = "III";
+        if (n.Equals(4)) _return = "IV";
+        if (n.Equals(5)) _return = "V";
+        if (n.Equals(6)) _return = "VI";
+        if (n.Equals(7)) _return = "VII";
+        if (n.Equals(8)) _return = "VIII";
+        if (n.Equals(9)) _return = "IX";
+        if (n.Equals(10)) _return = "X";
+        return _return;
     }
-    public class PyramidSlideDown
+    static int ConvertBasicRoman(string romanNumeral)
     {
-        //Todo | 1- search the elementary iterate in every tree node | 2- per level edentify , the max and min | 3 - sum teh max level to a total var 
-        public static int LongestSlideDown(int[][] pyramid)
-        {
-            int _totalReturn = 0;
-            int _max = 0;
-            List<int> _auxList;
-            for (int i = 0; i < pyramid.GetLength(0); i++)//iterate in rows 
-            {
-                Console.WriteLine($"pyramid.GetLength(0):  {pyramid.GetLength(0)}");
-                _auxList = pyramid[i].ToList();
-                Console.WriteLine($"pyramid.GetLength(0):  {pyramid.GetLength(1)}");
-                foreach (var item in _auxList)
-                {
-                    if (_max < item)
-                    {
-                        _max = item;
-                    }
-                    Console.WriteLine($"max:  {_max}");
-                }
-                _totalReturn += _max;
-            }
-            Console.WriteLine($"mas:  {_totalReturn}");
-            return _totalReturn;
-        }
+        int _return = -1;
+        if (romanNumeral.Equals("I")) _return = 1;
+        if (romanNumeral.Equals("II")) _return = 2;
+        if (romanNumeral.Equals("III")) _return = 3;
+        if (romanNumeral.Equals("IV")) _return = 4;
+        if (romanNumeral.Equals("V")) _return = 5;
+        if (romanNumeral.Equals("VI")) _return = 6;
+        if (romanNumeral.Equals("VII")) _return = 7;
+        if (romanNumeral.Equals("VIII")) _return = 8;
+        if (romanNumeral.Equals("IX")) _return = 9;
+        if (romanNumeral.Equals("X")) _return = 10;
+        return _return;
     }
-
-    class Program
+    public static int FromRoman(string romanNumeral)
     {
-        public static int Add(int pOne, int pTwo) => (pOne + pTwo);
+        string? _auxString = null;
+        string _auxToUpper = romanNumeral.ToUpperInvariant();
+        int _return = 0;
+        int _auxConvertBasicRoman = ConvertBasicRoman(romanNumeral);
+        if (_auxConvertBasicRoman != -1) return _auxConvertBasicRoman;
 
-        static void Main(string[] args)
+        foreach (var item in romanNumeral)
         {
-            Console.WriteLine("Hello World!");
-            OperatingSystem _os = Environment.OSVersion;
-            Console.WriteLine(_os.Platform + Environment.NewLine + _os.ServicePack + Environment.NewLine + _os.Version);
-            // /home/telmosantos/.dotnet/
+            switch (item)
+            {
+                case 'L':
+                    _auxString += 50;
+                    break;
+
+                case 'C':
+                    _auxString += 100;
+                    break;
+
+                case 'D':
+                    _auxString += 500;
+                    break;
+
+                case 'M':
+                    _auxString += 1000;
+                    break;
+                default:
+                    break;
+            }
         }
+        var _q = (from z in romanNumeral select z);
+        return _return;
     }
+}
+public class PyramidSlideDown
+{
+    //Todo | 1- search the elementary iterate in every tree node | 2- per level edentify , the max and min | 3 - sum teh max level to a total var 
+    public static int LongestSlideDown(int[][] pyramid)
+    {
+        int _totalReturn = 0;
+        int _max = 0;
+        List<int> _auxList;
+        for (int i = 0; i < pyramid.GetLength(0); i++)//iterate in rows 
+        {
+            Console.WriteLine($"pyramid.GetLength(0):  {pyramid.GetLength(0)}");
+            _auxList = pyramid[i].ToList();
+            Console.WriteLine($"pyramid.GetLength(0):  {pyramid.GetLength(1)}");
+            foreach (var item in _auxList)
+            {
+                if (_max < item)
+                {
+                    _max = item;
+                }
+                Console.WriteLine($"max:  {_max}");
+            }
+            _totalReturn += _max;
+        }
+        Console.WriteLine($"mas:  {_totalReturn}");
+        return _totalReturn;
+    }
+}
+
+class Program
+{
+    public static int Add(int pOne, int pTwo) => (pOne + pTwo);
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Hello World!");
+        OperatingSystem _os = Environment.OSVersion;
+        Console.WriteLine(_os.Platform + Environment.NewLine + _os.ServicePack + Environment.NewLine + _os.Version);
+        // /home/telmosantos/.dotnet/
+    }
+}
 }
