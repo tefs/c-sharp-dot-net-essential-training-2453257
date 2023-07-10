@@ -1052,6 +1052,21 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test, Description("It should work for basic tests")]
+        public void RemoveTest()
+        {
+            Assert.AreEqual("Hi", Kata.Remove("Hi!", 1));
+            Assert.AreEqual("Hi", Kata.Remove("Hi!", 100));
+            Assert.AreEqual("Hi!!", Kata.Remove("Hi!!!", 1));
+            Assert.AreEqual("Hi", Kata.Remove("Hi!!!", 100));
+            Assert.AreEqual("Hi", Kata.Remove("!Hi", 1));
+            Assert.AreEqual("Hi!", Kata.Remove("!Hi!", 1));
+            Assert.AreEqual("Hi", Kata.Remove("!Hi!", 100));
+            Assert.AreEqual("!!Hi !!hi!!! !hi", Kata.Remove("!!!Hi !!hi!!! !hi", 1));
+            Assert.AreEqual("Hi !!hi!!! !hi", Kata.Remove("!!!Hi !!hi!!! !hi", 3));
+            Assert.AreEqual("Hi hi!!! !hi", Kata.Remove("!!!Hi !!hi!!! !hi", 5));
+            Assert.AreEqual("Hi hi hi", Kata.Remove("!!!Hi !!hi!!! !hi", 100));
+        }
         [TestCase("zodiac", 26)]
         [TestCase("chruschtschov", 80)]
         [TestCase("khrushchev", 38)]
