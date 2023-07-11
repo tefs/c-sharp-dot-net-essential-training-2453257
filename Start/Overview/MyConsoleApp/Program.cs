@@ -1017,7 +1017,21 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
-        //    return new string( s.Except(new string('!',n)).ToArray());
+        public static string Meeting(string s)
+        {
+            var _groupedAux = s.Split(';').Select(z => new { firstname = z.Take(z.ToString().IndexOf(':')), lastname = z.Skip(z.ToString().IndexOf(':') + 1) });
+            var _grouped = _groupedAux.Select(z => new
+            {
+                lastname = new string(z.lastname.ToArray()).ToUpperInvariant()
+            ,
+                firstname = new string(z.firstname.ToArray()).ToUpperInvariant()
+            })
+            .OrderBy(z => z.lastname)
+            .ThenBy(z => z.firstname)
+            ;
+            var _grouped1 = _grouped.Select(z => "(" + z.lastname + ", " + z.firstname + ")");
+            return string.Concat(_grouped1);
+        }
         public static string Remove(string s, int n)
         {
             //best solutions 
