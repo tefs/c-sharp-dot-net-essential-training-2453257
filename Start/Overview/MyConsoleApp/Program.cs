@@ -1015,6 +1015,28 @@ one every 3 is eliminated until one remains
         }
         public void PrintBattle(Fighter attacker, Fighter attacked) => Console.WriteLine("{0} attacks {1}; {2} now has {3} health.", attacker, attacked, attacked, attacked.Health);
     }
+    #region Regular Ball Super Ball exercise
+    // public class Ball
+    // {
+    //     public string ballType { get; set; }
+    //     public Ball(string ballType) => this.ballType = ballType;
+    //     public Ball() => this.ballType = "regular";
+    // }
+    public class Ball
+    {
+        public string ballType { get; set; }
+        public Ball(string ballType = "regular") => this.ballType = ballType;
+    }
+    // public class Ball
+    // {
+    //     public string ballType { get; set; }
+    //     public Ball(string ballType)
+    //     {
+    //         this.ballType = ballType;
+    //     }
+    //     public Ball() : this("regular") { }
+    // }
+    #endregion
     public static class Kata
     {
         public static int AdjacentElementsProduct(int[] array) => array.Skip(1).Select((x, i) => x * array[i]).Max();//compare sequencial numbers
