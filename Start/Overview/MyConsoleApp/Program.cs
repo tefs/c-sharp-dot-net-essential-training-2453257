@@ -1017,14 +1017,23 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int AdjacentElementsProduct(int[] array) => array.Skip(1).Select((x, i) => x * array[i]).Max();//compare sequencial numbers
+        // => array.Select((z, index) => new
+        // {
+        //     num = z
+        //         ,
+        //     max = index < array.Length - 1 ? array[index + 1] * z : array[index - 1] * z
+        // })
+        //     .MaxBy(z => int.Parse(z.max.ToString()))
+        //     .max;
         public static string Meeting(string s)
         {
             // better solution 
             return string.Join("", s
-						.ToUpper().Split(';')
-						.Select(uu => uu.Split(':'))
-						.OrderBy(f=> f[1]).ThenBy(g=> g[0])
-						.Select(a => "(" + a[1] + ", " + a[0] + ")"));
+                        .ToUpper().Split(';')
+                        .Select(uu => uu.Split(':'))
+                        .OrderBy(f => f[1]).ThenBy(g => g[0])
+                        .Select(a => "(" + a[1] + ", " + a[0] + ")"));
 
             // var _groupedAux = s.Split(';').Select(z => new { firstname = z.Take(z.ToString().IndexOf(':')), lastname = z.Skip(z.ToString().IndexOf(':') + 1) });
             // var _grouped = _groupedAux.Select(z => new
