@@ -1039,6 +1039,12 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
+        public static object FirstNonConsecutive(int[] arr)
+        {
+            if (arr.Length < 2) return null;
+            var _aux = arr.Skip(1).Where((z, index) => (z - arr[index]) != 1);
+            return _aux.Count() != 0 ? _aux.First() : null;
+        }
         public static int AdjacentElementsProduct(int[] array) => array.Skip(1).Select((x, i) => x * array[i]).Max();//compare sequencial numbers
         // => array.Select((z, index) => new
         // {

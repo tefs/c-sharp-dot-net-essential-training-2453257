@@ -1103,6 +1103,16 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void FirstNonConsecutiveTest()
+        {
+            Assert.AreEqual(6, Kata.FirstNonConsecutive(new int[] { 1, 2, 3, 4, 6, 7, 8 }));
+        }
+        [Test]
+        public void FirstNonConsecutiveSequentialTest()
+        {
+            Assert.AreEqual(null, Kata.FirstNonConsecutive(new int[] { 1, 2, 3, 4 }));
+        }
         [Test, Description("It should work for basic tests")]
         public void RemoveTest()
         {
