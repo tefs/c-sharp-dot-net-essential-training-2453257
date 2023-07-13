@@ -1104,6 +1104,22 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        [TestCase(1, "Sunday")]
+        [TestCase(2, "Monday")]
+        [TestCase(3, "Tuesday")]
+        [TestCase(4, "Wednesday")]
+        [TestCase(5, "Thursday")]
+        [TestCase(6, "Friday")]
+        [TestCase(7, "Saturday")]
+        [TestCase(-1, "Wrong, please enter a number between 1 and 7")]
+        [TestCase(0, "Wrong, please enter a number between 1 and 7")]
+        [TestCase(8, "Wrong, please enter a number between 1 and 7")]
+        [TestCase(20, "Wrong, please enter a number between 1 and 7")]
+        public void WhatDayTest(int n, string expected)
+        {
+            Assert.AreEqual(expected, Kata.WhatDay(n));
+        }
+        [Test]
         public void FirstNonConsecutiveTest()
         {
             Assert.AreEqual(6, Kata.FirstNonConsecutive(new int[] { 1, 2, 3, 4, 6, 7, 8 }));

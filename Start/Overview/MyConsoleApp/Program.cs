@@ -1039,6 +1039,32 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
+        //new switch syntax
+        public static string WhatDay(int n)
+        => n switch
+        {
+            1 => "Sunday",
+            2 => "Monday",
+            3 => "Tuesday",
+            4 => "Wednesday",
+            5 => "Thursday",
+            6 => "Friday",
+            7 => "Saturday",
+            _ => "Wrong, please enter a number between 1 and 7"
+        };
+        // {
+        //     switch (n)
+        //     {
+        //         case 1: return "Sunday";
+        //         case 2: return "Monday";
+        //         case 3: return "Tuesday";
+        //         case 4: return "Wednesday";
+        //         case 5: return "Thursday";
+        //         case 6: return "Friday";
+        //         case 7: return "Saturday";
+        //         default: return "Wrong, please enter a number between 1 and 7";
+        //     }
+        // }
         public static object FirstNonConsecutive(int[] arr)
         {
             if (arr.Length < 2) return null;
