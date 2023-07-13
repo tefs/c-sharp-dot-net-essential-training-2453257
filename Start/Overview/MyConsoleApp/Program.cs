@@ -1039,6 +1039,7 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
+        public static int[] ReverseSeq(int n) => Enumerable.Range(1, n).OrderByDescending(z => z).ToArray();
         //new switch syntax
         public static string WhatDay(int n)
         => n switch

@@ -1104,6 +1104,11 @@ MyConsoleAppTests
     public class KataTests
     {
         [Test]
+        public void ReverseSeqTest()
+        {
+            Assert.That(Kata.ReverseSeq(5), Is.EqualTo(new int[] { 5, 4, 3, 2, 1 }));
+        }
+        [Test]
         [TestCase(1, "Sunday")]
         [TestCase(2, "Monday")]
         [TestCase(3, "Tuesday")]
