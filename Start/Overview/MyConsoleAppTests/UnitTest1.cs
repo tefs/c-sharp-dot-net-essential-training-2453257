@@ -1134,6 +1134,22 @@ MyConsoleAppTests
         {
             Assert.AreEqual(null, Kata.FirstNonConsecutive(new int[] { 1, 2, 3, 4 }));
         }
+        [Test, Description("test")]
+        public void ChooseBestSumTest()
+        {
+            // Console.WriteLine("****** Basic Tests");
+            List<int> ts = new List<int> { 50, 55, 56, 57, 58 };
+            int? n = Kata.ChooseBestSum(163, 3, ts);
+            Assert.AreEqual(163, n);
+
+            // ts = new List<int> { 50 };
+            // n = Kata.ChooseBestSum(163, 3, ts);
+            // Assert.AreEqual(null, n);
+
+            // ts = new List<int> { 91, 74, 73, 85, 73, 81, 87 };
+            // n = Kata.chooseBestSum(230, 3, ts);
+            // Assert.AreEqual(228, n);
+        }
         [Test, Description("It should work for basic tests")]
         public void RemoveTest()
         {

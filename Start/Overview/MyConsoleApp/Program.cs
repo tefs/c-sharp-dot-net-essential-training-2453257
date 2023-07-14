@@ -1072,6 +1072,34 @@ one every 3 is eliminated until one remains
             var _aux = arr.Skip(1).Where((z, index) => (z - arr[index]) != 1);
             return _aux.Count() != 0 ? _aux.First() : null;
         }
+        public static int? ChooseBestSum(int t, int k, List<int> ls)
+        {
+            //todo 1-sum several distance combinations(starting in first position, second, etc)
+            if (ls.Count < k) return null;
+            // ls.Aggregate(new{sum=0}, (accummulator,next)z)
+            var _first = ls.ElementAt(0);
+            var _auxReturnList = new List<int>();
+            for (int i = 0; i < ls.Count - 2; i++)
+            {
+                //     next = ls.ElementAt(index < ls.Count - 1 ? index + 1 : index)
+                // ,
+                _auxReturnList.Add(ls[i] + ls[i + 1] + ls[i + 2]);//ls[i < ls.Count - 2 ? i + 2 : i]);
+                //  ,
+                //     first = ls.ElementAt(index < ls.Count - 1 ? index + 1 : index)
+            }
+            return _auxReturnList.MaxBy(z => z <= t);
+            // return ls
+            // .Skip(1)
+            // .Select((z, index) => new
+            // {
+            //     next = ls.ElementAt(index < ls.Count - 1 ? index + 1 : index)
+            // ,
+            //     value = (_first = _first + ls.ElementAt(index < ls.Count - 1 ? index + 1 : index)) = +z + ls[index < ls.Count - 1 ? index + 1 : index]
+            //  ,
+            //     first = ls.ElementAt(index < ls.Count - 1 ? index + 1 : index)
+            // })
+            // .MaxBy(z => z.value <= t).value;
+        }
         public static int AdjacentElementsProduct(int[] array) => array.Skip(1).Select((x, i) => x * array[i]).Max();//compare sequencial numbers
         // => array.Select((z, index) => new
         // {
