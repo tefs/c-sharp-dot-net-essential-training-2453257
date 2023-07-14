@@ -1039,6 +1039,7 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
+        public static int[] VowelIndices(string word) => word.Select((z, index) => "aeiou".Contains(z) ? index + 1 : 0).Where(z => z != 0).ToArray();
         public static int[] ReverseSeq(int n) => Enumerable.Range(1, n).OrderByDescending(z => z).ToArray();
         //new switch syntax
         public static string WhatDay(int n)
@@ -1074,20 +1075,28 @@ one every 3 is eliminated until one remains
         }
         public static int? ChooseBestSum(int t, int k, List<int> ls)
         {
-            //todo 1-sum several distance combinations(starting in first position, second, etc)
+            //todo 1-sum several distance combinations(starting in first position, second, etc) and combining all cases
+            //t (maximum sum of distances, integer >= 0), k (number of towns to visit, k >= 1) and ls (list of distances, all distances are positive or zero integers and this list has at least one element). The function returns the "best" sum ie the biggest possible sum of k distances less than or equal to the given limit t, if that sum exists, or otherwise nil, null, 
             if (ls.Count < k) return null;
             // ls.Aggregate(new{sum=0}, (accummulator,next)z)
             var _first = ls.ElementAt(0);
-            var _auxReturnList = new List<int>();
-            for (int i = 0; i < ls.Count - 2; i++)
-            {
-                //     next = ls.ElementAt(index < ls.Count - 1 ? index + 1 : index)
-                // ,
-                _auxReturnList.Add(ls[i] + ls[i + 1] + ls[i + 2]);//ls[i < ls.Count - 2 ? i + 2 : i]);
-                //  ,
-                //     first = ls.ElementAt(index < ls.Count - 1 ? index + 1 : index)
-            }
-            return _auxReturnList.MaxBy(z => z <= t);
+            var _auxList = new List<int>();
+            ls.ForEach(z => ls.Skip(1).ToList().ForEach(x => ls.Skip(2).ToList().ForEach(
+                c => _auxList.Add(x + z + c)
+                )));
+            var _auxReturn = _auxList.Where((z) => z <= t).OrderByDescending(z => z).FirstOrDefault(-1);
+            return _auxReturn == -1 ? null : _auxReturn;
+            // var _auxReturnList = new List<int>();
+            // for (int i = 0; i < ls.Count - 2; i++)
+            // {
+            //     //     next = ls.ElementAt(index < ls.Count - 1 ? index + 1 : index)
+            //     // ,
+            //     _auxReturnList.Add(ls[i] + ls[i + 1] + ls[i + 2]);//ls[i < ls.Count - 2 ? i + 2 : i]);
+            //     //  ,
+            //     //     first = ls.ElementAt(index < ls.Count - 1 ? index + 1 : index)
+            // }
+            // return _auxReturnList.MaxBy(z => z <= t);
+
             // return ls
             // .Skip(1)
             // .Select((z, index) => new
