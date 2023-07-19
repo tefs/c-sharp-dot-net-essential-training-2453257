@@ -1103,7 +1103,15 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
-        [Test,Description("")]
+        [Test, Description("")]
+        public void AlphabetWarTest()
+        {
+            Assert.AreEqual("Right side wins!", Kata.AlphabetWar("z"));
+            Assert.AreEqual("Let's fight again!", Kata.AlphabetWar("zdqmwpbs"));
+            Assert.AreEqual("Right side wins!", Kata.AlphabetWar("zzzzs"));
+            Assert.AreEqual("Left side wins!", Kata.AlphabetWar("wwwwwwz"));
+        }
+        [Test, Description("")]
         public void SquareDigitsTest()
         {
             Assert.AreEqual(811181, Kata.SquareDigits(9119));

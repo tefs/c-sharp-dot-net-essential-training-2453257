@@ -1039,9 +1039,43 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
+        private static Dictionary<char, int> leftSidePowers = new Dictionary<char, int>
+        {
+            ['w'] = 4,
+            ['p'] = 3,
+            ['b'] = 2,
+            ['s'] = 1
+        };
+        private static Dictionary<char, int> rightSidePowers = new Dictionary<char, int>
+        {
+            ['m'] = 4,
+            ['q'] = 3,
+            ['d'] = 2,
+            ['z'] = 1
+        };
+        public static string AlphabetWar(string fight)
+        {
+            //best solution
+            var score = fight.Sum(x => "sbpw".IndexOf(x) + 1 + -("zdqm".IndexOf(x) + 1));
+            return score == 0 ? "Let's fight again!" : score < 0 ? "Right side wins!" : "Left side wins!";
+
+            // Dictionary<char, int> leftSidePowers = new Dictionary<char, int>();
+            // leftSidePowers.Add('w', 4);
+            // leftSidePowers.Add('p', 3);
+            // leftSidePowers.Add('b', 2);
+            // leftSidePowers.Add('s', 1);
+            // Dictionary<char, int> rightSidePowers = new Dictionary<char, int>();
+            // rightSidePowers.Add('m', 4);
+            // rightSidePowers.Add('q', 3);
+            // rightSidePowers.Add('d', 2);
+            // rightSidePowers.Add('z', 1);
+            // int _leftSum = fight.Where(z => leftSidePowers.ContainsKey(z)).Sum(z => leftSidePowers.GetValueOrDefault(z))
+            // , _rightSum = fight.Where(z => rightSidePowers.ContainsKey(z)).Sum(z => rightSidePowers.GetValueOrDefault(z));
+            // return _leftSum > _rightSum ? "Left side wins!" : _leftSum < _rightSum ? "Right side wins!" : "Let's fight again!";
+        }
         public static int SquareDigits(int n)
         {
-            return int.Parse(string.Concat(n.ToString().ToCharArray().Select(z=>(int)Math.Pow(char.GetNumericValue(z),2))));
+            return int.Parse(string.Concat(n.ToString().ToCharArray().Select(z => (int)Math.Pow(char.GetNumericValue(z), 2))));
 
             // return int.Parse(string.Join(string.Empty, n.ToString()
             // .ToArray()
