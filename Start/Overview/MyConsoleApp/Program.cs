@@ -1039,6 +1039,16 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
+        public static string ToCsvText(int[][] array)
+        {
+            //best solution
+            return string.Join("\n",array.Select(z=>string.Join(",",z)));
+            
+            // List<string> _auxList = new List<string>();
+            // for (int i = 0; i < array.Length; i++)
+            //     _auxList.Add(string.Join(",", array[i]));
+            // return string.Join('\n', _auxList);
+        }
         private static Dictionary<char, int> leftSidePowers = new Dictionary<char, int>
         {
             ['w'] = 4,
