@@ -1103,14 +1103,26 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test,Description("")]
+        public void SquareDigitsTest()
+        {
+            Assert.AreEqual(811181, Kata.SquareDigits(9119));
+            Assert.AreEqual(0, Kata.SquareDigits(0));
+        }
+        [Test, Description("test")]
+        public void FindMultiplesTest()
+        {
+            Assert.AreEqual(new List<int> { 5, 10, 15, 20, 25 }, Kata.FindMultiples(5, 25));
+            Assert.AreEqual(new List<int> { 1, 2 }, Kata.FindMultiples(1, 2));
+        }
         [Test, Description("test")]
         public void FixedTest()
         {
-            Assert.AreEqual(new int[] {}, Kata.VowelIndices("mmm"));
+            Assert.AreEqual(new int[] { }, Kata.VowelIndices("mmm"));
             Assert.AreEqual(new int[] { 1, 5 }, Kata.VowelIndices("apple"));
-            Assert.AreEqual(new int[] {2, 4}, Kata.VowelIndices("super"));
-            Assert.AreEqual(new int[] {1, 3, 6}, Kata.VowelIndices("orange"));
-            Assert.AreEqual(new int[] {2, 4, 7, 9, 12, 14, 16, 19, 21, 24, 25, 27, 29, 31, 32, 33}, Kata.VowelIndices("supercalifragilisticexpialidocious"));
+            Assert.AreEqual(new int[] { 2, 4 }, Kata.VowelIndices("super"));
+            Assert.AreEqual(new int[] { 1, 3, 6 }, Kata.VowelIndices("orange"));
+            Assert.AreEqual(new int[] { 2, 4, 7, 9, 12, 14, 16, 19, 21, 24, 25, 27, 29, 31, 32, 33 }, Kata.VowelIndices("supercalifragilisticexpialidocious"));
         }
         [Test]
         public void ReverseSeqTest()

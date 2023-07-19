@@ -1039,6 +1039,19 @@ one every 3 is eliminated until one remains
     #endregion
     public static class Kata
     {
+        public static int SquareDigits(int n)
+        {
+            return int.Parse(string.Concat(n.ToString().ToCharArray().Select(z=>(int)Math.Pow(char.GetNumericValue(z),2))));
+
+            // return int.Parse(string.Join(string.Empty, n.ToString()
+            // .ToArray()
+            // .Select(z => int.Parse(z.ToString()) *int.Parse(z.ToString()))));
+        }
+        public static List<int> FindMultiples(int integer, int limit)
+        {
+            Console.WriteLine($"integer {integer}\nlimit {limit}");
+            return Enumerable.Range(integer, limit).Where(z => z % integer == 2 && z <= limit).ToList();
+        }
         public static int[] VowelIndices(string word) => word.Select((z, index) => "aeiou".Contains(z) ? index + 1 : 0).Where(z => z != 0).ToArray();
         public static int[] ReverseSeq(int n) => Enumerable.Range(1, n).OrderByDescending(z => z).ToArray();
         //new switch syntax
