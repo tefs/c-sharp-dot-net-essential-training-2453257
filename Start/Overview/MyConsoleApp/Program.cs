@@ -1095,6 +1095,15 @@ one every 3 is eliminated until one remains
     // }
     public static class Kata
     {
+        public static long MinValue(int[] a)
+        {
+            // better solution
+            return long.Parse(string.Concat(a.Distinct().OrderBy(x => x)));
+
+            // string _aux = string.Empty;
+            // a.Distinct().OrderBy(z => z).ToList().ForEach(z => _aux += z);
+            // return Convert.ToInt64(_aux);
+        }
         public static string Switcheroo(string x)
         {
             return new string("");//x.Select(z => z.Equals("a") ? "b" : z.Equals("b") ? "a" : z).ToArray());
