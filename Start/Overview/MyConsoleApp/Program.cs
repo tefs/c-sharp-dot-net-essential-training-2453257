@@ -899,55 +899,104 @@ one every 3 is eliminated until one remains
     public class DirReduction
     {
         enum Direction { NORTH, EAST, WEST, SOUTH }
-
-        public static string[] dirReduc(String[] arr)
+        private static Dictionary<string, string> _dicVar;
+        public static Dictionary<string, string> DestinationDictionary
         {
-            List<string> _list = new List<string>();
-            int _totalNorth = arr.Count(z => z.ToUpperInvariant().Equals(Direction.NORTH.ToString()));
-            int _totalSouth = arr.Count(z => z.ToUpperInvariant().Equals(Direction.SOUTH.ToString()));
-            int _totalWest = arr.Count(z => z.ToUpperInvariant().Equals(Direction.WEST.ToString()));
-            int _totalEast = arr.Count(z => z.ToUpperInvariant().Equals(Direction.EAST.ToString()));
-            bool _northSouth = arr.All(z => arr.Count(x => x.ToUpper().Equals(Direction.NORTH.ToString())) == arr.Count(c => c.ToUpper().Equals(Direction.SOUTH.ToString())));
-            bool _westEast = arr.All(z => arr.Count(x => x.ToUpper().Equals(Direction.WEST.ToString())) == arr.Count(c => c.ToUpper().Equals(Direction.EAST.ToString())));
-            if (_northSouth && _westEast)
+            get { return _dicVar; }
+            set { _dicVar = value; }
+        }
+
+        public static string[] dirReduc(string[] arr)
+        {
+            // todo 1 - run array and compare sequential array values and verify if NORTH -> SOUTH,SOUTH->NORTH ,EAST->WEST,WEST-EAST |2-return rest 
+            DestinationDictionary = new Dictionary<string, string>();//(new string[,] { { "NORTH", "SOUTH" }, { "SOUTH", "NORTH" }, { "EAST", "WEST" }, { "WEST", "EAST" } });
+            DestinationDictionary.Add("NORTH", "SOUTH");
+            DestinationDictionary.Add("SOUTH", "NORTH");
+            DestinationDictionary.Add("EAST", "WEST");
+            DestinationDictionary.Add("WEST", "EAST");
+
+            // DestinationDictionary = new Dictionary<string, string>();//(new string[,] { { "NORTH", "SOUTH" }, { "SOUTH", "NORTH" }, { "EAST", "WEST" }, { "WEST", "EAST" } });
+            // DestinationDictionary.Add("NORTH", "SOUTH");
+            // DestinationDictionary.Add("SOUTH", "NORTH");
+            // DestinationDictionary.Add("EAST", "WEST");
+            // DestinationDictionary.Add("WEST", "EAST");
+            // , { "SOUTH", "NORTH" }, { "EAST", "WEST" }, { "WEST", "EAST" } }
+
+            arr.Select((z, index) => DestinationDictionary.TryGetValue(z, out var _a).Equals(arr[index + 1 < arr.Length ? index + 1 : index]) ? string.Empty : z).ToArray();
+
+            List<string> _auxListReturn = new List<string>();
+            for (int i = 0; i < arr.Length; i++)
             {
-                return arr;
-            }
-            if (_totalNorth != _totalSouth)
-            {
-                if (_totalNorth > _totalSouth)
+                if (DestinationDictionary.TryGetValue(arr[i], out string _aux))
                 {
-                    for (int i = 0; i < (_totalNorth - _totalSouth); i++)
-                    {
-                        _list.Add(Direction.NORTH.ToString());
-                    }
-                }
-                if (_totalSouth > _totalNorth)
-                {
-                    for (int i = 0; i < _totalSouth - _totalNorth; i++)
-                    {
-                        _list.Add(Direction.SOUTH.ToString());
-                    }
-                }
-            }
-            if (_totalWest != _totalEast)
-            {
-                if (_totalWest > _totalEast)
-                {
-                    for (int i = 0; i < _totalWest - _totalEast; i++)
-                    {
-                        _list.Add(Direction.WEST.ToString());
-                    }
-                }
-                if (_totalEast > _totalWest)
-                {
-                    for (int i = 0; i < _totalEast - _totalWest; i++)
-                    {
-                        _list.Add(Direction.EAST.ToString());
-                    }
+                    Console.WriteLine($"i {i} \narr[i] {arr[i]} \n_aux {_aux} ");
+                    Console.WriteLine($"arr[i + 1 < arr.Length ? i + 1 : i] {arr[i + 1 < arr.Length ? i + 1 : i]} \n ");
+                    if (arr[i + 1 < arr.Length ? i + 1 : i] == _aux)
+                        _auxListReturn.Add(string.Empty);
+                    else
+                        _auxListReturn.Add(_aux);
                 }
             }
-            return _list.ToArray();
+            return _auxListReturn.Where(z => z != string.Empty).ToArray();
+
+            // // , { "SOUTH", "NORTH" }, { "EAST", "WEST" }, { "WEST", "EAST" } }
+            // string _auxReturn = string.Empty;
+            // List<string> _auxListReturn = new List<string>();
+            // for (int i = 0; i < arr.Length; i++)
+            // {
+            //     if (DestinationDictionary.TryGetValue(arr[i], out string _aux))
+            //     {
+            //         if (arr[i + 1 < arr.Length ? i + 1 : i] != _aux) _auxListReturn.Add(_aux);
+            //     }
+            // }
+            // return _auxListReturn.ToArray();
+
+            //     List<string> _list = new List<string>();
+            //     int _totalNorth = arr.Count(z => z.ToUpperInvariant().Equals(Direction.NORTH.ToString()));
+            //     int _totalSouth = arr.Count(z => z.ToUpperInvariant().Equals(Direction.SOUTH.ToString()));
+            //     int _totalWest = arr.Count(z => z.ToUpperInvariant().Equals(Direction.WEST.ToString()));
+            //     int _totalEast = arr.Count(z => z.ToUpperInvariant().Equals(Direction.EAST.ToString()));
+            //     bool _northSouth = arr.All(z => arr.Count(x => x.ToUpper().Equals(Direction.NORTH.ToString())) == arr.Count(c => c.ToUpper().Equals(Direction.SOUTH.ToString())));
+            //     bool _westEast = arr.All(z => arr.Count(x => x.ToUpper().Equals(Direction.WEST.ToString())) == arr.Count(c => c.ToUpper().Equals(Direction.EAST.ToString())));
+            //     if (_northSouth && _westEast)
+            //     {
+            //         return arr;
+            //     }
+            //     if (_totalNorth != _totalSouth)
+            //     {
+            //         if (_totalNorth > _totalSouth)
+            //         {
+            //             for (int i = 0; i < (_totalNorth - _totalSouth); i++)
+            //             {
+            //                 _list.Add(Direction.NORTH.ToString());
+            //             }
+            //         }
+            //         if (_totalSouth > _totalNorth)
+            //         {
+            //             for (int i = 0; i < _totalSouth - _totalNorth; i++)
+            //             {
+            //                 _list.Add(Direction.SOUTH.ToString());
+            //             }
+            //         }
+            //     }
+            //     if (_totalWest != _totalEast)
+            //     {
+            //         if (_totalWest > _totalEast)
+            //         {
+            //             for (int i = 0; i < _totalWest - _totalEast; i++)
+            //             {
+            //                 _list.Add(Direction.WEST.ToString());
+            //             }
+            //         }
+            //         if (_totalEast > _totalWest)
+            //         {
+            //             for (int i = 0; i < _totalEast - _totalWest; i++)
+            //             {
+            //                 _list.Add(Direction.EAST.ToString());
+            //             }
+            //         }
+            //     }
+            //     return _list.ToArray();
         }
     }
     public class EqualityComparerLast : IEqualityComparer<string>
@@ -1037,13 +1086,52 @@ one every 3 is eliminated until one remains
     //     public Ball() : this("regular") { }
     // }
     #endregion
+    //  [OneTimeSetUp]
+    // public void RunBeforeAnyTests()
+    // {
+    //     Environment.CurrentDirectory = TestContext.CurrentContext.TestDirectory;
+    //     // or identically under the hoods
+    //     Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
+    // }
     public static class Kata
     {
+        public static string Switcheroo(string x)
+        {
+            return new string("");//x.Select(z => z.Equals("a") ? "b" : z.Equals("b") ? "a" : z).ToArray());
+        }
+        public static string CalculateAge(int birth, int yearTo)
+        {
+            // best solution
+            if (birth == yearTo)
+                return "You were born this very year!";
+            int x = yearTo - birth;
+            string s = Math.Abs(x) > 1 ? "s" : "";
+            return x > 0 ? $"You are {x} year{s} old." : $"You will be born in {-x} year{s}.";
+
+            // int _aux = 0;
+            // string _s = "s";
+            // if (yearTo < birth)
+            // {
+            //     _aux = birth - yearTo;
+            //     return $"You will be born in {_aux} year{(_aux > 1 ? _s : string.Empty)}.";
+            // }
+            // if (yearTo > birth)
+            // {
+            //     _aux = yearTo - birth;
+            //     return $"You are {_aux} year{(_aux > 1 ? _s : string.Empty)} old.";
+            // }
+            // return "You were born this very year!";
+        }
+        public static BigInteger[] PowersOfTwo(int n)
+        {
+            return Enumerable.Range(0, n == 0 ? 1 : n)
+              .Select((z, index) => new BigInteger(index ^ z)).ToArray();
+        }
         public static string ToCsvText(int[][] array)
         {
             //best solution
-            return string.Join("\n",array.Select(z=>string.Join(",",z)));
-            
+            return string.Join("\n", array.Select(z => string.Join(",", z)));
+
             // List<string> _auxList = new List<string>();
             // for (int i = 0; i < array.Length; i++)
             //     _auxList.Add(string.Join(",", array[i]));

@@ -903,10 +903,25 @@ MyConsoleAppTests
             Assert.AreEqual(expected, Kata.SquareArea(A));
         }
     }
+    // [OneTimeSetUp]
+    // public void RunBeforeAnyTests()
+    // {
+    //     Environment.CurrentDirectory = TestContext.CurrentContext.TestDirectory;
+    //     // or identically under the hoods
+    //     Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
+    // }
     [TestFixture]
     public class DirReductionTests
     {
+        // [OneTimeSetUp]
+        // RunBeforeAnyTests()
+        // {
+        //     var dir = Path.GetDirectoryName(typeof(MySetUpClass).Assembly.Location);
+        //     Environment.CurrentDirectory = dir;
 
+        //     // or
+        //     Directory.SetCurrentDirectory(dir);
+        // }
         [Test]
         public void Test1()
         {
@@ -1103,6 +1118,29 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void SwitcherooTests()
+        {
+            Assert.AreEqual("bac", Kata.Switcheroo("abc"));
+            Assert.AreEqual("bbbacccabbb", Kata.Switcheroo("aaabcccbaaa"));
+            Assert.AreEqual("ccccc", Kata.Switcheroo("ccccc"));
+        }
+        [Test, Description("tests")]
+        public void CalculateAgeTest()
+        {
+            Assert.AreEqual("You are 17 years old.", Kata.CalculateAge(2003, 2020));
+            Assert.AreEqual("You are 1 year old.", Kata.CalculateAge(2019, 2020));
+            Assert.AreEqual("You were born this very year!", Kata.CalculateAge(2003, 2003));
+            Assert.AreEqual("You will be born in 17 years.", Kata.CalculateAge(2020, 2003));
+            Assert.AreEqual("You will be born in 1 year.", Kata.CalculateAge(2020, 2019));
+        }
+        [Test, Description("")]
+        public void PowersOfTwoTests()
+        {
+            Assert.AreEqual(new BigInteger[] { 1 }, Kata.PowersOfTwo(0));
+            Assert.AreEqual(new BigInteger[] { 1, 2 }, Kata.PowersOfTwo(1));
+            Assert.AreEqual(new BigInteger[] { 1, 2, 4, 8, 16 }, Kata.PowersOfTwo(4));
+        }
         [Test, Description("")]
         public void ToCsvTextTest()
         {
