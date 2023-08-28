@@ -1118,6 +1118,13 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void StockSummaryTest()
+        {
+            string[] art = new string[] { "ABAR 200", "CDXE 500", "BKWR 250", "BTSQ 890", "DRTY 600" };
+            String[] cd = new String[] { "A", "B" };
+            Assert.AreEqual("(A : 200) - (B : 1140)", Kata.stockSummary(art, cd));
+        }
         [TestCase(13, 1, 3, 1)]
         [TestCase(457, 4, 7, 5, 7)]
         [TestCase(148, 4, 8, 1, 4)]

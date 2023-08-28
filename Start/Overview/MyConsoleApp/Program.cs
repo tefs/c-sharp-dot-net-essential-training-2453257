@@ -1095,6 +1095,24 @@ one every 3 is eliminated until one remains
     // }
     public static class Kata
     {
+        public static string StockSummary(string[] lstOfArt, string[] lstOf1stLetter)
+        {
+            //better solution
+            return lstOfArt.Any() ? string.Join(" - ", lstOf1stLetter.Select(x => $"({x} : {lstOfArt.Where(s => s[0] == x[0]).Sum(e => int.Parse(e.Split()[1]))})"))
+                    : string.Empty;
+
+            // if (lstOf1stLetter.Length == 0 || lstOfArt.Length == 0) return string.Empty;
+            // var _ax = lstOfArt.Select(z => new { category = z.First().ToString(), sum = int.Parse(z.Split(' ')[1]) });
+            // var _auxDic = new Dictionary<string, int>();
+            // for (int i = 0; i < lstOf1stLetter.Count(); i++)
+            // {
+            //     if (!_auxDic.ContainsKey(lstOf1stLetter[i]))
+            //         _auxDic.Add(lstOf1stLetter[i], _ax.Where(z => z.category.Equals(lstOf1stLetter[i])).Sum(z => z.sum));
+            //     else
+            //         _auxDic[lstOf1stLetter[i]] += _ax.Where(z => z.category.Equals(lstOf1stLetter[i])).Sum(z => z.sum);
+            // }
+            // return string.Join(" - ", _auxDic.Select(z => $"({z.Key} : {z.Value})"));
+        }
         public static long MinValue(int[] a)
         {
             // better solution
