@@ -1093,13 +1093,14 @@ one every 3 is eliminated until one remains
     //     // or identically under the hoods
     //     Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
     // }
-    public class Player 
+    public class Player
     {
-    public string Name {get;set;}  
-    public Player (string name) {Name = name; }
+        public string Name { get; set; }
+        public Player(string name) { Name = name; }
     }
     public static class Kata
     {
+        public static int SameCase(char a, char b) => char.IsLetter(a) && char.IsLetter(b) ? char.IsLower(a) == char.IsLower(b) ? 1 : 0 : -1;
         public static string DuckDuckGoose(Player[] players, int goose) => players[(goose - 1) % players.Length].Name;
         public static string StockSummary(string[] lstOfArt, string[] lstOf1stLetter)
         {

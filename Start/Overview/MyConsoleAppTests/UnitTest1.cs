@@ -1118,29 +1118,59 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
-    [TestCase(1,  "a")]
-    [TestCase(3,  "c")]
-    [TestCase(10, "z")]
-    [TestCase(20, "z")]
-    [TestCase(30, "z")]
-    [TestCase(18, "g")]
-    [TestCase(28, "g")]
-    [TestCase(12, "b")]
-    [TestCase(2,  "b")]
-    [TestCase(7,  "f")]
-    public void DuckDuckGooseTests(int goose, string expectedName)
-    {
-      var exampleNames = new string[] {"a", "b", "c", "d", "c", "e", "f", "g", "h", "z"};
-      var players = exampleNames.Select(x=>new Player(x)).ToArray();
-      string userAns = Kata.DuckDuckGoose(players,goose);
-      Assert.AreEqual(expectedName, userAns);
-    }
+        [Test, Description("Failed")]
+        public void SameCase_TrueTests()
+        {
+            Assert.AreEqual(1, Kata.SameCase('a', 'u'));
+            Assert.AreEqual(1, Kata.SameCase('A', 'U'));
+            Assert.AreEqual(1, Kata.SameCase('Q', 'P'));
+            Assert.AreEqual(1, Kata.SameCase('w', 'y'));
+            Assert.AreEqual(1, Kata.SameCase('c', 'm'));
+            Assert.AreEqual(1, Kata.SameCase('N', 'W'));
+        }
+        [Test]
+        public void SameCase_FalseTests()
+        {
+            Assert.AreEqual(0, Kata.SameCase('a', 'U'));
+            Assert.AreEqual(0, Kata.SameCase('A', 'u'));
+            Assert.AreEqual(0, Kata.SameCase('Q', 'p'));
+            Assert.AreEqual(0, Kata.SameCase('w', 'Y'));
+            Assert.AreEqual(0, Kata.SameCase('c', 'M'));
+            Assert.AreEqual(0, Kata.SameCase('N', 'w'));
+        }
+        [Test]
+        public void SameCase_NotLetters()
+        {
+            Assert.AreEqual(-1, Kata.SameCase('a', '*'));
+            Assert.AreEqual(-1, Kata.SameCase('A', '%'));
+            Assert.AreEqual(-1, Kata.SameCase('Q', '1'));
+            Assert.AreEqual(-1, Kata.SameCase('w', '-'));
+            Assert.AreEqual(-1, Kata.SameCase('c', '8'));
+            Assert.AreEqual(-1, Kata.SameCase('N', ':'));
+        }
+        [TestCase(1, "a")]
+        [TestCase(3, "c")]
+        [TestCase(10, "z")]
+        [TestCase(20, "z")]
+        [TestCase(30, "z")]
+        [TestCase(18, "g")]
+        [TestCase(28, "g")]
+        [TestCase(12, "b")]
+        [TestCase(2, "b")]
+        [TestCase(7, "f")]
+        public void DuckDuckGooseTests(int goose, string expectedName)
+        {
+            var exampleNames = new string[] { "a", "b", "c", "d", "c", "e", "f", "g", "h", "z" };
+            var players = exampleNames.Select(x => new Player(x)).ToArray();
+            string userAns = Kata.DuckDuckGoose(players, goose);
+            Assert.AreEqual(expectedName, userAns);
+        }
         [Test]
         public void StockSummaryTest()
         {
             string[] art = new string[] { "ABAR 200", "CDXE 500", "BKWR 250", "BTSQ 890", "DRTY 600" };
             String[] cd = new String[] { "A", "B" };
-            Assert.AreEqual("(A : 200) - (B : 1140)", Kata.stockSummary(art, cd));
+            Assert.AreEqual("(A : 200) - (B : 1140)", Kata.StockSummary(art, cd));
         }
         [TestCase(13, 1, 3, 1)]
         [TestCase(457, 4, 7, 5, 7)]
