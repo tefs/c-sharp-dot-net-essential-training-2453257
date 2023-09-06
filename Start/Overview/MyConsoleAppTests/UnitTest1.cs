@@ -1118,6 +1118,11 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void PastTest()
+        {
+            Assert.AreEqual(61000, Kata.Past(0, 1, 1));
+        }
         [Test, Description("Failed")]
         public void SameCase_TrueTests()
         {

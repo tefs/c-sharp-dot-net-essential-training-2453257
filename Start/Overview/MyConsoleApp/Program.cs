@@ -1100,6 +1100,7 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int Past(int h, int m, int s) => (h * 3600000) + (m * 60000) + (s * 1000);
         public static int SameCase(char a, char b) => char.IsLetter(a) && char.IsLetter(b) ? char.IsLower(a) == char.IsLower(b) ? 1 : 0 : -1;
         public static string DuckDuckGoose(Player[] players, int goose) => players[(goose - 1) % players.Length].Name;
         public static string StockSummary(string[] lstOfArt, string[] lstOf1stLetter)
@@ -2339,18 +2340,6 @@ one every 3 is eliminated until one remains
             //             .OrderByDescending(Item => Item.Count).ThenBy(Item => Item);
             //             Console.WriteLine("{0} {1}\r\n{2} {3}", result.First().Item, result.First().Count, result.Last().Item, result.Last().Count);
             //             return result.Last().Item;
-        }
-        public static int Past(int h, int m, int s)
-        {
-            //if(h!=0&&m!=0)
-            // return (h != 0 ? h * 60 : 1) * 
-            DateTime _d = new DateTime(1, 1, 1, h, m, s);
-            int _millisecondPerSecond = 1000;
-            int _auxSecond = _d.Second * _millisecondPerSecond;
-            int _auxMinute = _d.Minute * _millisecondPerSecond * 60;
-            int _auxHour = _auxMinute * 60;
-            return _auxHour + _auxMinute + _auxSecond;
-            //    return (m != 0 ? m * 60 : 1) * ((s != 0 ? s * 1000 : 1));
         }
         public static Dictionary<char, int> CountToDictionary(string str) => str.GroupBy(z => z).ToDictionary(z => z.Key, z => z.Count());
         public static string UpdateLight(string current) => current.Equals("green") ? "yellow" : current.Equals("yellow") ? "red" : "green";//current.Equals("red") ? "green" : "";
