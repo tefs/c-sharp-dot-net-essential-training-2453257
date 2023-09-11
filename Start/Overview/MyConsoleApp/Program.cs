@@ -1100,6 +1100,12 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static string TitleCase(string title, string minorWords = "")
+        {
+            return string.Join(" ", title.ToLower().Split().Select((w, i) => !$"{minorWords}".ToLower().Split().Contains(w) || i == 0
+                ? string.Concat(w.Take(1)).ToUpper() + string.Concat(w.Skip(1))
+                : w).ToArray());
+        }
         public static int Past(int h, int m, int s) => (h * 3600000) + (m * 60000) + (s * 1000);
         public static int SameCase(char a, char b) => char.IsLetter(a) && char.IsLetter(b) ? char.IsLower(a) == char.IsLower(b) ? 1 : 0 : -1;
         public static string DuckDuckGoose(Player[] players, int goose) => players[(goose - 1) % players.Length].Name;

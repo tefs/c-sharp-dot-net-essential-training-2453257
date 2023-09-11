@@ -1118,6 +1118,22 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [TestCase("a clash of KINGS", "a an the of", "A Clash of Kings")]
+        [TestCase("THE WIND IN THE WILLOWS", "The In", "The Wind in the Willows")]
+        public void TitleCase_MyTest(string sampleTitle, string sampleMinorWords, string expected)
+        {
+            Assert.AreEqual(expected, Kata.TitleCase(sampleTitle, sampleMinorWords));
+        }
+        [Test]
+        public void TitleCase_MyTest2()
+        {
+            Assert.AreEqual("", Kata.TitleCase(""));
+        }
+        [Test]
+        public void TitleCase_MyTest3()
+        {
+            Assert.AreEqual("The Quick Brown Fox", Kata.TitleCase("the quick brown fox"));
+        }
         [Test]
         public void PastTest()
         {
