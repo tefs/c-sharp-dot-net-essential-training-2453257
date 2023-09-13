@@ -1100,6 +1100,10 @@ one every 3 is eliminated until one remains
     }
     public static class Kata
     {
+        public static int[] DeleteNth(int[] arr, int x)
+        {
+            return arr.Where((t, i) => arr.Take(i + 1).Count(s => s == t) <= x).ToArray();
+        }
         public static string TitleCase(string title, string minorWords = "")
         {
             return string.Join(" ", title.ToLower().Split().Select((w, i) => !$"{minorWords}".ToLower().Split().Contains(w) || i == 0

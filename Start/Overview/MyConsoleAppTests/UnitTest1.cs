@@ -1118,6 +1118,25 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public void DeleteNth_TestSimple()
+        {
+            var expected = new int[] { 20, 37, 21 };
+
+            var actual = Kata.DeleteNth(new int[] { 20, 37, 20, 21 }, 1);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void DeleteNth_TestSimple2()
+        {
+            var expected = new int[] { 1, 1, 3, 3, 7, 2, 2, 2 };
+
+            var actual = Kata.DeleteNth(new int[] { 1, 1, 3, 3, 7, 2, 2, 2, 2 }, 3);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
         [TestCase("a clash of KINGS", "a an the of", "A Clash of Kings")]
         [TestCase("THE WIND IN THE WILLOWS", "The In", "The Wind in the Willows")]
         public void TitleCase_MyTest(string sampleTitle, string sampleMinorWords, string expected)
