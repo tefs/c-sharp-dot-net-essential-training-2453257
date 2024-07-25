@@ -413,51 +413,51 @@ MyConsoleAppTests
             Assert.AreEqual(expectedOutput, Kata.TotalPoints(input));
 
     }
-[TestFixture]
-public class LitresClassTests
-{
-  [Test]
-  public static void Test1()
-  {
-    Assert.AreEqual(1, Kata.Litres(2));
-  }
-  
-  [Test]
-  public static void Test2()
-  {  
-    Assert.AreEqual(0, Kata.Litres(1.4));
-  }
-  
-  [Test]
-  public static void Test3()
-  {
-    Assert.AreEqual(6, Kata.Litres(12.3));
-  }
-  
-  [Test]
-  public static void Test4()
-  {
-    Assert.AreEqual(0, Kata.Litres(0.82));
-  }
-  
-  [Test]
-  public static void Test5()
-  {
-    Assert.AreEqual(5, Kata.Litres(11.8));
-  }
-  
-  [Test]
-  public static void Test6()
-  {
-    Assert.AreEqual(893, Kata.Litres(1787));
-  }
-  [Test]
-  public static void Test7()
-  {
-    Assert.AreEqual(0, Kata.Litres(0));
-  }
+    [TestFixture]
+    public class LitresClassTests
+    {
+        [Test]
+        public static void Test1()
+        {
+            Assert.AreEqual(1, Kata.Litres(2));
+        }
 
-}
+        [Test]
+        public static void Test2()
+        {
+            Assert.AreEqual(0, Kata.Litres(1.4));
+        }
+
+        [Test]
+        public static void Test3()
+        {
+            Assert.AreEqual(6, Kata.Litres(12.3));
+        }
+
+        [Test]
+        public static void Test4()
+        {
+            Assert.AreEqual(0, Kata.Litres(0.82));
+        }
+
+        [Test]
+        public static void Test5()
+        {
+            Assert.AreEqual(5, Kata.Litres(11.8));
+        }
+
+        [Test]
+        public static void Test6()
+        {
+            Assert.AreEqual(893, Kata.Litres(1787));
+        }
+        [Test]
+        public static void Test7()
+        {
+            Assert.AreEqual(0, Kata.Litres(0));
+        }
+
+    }
     [TestFixture]
     public class Sample_Tests
     {
@@ -595,6 +595,11 @@ public class LitresClassTests
             Assert.AreEqual("", Kata.OrderWords(""));
         }
         [Test]
+        [TestCase(0.7, ExpectedResult = 'C')]
+        [TestCase(0.9, ExpectedResult = 'A')]
+        [TestCase(0.6, ExpectedResult = 'D')]
+        public static char Grader_FixedTest(double score) => Kata.Grader(score);
+        [Test]
         [TestCase("20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11", "The sunset sets at twelve o' clock.")]
         [TestCase("20 8 5 14 1 18 23 8 1 12 2 1 3 15 14 19 1 20 13 9 4 14 9 7 8 20", "The narwhal bacons at midnight.")]
         public void AlphabetPosition_ReplaceCharacterByNumberPosition_ReturnString(string expected, string input)
@@ -680,6 +685,10 @@ public class LitresClassTests
         public static void Scramble_ValidateAllTestCases_PassAllTests(string str1, string str2, bool expectedResult)
         {
             testing(Scramblies.Scramble(str1, str2), expectedResult);
+        }
+        public static void MyTest_DoThis_ReturnThat()
+        {
+
         }
     }
     [TestFixture]

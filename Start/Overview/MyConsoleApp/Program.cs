@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Linq;
 using System.Text;
 using System.Numerics;
+using NUnit.Framework.Internal;
 // This program shows how to use the IPAddress class to obtain a server
 // IP addressess and related information.
 // using System;
@@ -533,6 +534,11 @@ one every 3 is eliminated until one remains
     }
     public class Scramblies
     {
+        public static int MyMethod()
+        {
+
+            return 0;
+        }
         ///description: Best practise | clever
         public static bool Scramble(string str1, string str2)
         {
@@ -897,6 +903,44 @@ one every 3 is eliminated until one remains
                         return _auxList.ToArray();
                         */
         }
+        /// <summary>
+        /// Create a function that takes a number as an argument and returns a grade based on that number.
+        /// Score	Grade
+        /// Anything greater than 1 or less than 0.6	"F"
+        /// 0.9 or greater	"A"
+        /// 0.8 or greater	"B"
+        /// 0.7 or greater	"C"
+        /// 0.6 or greater	"D"
+        /// Examples:
+        /// 
+        /// grader(0)   should be "F"
+        /// grader(1.1) should be "F"
+        /// grader(0.9) should be "A"
+        /// grader(0.8) should be "B"
+        /// grader(0.7) should be "C"
+        /// grader(0.6) should be "D"
+        /// </summary>
+        /// <param name="score"></param>
+        /// <returns></returns>
+        public static char Grader(double score)
+        {
+            if (score > 1) { return 'F'; }
+            else if (score >= 0.9) { return 'A'; }
+            else if (score >= 0.8) { return 'B'; }
+            else if (score >= 0.7) { return 'C'; }
+            else if (score >= 0.6) { return 'D'; }
+            else { return 'F'; }
+
+            // char _returnChar = '\0';
+            // if (score == 1) return 'A';
+            // if (score >= 0.9 && score < 1) _returnChar = 'A';
+            // if (score >= 0.8 && score < 0.9) _returnChar = 'B';
+            // if (score >= 0.7 && score < 0.8) _returnChar = 'C';
+            // if (score >= 0.6 && score < 0.7) _returnChar = 'D';
+            // if (score < 0.6 || score >= 1.0) _returnChar = 'F';
+            // return _returnChar;
+        }
+
         public static int[] ArrayDiff(int[] a, int[] b)
         {
             // if (a.Length == b.Length)
