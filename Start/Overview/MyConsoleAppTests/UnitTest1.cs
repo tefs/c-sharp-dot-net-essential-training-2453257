@@ -483,6 +483,13 @@ MyConsoleAppTests
     [TestFixture]
     public class KataTests
     {
+        [Test]
+        public static void MxdiflgTest1()
+        {
+            string[] s1 = new string[] { "hoqq", "bbllkw", "oox", "ejjuyyy", "plmiis", "xxxzgpsssa", "xxwwkktt", "znnnnfqknaz", "qqquuhii", "dvvvwz" };
+            string[] s2 = new string[] { "cccooommaaqqoxii", "gggqaffhhh", "tttoowwwmmww" };
+            Assert.AreEqual(13, Kata.Mxdiflg(s1, s2));
+        }
         [Test(Description = "Fixed Tests")]
         public void FixedTests()
         {

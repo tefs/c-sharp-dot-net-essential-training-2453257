@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Numerics;
 using NUnit.Framework.Internal;
+using System.ComponentModel.DataAnnotations;
 // This program shows how to use the IPAddress class to obtain a server
 // IP addressess and related information.
 // using System;
@@ -655,6 +656,27 @@ one every 3 is eliminated until one remains
             //     }
             // }
             // return _auxWord;
+        }
+        public static int Mxdiflg(string[] a1, string[] a2)
+        {
+            if (a1.Length == 0 || a2.Length == 0) return -1;
+
+            //get the minimum and maximum lengths of striungs in a1
+            var _maxArray1 = a1.Max(z => z.Length);
+            var _minArray1 = a1.Min(z => z.Length);
+
+            //get the maximum and minimum lengths of strings in a2
+            var _maxArray2=a2.Max(z=>z.Length);
+            var _minArrau2=a2.Min(z=>z.Length);
+
+            //calculate absolut diference 
+            var _diff1=Math.Abs(_maxArray1-_minArrau2);
+            var _diff2=Math.Abs(_maxArray2-_minArray1);
+
+            //return maximum  diference
+            return Math.Max(_diff1,_diff2);
+
+            return int.Parse(Math.Abs((a1.Count() - a2.Count())).ToString());
         }
         public static string RepeatStr(int n, string s)
         {
