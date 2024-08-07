@@ -659,6 +659,9 @@ one every 3 is eliminated until one remains
         }
         public static int Mxdiflg(string[] a1, string[] a2)
         {
+            return !a1.Any() || !a2.Any() ? -1 : a1.Max(x => a2.Max(y => Math.Abs(x.Length - y.Length)));
+
+            /*
             if (a1.Length == 0 || a2.Length == 0) return -1;
 
             //get the minimum and maximum lengths of striungs in a1
@@ -675,8 +678,7 @@ one every 3 is eliminated until one remains
 
             //return maximum  diference
             return Math.Max(_diff1,_diff2);
-
-            return int.Parse(Math.Abs((a1.Count() - a2.Count())).ToString());
+            */
         }
         public static string RepeatStr(int n, string s)
         {
